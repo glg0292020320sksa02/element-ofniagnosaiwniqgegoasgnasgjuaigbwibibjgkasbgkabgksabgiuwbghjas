@@ -1,0 +1,18 @@
+.table {
+    @apply inline-block min-w-full overflow-hidden;
+}
+.table > table {
+    @apply min-w-full leading-normal;
+}
+.table thead > tr > th {
+    @apply px-5 py-3 text-xs font-semibold uppercase tracking-wider;
+}
+.table tbody > tr {
+    @apply border-b;
+}
+.table tbody > tr > td {
+    @apply px-5 py-2 whitespace-no-wrap;
+}
+.table.table-hover tbody > tr:hover {
+    @apply bg-gray-100;
+}

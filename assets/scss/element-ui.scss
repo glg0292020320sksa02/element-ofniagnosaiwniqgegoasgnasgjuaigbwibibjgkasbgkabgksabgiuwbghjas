@@ -1,0 +1,54 @@
+@import 'variables';
+
+@import '~element-ui/packages/theme-chalk/src/index.scss';
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  display: block;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(144, 147, 153, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(144, 147, 153, 0.4);
+}
+
+// Form item
+
+.el-form-item {
+  margin-bottom: 1.5rem;
+}
+.el-form-item__label {
+  @apply text-subtitle text-xs font-bold;
+
+  padding-bottom: 2px !important;
+  line-height: inherit !important;
+}
+
+// Button
+
+.el-button.font-bold {
+  [class^='el-icon-'],
+  [class*=' el-icon-'] {
+    @apply font-bold;
+  }
+}
+
+.el-button.button-fab {
+  @apply text-primary border-none outline-none;
+
+  transition: background-color 0.3s;
+  background-color: rgba($--color-primary, 0.1);
+
+  &:hover {
+    background-color: rgba($--color-primary, 0.2);
+  }
+}
+.el-table .cell {
+  white-space: nowrap;
+  text-overflow: unset;
+}
