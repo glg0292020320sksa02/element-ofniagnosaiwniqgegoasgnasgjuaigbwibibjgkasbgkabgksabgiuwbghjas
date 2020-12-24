@@ -10,6 +10,7 @@
       </div>
     </div>
     <the-footer></the-footer>
+    <the-support></the-support>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import Pusher from 'pusher-js'
 
 import TheHeader from '@/components/layouts/default/the-header'
 import TheFooter from '@/components/layouts/default/the-footer'
+import TheSupport from '@/components/layouts/default/the-support'
 
 const HEADER_HEIGHT_DEFAULT = 100
 
@@ -26,6 +28,7 @@ export default {
   components: {
     TheHeader,
     TheFooter,
+    TheSupport,
   },
   data() {
     return {
@@ -84,6 +87,7 @@ export default {
   right: 0;
   width: 100vw;
   background-color: #0052cc;
+  background-image: url('../assets/images/tokenbackground.jpg');
   z-index: 0;
 }
 .body-content {

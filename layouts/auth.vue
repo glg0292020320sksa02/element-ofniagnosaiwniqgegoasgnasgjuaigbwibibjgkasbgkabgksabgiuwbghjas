@@ -9,16 +9,19 @@
         <nuxt />
       </div>
     </div>
+    <the-support></the-support>
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/layouts/auth/the-header'
+import TheSupport from '@/components/layouts/default/the-support'
+
 const HEADER_HEIGHT_DEFAULT = 100
 
 export default {
   name: 'LayoutAuth',
-  components: { TheHeader },
+  components: { TheHeader, TheSupport },
   data() {
     return {
       headerHeight: HEADER_HEIGHT_DEFAULT,
@@ -44,6 +47,7 @@ export default {
   right: 0;
   width: 100vw;
   background-color: #0052cc;
+  background-image: url('../assets/images/tokenbackground.jpg');
   z-index: 0;
 }
 .body-content {

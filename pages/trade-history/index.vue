@@ -1,43 +1,32 @@
 <template>
   <div class="page-trade-history container py-8 space-y-8">
-    <div class="bg-white rounded">
-      <div class="border-b p-5 flex justify-between items-center">
+    <div class="bg-white rounded-lg shadow-lg">
+      <div class="border-b p-8 pb-0 flex flex-col justify-start items-start">
         <div class="text-xl font-bold">{{ $t('tradeHistory') }}</div>
-      </div>
-      <div class="p-5">
         <div>
-          <div class="font-bold text-primary">
-            {{ $t('tradeHistoryTitle') }}
-          </div>
-          <div class="text-subtitle text-sm">
-            {{ $t('tradeHistorySubTitle') }}
-          </div>
+          <el-tabs v-model="activeTab" class="text-base">
+            <el-tab-pane
+              label="My transaction"
+              name="myTransaction"
+            ></el-tab-pane>
+            <el-tab-pane label="Market" name="allTransaction"></el-tab-pane>
+          </el-tabs>
         </div>
-
-        <div class="flex justify-between mt-4">
-          <div>
-            <el-tabs v-model="activeTab" class="text-base">
-              <el-tab-pane
-                label="My transaction"
-                name="myTransaction"
-              ></el-tab-pane>
-              <el-tab-pane label="Market" name="allTransaction"></el-tab-pane>
-            </el-tabs>
-          </div>
-
-          <div>
-            <filter-date
-              :start-date.sync="options.from_date"
-              :end-date.sync="options.to_date"
-            ></filter-date>
-            <filter-pair v-model="options.pair"></filter-pair>
-            <filter-side v-model="options.side"></filter-side>
-          </div>
+      </div>
+      <div class="px-8 pb-12">
+        <div class="flex justify-between w-2/5 mt-4 ml-auto mr-0">
+          <filter-date
+            :start-date.sync="options.from_date"
+            :end-date.sync="options.to_date"
+            class="mx-1"
+          ></filter-date>
+          <filter-pair v-model="options.pair" class="mx-1"></filter-pair>
+          <filter-side v-model="options.side" class="mx-1"></filter-side>
         </div>
 
         <div
           v-if="activeTab === 'allTransaction'"
-          class="market-cap flex justify-end items-center"
+          class="market-cap flex justify-end items-center mt-2"
         >
           <el-tag size="medium" type="info" class="bg-gray-200 border-0">
             <span class="mr-4">
@@ -50,7 +39,9 @@
             </span>
           </el-tag>
         </div>
-        <table-content-loader v-if="$fetchState.pending"></table-content-loader>
+        <table-content-loader
+          v-if="$fetchState.pending || loading"
+        ></table-content-loader>
 
         <div
           v-else
@@ -157,10 +148,12 @@ export default {
     },
 
     async loadTransactions() {
+      this.loading = true
       const { data, total } = await this.methodGetTransition(this.options)
 
       this.listTransactions = data
       this.total = total
+      this.loading = false
     },
     async loadMarketCap() {
       const data = await this.getMarketCap()
@@ -171,8 +164,11 @@ export default {
 }
 </script>
 
-<style scope>
+<style>
 .trade-history .el-tabs .el-tabs__item {
   @apply text-base;
+}
+.el-tabs__header {
+  margin-bottom: 0 !important;
 }
 </style>

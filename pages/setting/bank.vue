@@ -1,19 +1,22 @@
 <template>
   <div class="p-8">
-    <bank-account
+    <!-- <bank-account
       :add-bank-method="addBankAccount"
       class="mb-16 bg-gray-100 p-4 rounded-lg"
-    ></bank-account>
+    ></bank-account> -->
     <bank-account-number
       :add-bank-method="addBankAccount"
       class="bg-gray-100 p-4 rounded-lg"
     ></bank-account-number>
-    <add-bank :visible.sync="visibleAddBankAccount"></add-bank>
+    <add-bank
+      :visible.sync="visibleAddBankAccount"
+      @close="refreshPage"
+    ></add-bank>
   </div>
 </template>
 
 <script>
-import BankAccount from '@/components/pages/setting/bank/bank-account'
+// import BankAccount from '@/components/pages/setting/bank/bank-account'
 import BankAccountNumber from '@/components/pages/setting/bank/bank-account-number'
 
 import AddBank from '@/components/pages/setting/bank/add-bank/index.vue'
@@ -21,7 +24,7 @@ import AddBank from '@/components/pages/setting/bank/add-bank/index.vue'
 export default {
   name: 'SettingWallet',
   components: {
-    BankAccount,
+    // BankAccount,
     BankAccountNumber,
     AddBank,
   },
@@ -33,6 +36,9 @@ export default {
   methods: {
     addBankAccount() {
       this.visibleAddBankAccount = true
+    },
+    refreshPage() {
+      this.$nuxt.refresh()
     },
   },
 }

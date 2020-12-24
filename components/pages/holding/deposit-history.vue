@@ -31,9 +31,12 @@
                   </td>
                   <td>
                     <strong
+                      class="rounded-full py-1 px-2 text-xs"
                       :class="{
-                        'text-green-500': props.row.status === 'COMPLETED',
-                        'text-yellow-500': props.row.status === 'PENDING',
+                        'text-success bg-teal-100':
+                          props.row.status === 'COMPLETED',
+                        'text-yellow-600 bg-yellow-200':
+                          props.row.status === 'PENDING',
                       }"
                     >
                       {{ props.row.status }}
@@ -120,9 +123,10 @@
       >
         <template slot-scope="scope">
           <strong
+            class="rounded-full py-1 px-2 text-xs"
             :class="{
-              'text-green-500': scope.row.status === 'COMPLETED',
-              'text-yellow-500': scope.row.status === 'PENDING',
+              'text-success bg-teal-100': scope.row.status === 'COMPLETED',
+              'text-yellow-600 bg-yellow-200': scope.row.status === 'PENDING',
             }"
           >
             {{ scope.row.status }}

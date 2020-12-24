@@ -42,7 +42,6 @@ export default {
     '@nuxtjs/composition-api',
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
-    '@teamnovu/nuxt-breaky',
     '@nuxtjs/style-resources',
     ['@nuxtjs/tailwindcss', { exposeConfig: true }],
     ['@aceforth/nuxt-optimized-images', { optimizeImages: true }],

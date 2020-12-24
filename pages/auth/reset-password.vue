@@ -1,7 +1,7 @@
 <template>
   <div class="container flex justify-center items-start min-h-screen">
     <div class="w-full md:w-3/5 xl:w-1/3">
-      <el-card shadow="never" class="p-3">
+      <el-card shadow="never" class="p-3 rounded-lg shadow-lg">
         <div
           class="card-header mb-12 flex flex-col justify-center align-middle text-center"
         >
@@ -11,13 +11,12 @@
         <el-form
           ref="form"
           :model="model"
-          :rules="rules"
           label-position="top"
           label-width="120px"
           hide-required-asterisk
           @submit.native.prevent="onSubmit"
         >
-          <el-form-item prop="password">
+          <el-form-item prop="password" :rules="rules.password">
             <el-input
               ref="password"
               v-model="model.password"
@@ -26,7 +25,10 @@
               show-password
             ></el-input>
           </el-form-item>
-          <el-form-item prop="password_confirmation">
+          <el-form-item
+            prop="password_confirmation"
+            :rules="rules.password_confirmation"
+          >
             <el-input
               ref="password_confirmation"
               v-model="model.password_confirmation"

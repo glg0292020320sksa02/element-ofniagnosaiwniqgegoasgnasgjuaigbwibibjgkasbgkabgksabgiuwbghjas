@@ -1,9 +1,6 @@
 <template>
   <div class="p-8">
-    <div class="text-xl font-bold border-b pb-2">
-      {{ $t('2-step-verification') }}
-    </div>
-    <div class="mt-10">
+    <div>
       <div>
         <div class="font-bold">
           {{ $t('select-your-2-step-verification-method') }}
@@ -11,7 +8,7 @@
       </div>
       <div class="mt-6">
         <div class="flex space-x-4">
-          <div class="w-3/5 rounded border p-6">
+          <div class="sm:w-full w-3/5 rounded border p-6">
             <div class="flex justify-between items-center">
               <div class="flex justify-start items-center">
                 <svg-icon name="circle-dot" width="26" height="26"></svg-icon>
@@ -44,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div class="w-2/5 text-subtitle px-4 border-l">
+          <div class="sm:w-full w-2/5 text-subtitle px-4 border-l">
             <div class="flex flex-column items-center h-full">
               <span class="text-sm">
                 {{
@@ -83,7 +80,7 @@
         </div>
       </div>
       <div class="mt-4">
-        <el-button type="primary">{{ $t('Save') }}</el-button>
+        <el-button type="primary" class="px-8">{{ $t('Save') }}</el-button>
       </div>
     </div>
   </div>

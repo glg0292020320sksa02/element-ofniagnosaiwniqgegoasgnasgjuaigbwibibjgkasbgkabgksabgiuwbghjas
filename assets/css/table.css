@@ -10,6 +10,9 @@
 .table tbody > tr {
     @apply border-b;
 }
+.table tbody > tr:last-child{
+    @apply border-b-0;
+}
 .table tbody > tr > td {
     @apply px-5 py-2 whitespace-no-wrap;
 }

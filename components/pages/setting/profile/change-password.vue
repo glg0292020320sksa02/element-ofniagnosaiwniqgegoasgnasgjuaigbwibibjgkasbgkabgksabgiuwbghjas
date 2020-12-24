@@ -1,8 +1,12 @@
 <template>
-  <div class="change-password flex justify-start">
-    <el-button circle disabled class="button-key">
-      <svg-icon name="key" size="18"></svg-icon>
-    </el-button>
+  <div class="change-password flex justify-start items-center">
+    <div
+      circle
+      disabled
+      class="w-16 h-16 rounded-full bg-blue-100 flex justify-center items-center"
+    >
+      <svg-icon name="key" size="18" class="text-primary"></svg-icon>
+    </div>
     <div class="ml-2">
       <div class="text-body font-bold">{{ $t('changePassword') }}</div>
       <div class="text-xs">

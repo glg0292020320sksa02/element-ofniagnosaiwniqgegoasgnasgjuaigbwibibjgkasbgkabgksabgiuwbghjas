@@ -5,6 +5,7 @@
     :loading="$fetchState.pending"
     placeholder=""
     filterable
+    disabled
     class="w-full"
   >
     <el-option
@@ -38,6 +39,10 @@ export default defineComponent({
     supportBank: {
       type: [Boolean],
       default: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   fetch() {

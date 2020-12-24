@@ -33,7 +33,7 @@
           class="w-full"
           @click="onSubmit"
         >
-          <span class="font-bold">Add bank account</span>
+          <span class="font-bold">{{ $t('addBankAccountNumber') }}</span>
         </el-button>
       </div>
     </el-form>
@@ -75,15 +75,15 @@ export default {
         await this.addBankAccountNumber(this.model)
 
         this.$notify({
-          title: 'Lưu số tài khoản thành công.',
+          title: this.$t('addBankAccountSuccess'),
           type: 'success',
         })
         this.$emit('success')
       } catch (e) {
         this.$notify.closeAll()
         this.$notify({
-          title: 'Xác thực tài khoản thất bại',
-          message: 'Vui lòng kiểm tra lại thông tin ngân hàng của bạn.',
+          title: this.$t('addBankAccountFail'),
+          message: this.$t('addBankAccountFailMessage'),
           type: 'error',
         })
       } finally {

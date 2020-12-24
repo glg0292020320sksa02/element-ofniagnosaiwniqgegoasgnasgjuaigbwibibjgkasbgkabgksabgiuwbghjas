@@ -3,11 +3,14 @@
     <market-trending></market-trending>
 
     <lazy-hydrate when-visible>
-      <market-sell-list :orders="orderList"></market-sell-list>
+      <market-sell-list
+        :orders="orderList"
+        :loading="loading"
+      ></market-sell-list>
     </lazy-hydrate>
-
+    <register-banner></register-banner>
     <lazy-hydrate when-visible>
-      <market-buy-list :orders="orderList"></market-buy-list>
+      <market-buy-list :orders="orderList" :loading="loading"></market-buy-list>
     </lazy-hydrate>
   </div>
 </template>
@@ -19,7 +22,7 @@ import LazyHydrate from 'vue-lazy-hydration'
 import MarketTrending from '@/components/pages/home/market-trending'
 import MarketSellList from '@/components/pages/home/market-list/market-sell-list'
 import MarketBuyList from '@/components/pages/home/market-list/market-buy-list'
-
+import RegisterBanner from '@/components/common/promotion/register-banner'
 export default {
   name: 'Home',
   auth: false,
@@ -28,12 +31,14 @@ export default {
     MarketTrending,
     MarketSellList,
     MarketBuyList,
+    RegisterBanner,
   },
   fetch() {
     this.loadAllOrders()
   },
   data() {
     return {
+      loading: false,
       orderList: [],
       value: 0,
       price: 0,
@@ -57,8 +62,10 @@ export default {
       getAllOrders: 'market/getAllOrders',
     }),
     async loadAllOrders() {
+      this.loading = true
       const { data } = await this.getAllOrders()
 
+      this.loading = false
       this.orderList = data
     },
     getPrecision(num) {

@@ -1,12 +1,24 @@
 <template>
-  <div class="relative">
-    <div
-      class="bg-success text-white text-center p-3 min-w-32 rounded-t-lg inline-block"
-    >
-      <strong class="uppercase font-bold text-sm">{{ $t('sellList') }}</strong>
+  <div
+    class="relative bg-gray-100 p-6 rounded-lg flex flex-col justify-start items-stretch"
+  >
+    <div class="flex flex-row justify-between items-baseline py-4 px-1">
+      <strong
+        class="font-bold text-base px-4 py-1 rounded-full bg-gray-200 text-gray-900 relative"
+      >
+        {{ $t('sellList') }}
+        <span
+          class="h-1 w-1 p-1 inline-block rounded-full bg-success border-4 border-green-200 absolute top-0 left-0"
+        ></span>
+      </strong>
+      <el-button size="small" @click="onRedirectWallet">
+        {{ $t('create-a-new-buy-order') }}
+      </el-button>
     </div>
-    <div class="market-sell-list bg-white p-5 rounded">
-      <div class="flex flex-row justify-between items-center">
+    <div class="market-sell-list bg-white m-1 p-6 rounded-lg shadow-sm">
+      <div
+        class="flex flex-row justify-between items-center border-b border-b-gray-100"
+      >
         <el-tabs
           :value="activeTab"
           @input="setActiveTab($event)"
@@ -19,56 +31,73 @@
             :name="crypto"
           ></el-tab-pane>
         </el-tabs>
-        <el-button
-          type="text"
-          size="small"
-          class="text-success px-4"
-          @click="onRedirectWallet"
-        >
-          {{ $t('create-a-new-buy-order') }}
-        </el-button>
       </div>
-      <div>
-        <el-tab-pane-crypto type="sell" :orders="orderListFiltered">
+      <div class="mt-12">
+        <table-content-loader v-if="loading"></table-content-loader>
+        <el-tab-pane-crypto v-else type="sell" :orders="orderListFiltered">
           <template v-slot:paymentMethod="order">
             <el-radio-group v-model="selectedPayment">
               <div class="flex justify-center items-start space-x-2">
                 <div
-                  v-for="paymentMethod in paymentMethodsFiltered"
+                  v-for="paymentMethod in paymentMethods"
                   :key="paymentMethod.value"
                   class="flex flex-col justify-center align-middle p-1"
                 >
-                  <el-radio
-                    :label="paymentMethod.value"
-                    class="flex flex-col justify-center align-middle"
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    :content="
+                      order.user_id !== $auth.user.id
+                        ? $t('quickPayTooltip', { symbol: paymentMethod.value })
+                        : $t('yourOrderCanNotBuySell')
+                    "
+                    placement="top-start"
                   >
-                    <img
-                      class="h-4 w-4 cursor-pointer pl-0"
-                      :src="
-                        require('~/assets/images/banks/' + paymentMethod.icon)
-                      "
-                      alt=""
-                      @click="
-                        onBuy({
-                          orderId: order.id,
-                          paymentMethod: paymentMethod.value,
-                        })
-                      "
-                    />
-                  </el-radio>
+                    <el-radio
+                      :label="paymentMethod.value"
+                      class="flex flex-col justify-center align-middle"
+                    >
+                      <img
+                        class="h-4 w-4 cursor-pointer pl-0"
+                        :src="
+                          require('~/assets/images/banks/' + paymentMethod.icon)
+                        "
+                        alt=""
+                        @click="
+                          onBuy({
+                            orderId: order.id,
+                            paymentMethod: paymentMethod.value,
+                            userId: order.user_id,
+                          })
+                        "
+                      />
+                    </el-radio>
+                  </el-tooltip>
                 </div>
               </div>
             </el-radio-group>
           </template>
           <template v-slot:action="{ order, index }">
-            <el-button
-              type="success"
-              :plain="index > 0"
-              size="mini"
-              @click="onBuy({ orderId: order.id })"
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="
+                order.user_id !== $auth.user.id
+                  ? $t('selectToBuyNow')
+                  : $t('yourOrderCanNotBuySell')
+              "
+              placement="top-start"
             >
-              {{ $t('buy') }}
-            </el-button>
+              <el-button
+                type="success"
+                :plain="index > 0"
+                size="mini"
+                :disabled="order.user_id === $auth.user.id"
+                @click="onBuy({ orderId: order.id, userId: order.user_id })"
+              >
+                {{ $t('buy') }}
+              </el-button>
+            </el-tooltip>
           </template>
         </el-tab-pane-crypto>
       </div>
@@ -80,17 +109,22 @@ import { mapActions, mapGetters } from 'vuex'
 import ElTabs from 'element-ui/lib/tabs'
 import ElTabPane from 'element-ui/lib/tab-pane'
 import ElTabPaneCrypto from '@/components/pages/home/market-list/el-tab-pane-crypto'
+import TableContentLoader from '@/components/common/table-content-loader'
 
 const CRYPTO_LIST = ['BTC', 'ETH', 'ETC', 'XRP', 'USDT', 'VNDS']
 const DEFAULT_TYPE = 'SELL'
 
 export default {
   name: 'MarketSellList',
-  components: { ElTabPaneCrypto, ElTabs, ElTabPane },
+  components: { ElTabPaneCrypto, ElTabs, ElTabPane, TableContentLoader },
   props: {
     orders: {
       type: Array,
       default: () => [],
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   async fetch() {
@@ -104,7 +138,7 @@ export default {
         { value: 'VCB', icon: 'vietcom-bank.png' },
         { value: 'TCB', icon: 'techcom-bank.png' },
         { value: 'VNDS', icon: 'vnds.png' },
-        { value: 'ALL_BANK', icon: 'all-bank.png' },
+        // { value: 'ALL_BANK', icon: 'all-bank.png' },
       ],
       selectedPayment: null,
       listBankAccount: [],
@@ -160,10 +194,14 @@ export default {
       this.$router.push({ name: 'wallet-buy', query: { coin: this.activeTab } })
     },
 
-    onBuy({ paymentMethod, orderId }) {
+    onBuy({ paymentMethod, orderId, userId }) {
       // this.setSelectedBuyOrder(order)
+      if (this.$auth.user.id === userId) {
+        return
+      }
+
       this.$router.push({
-        path: `exchanges/buy/${orderId}`,
+        path: `/exchanges/buy/${orderId}`,
         query: { payment_method: paymentMethod },
       })
     },

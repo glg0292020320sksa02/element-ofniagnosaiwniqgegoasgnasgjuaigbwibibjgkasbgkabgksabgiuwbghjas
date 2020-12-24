@@ -1,10 +1,10 @@
 <template>
   <div
     v-if="visible"
-    class="z-50 h-screen absolute top-0 left-0 right-0 bottom-0 overflow-hidden"
+    class="z-50 min-h-screen fixed top-0 left-0 right-0 bottom-0 overflow-hidden"
   >
-    <div class="notify-mask w-full h-full absolute"></div>
-    <div class="notify-form bg-white rounded-sm">
+    <div class="notify-mask bg-blue-900 w-full h-full absolute"></div>
+    <div class="notify-form bg-white rounded-lg shadow-lg">
       <el-button
         circle
         icon="el-icon-close"
@@ -16,8 +16,8 @@
         <svg-icon :name="type" size="100"></svg-icon>
       </div>
       <div class="mt-10 text-center">
-        <div class="font-black text-xs">{{ title }}</div>
-        <div class="text-subtitle text-xs">
+        <div class="font-black text-base">{{ title }}</div>
+        <div class="text-subtitle text-sm">
           {{ subtitle }}
         </div>
       </div>
@@ -139,7 +139,8 @@ export default {
 
 <style scoped lang="scss">
 .notify-mask {
-  background: rgb(17, 51, 83);
+  // background: rgb(17, 51, 83);
+  @apply bg-blue-900;
 }
 .notify-form {
   width: 400px;

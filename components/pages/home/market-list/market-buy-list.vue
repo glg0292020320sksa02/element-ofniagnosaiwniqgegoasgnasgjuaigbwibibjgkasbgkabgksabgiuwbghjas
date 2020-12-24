@@ -1,12 +1,25 @@
 <template>
-  <div class="relative">
-    <div
-      class="bg-error text-white text-center p-3 min-w-32 rounded-t-lg inline-block"
-    >
-      <strong class="uppercase font-bold text-sm">{{ $t('buyList') }}</strong>
+  <div
+    class="relative bg-gray-100 p-6 rounded-lg flex flex-col justify-start items-stretch"
+  >
+    <div class="flex flex-row justify-between items-baseline py-4 px-1">
+      <strong
+        class="font-bold text-base px-4 py-1 rounded-full bg-gray-200 text-gray-900 relative"
+      >
+        {{ $t('buyList') }}
+        <span
+          class="h-1 w-1 p-1 inline-block rounded-full bg-error border-4 border-red-200 absolute top-0 left-0"
+        ></span>
+      </strong>
+
+      <el-button size="small" @click="onRedirectWallet">
+        {{ $t('create-a-new-sell-order') }}
+      </el-button>
     </div>
-    <div class="market-buy-list bg-white p-5 rounded">
-      <div class="flex flex-row justify-between items-center">
+    <div class="market-buy-list bg-white m-1 p-6 rounded-lg shadow-sm">
+      <div
+        class="flex flex-row justify-between items-center border-b border-b-gray-100"
+      >
         <el-tabs :value="activeTab" @input="setActiveTab($event)">
           <el-tab-pane
             v-for="crypto in cryptoList"
@@ -16,37 +29,53 @@
             class="text-sm"
           ></el-tab-pane>
         </el-tabs>
-        <el-button
-          type="text"
-          size="small"
-          class="text-error px-4"
-          @click="onRedirectWallet"
-        >
-          {{ $t('create-a-new-sell-order') }}
-        </el-button>
       </div>
-      <div>
-        <el-tab-pane-crypto type="buy" :orders="orderListFiltered">
-          <template v-slot:paymentMethod>
+      <div class="mt-12">
+        <table-content-loader v-if="loading"></table-content-loader>
+        <el-tab-pane-crypto v-else type="buy" :orders="orderListFiltered">
+          <template v-slot:paymentMethod="order">
             <div class="flex flex-col justify-center items-center">
-              <el-radio class="flex flex-col justify-center items-center">
-                <img
-                  class="w-4 h-full cursor-pointer pl-0"
-                  :src="require('~/assets/images/banks/vnds.png')"
-                  alt=""
-                />
-              </el-radio>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="
+                  order.user_id !== $auth.user.id
+                    ? $t('quickPayTooltip', { symbol: 'VNDS' })
+                    : $t('yourOrderCanNotBuySell')
+                "
+                placement="top-start"
+              >
+                <el-radio class="flex flex-col justify-center items-center">
+                  <img
+                    class="w-4 h-full cursor-pointer pl-0"
+                    :src="require('~/assets/images/banks/vnds.png')"
+                    alt=""
+                  />
+                </el-radio>
+              </el-tooltip>
             </div>
           </template>
           <template v-slot:action="{ order, index }">
-            <el-button
-              type="danger"
-              size="mini"
-              :plain="index > 0"
-              @click="onSell(order)"
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="
+                order.user_id !== $auth.user.id
+                  ? $t('selectToSellNow')
+                  : $t('yourOrderCanNotBuySell')
+              "
+              placement="top-start"
             >
-              {{ $t('sell') }}
-            </el-button>
+              <el-button
+                type="danger"
+                size="mini"
+                :plain="index > 0"
+                :disabled="order.user_id === $auth.user.id"
+                @click="onSell(order)"
+              >
+                {{ $t('sell') }}
+              </el-button>
+            </el-tooltip>
           </template>
         </el-tab-pane-crypto>
       </div>
@@ -57,6 +86,8 @@
 import ElTabs from 'element-ui/lib/tabs'
 import ElTabPane from 'element-ui/lib/tab-pane'
 import ElTabPaneCrypto from '@/components/pages/home/market-list/el-tab-pane-crypto'
+import TableContentLoader from '@/components/common/table-content-loader'
+
 import { mapActions, mapGetters } from 'vuex'
 
 const CRYPTO_LIST = ['BTC', 'ETH', 'ETC', 'XRP', 'USDT']
@@ -64,11 +95,15 @@ const DEFAULT_TYPE = 'BUY'
 
 export default {
   name: 'MarketBuyList',
-  components: { ElTabPaneCrypto, ElTabs, ElTabPane },
+  components: { ElTabPaneCrypto, ElTabs, ElTabPane, TableContentLoader },
   props: {
     orders: {
       type: Array,
       default: () => [],
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -110,7 +145,7 @@ export default {
     onSell(order) {
       // this.setSelectedSellOrder(order)
       this.$router.push({
-        path: `exchanges/sell/${order.id}`,
+        path: `/exchanges/sell/${order.id}`,
       })
     },
   },

@@ -1,11 +1,10 @@
 <template>
   <div class="p-8">
-    <div class="pb-1 mb-6 border-b">
-      <div class="text-xl font-bold">{{ $t('notification') }}</div>
+    <div class="pb-1">
       <div class="text-sm text-subtitle">{{ $t('email-me-when') }}</div>
     </div>
     <div>
-      <div>
+      <div class="mb-2">
         <el-checkbox
           v-model="model.buy_or_sell_notification"
           :disabled="isDisabled"
@@ -18,7 +17,7 @@
           </span>
         </el-checkbox>
       </div>
-      <div>
+      <div class="mb-2">
         <el-checkbox
           v-model="model.receive_order_notification"
           :disabled="isDisabled"
@@ -31,7 +30,7 @@
           </span>
         </el-checkbox>
       </div>
-      <div>
+      <div class="mb-2">
         <el-checkbox :value="true" :disabled="isDisabled">
           <span class="text-body font-bold">
             {{ $t('there-are-recomended-actions-in-my-account') }}
@@ -40,7 +39,12 @@
       </div>
     </div>
     <div class="mt-4">
-      <el-button type="primary" :loading="loading" @click="updateSetting">
+      <el-button
+        type="primary"
+        :loading="loading"
+        class="px-8"
+        @click="updateSetting"
+      >
         {{ $t('Save') }}
       </el-button>
     </div>

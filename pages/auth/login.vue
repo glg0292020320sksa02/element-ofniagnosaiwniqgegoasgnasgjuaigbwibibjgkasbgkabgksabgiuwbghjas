@@ -1,7 +1,7 @@
 <template>
   <div class="container flex justify-center items-start min-h-screen">
     <div class="w-full md:w-3/5 xl:w-1/3">
-      <el-card shadow="never" class="p-3">
+      <el-card shadow="never" class="p-3 rounded-lg shadow-lg">
         <div
           class="card-header mb-12 flex flex-col justify-center align-middle text-center"
         >
@@ -181,23 +181,13 @@ export default {
         this.loading = false
       }
     },
-    async handleErrorResendVerification() {
+    handleErrorResendVerification() {
       try {
-        const isConfirm = await this.$error({
+        this.$notify({
           title: this.$t('emailIsNotVerified'),
-          subtitle: this.$t('pleaseCheckYourEmail'),
-          actionText: this.$t('resendVerificationCode'),
-          loadingText: this.$t('resendingVerificationCode'),
-          actionMethod: this.resendVerification,
+          message: this.$t('pleaseCheckYourEmail'),
+          type: 'error',
         })
-
-        if (isConfirm) {
-          this.$notify({
-            title: this.$t('resendVerificationCodeSuccessful'),
-            message: this.$t('pleaseCheckYourEmailAndCompleteRegistration'),
-            type: 'success',
-          })
-        }
       } catch {
         this.$notify({
           title: this.$t('resendVerificationFailure'),

@@ -10,12 +10,15 @@
       <el-button circle class="button-user text-base text-primary">
         <icon-user class="text-primary text-2xl w-5 h-5"></icon-user>
       </el-button>
-      <i class="notification el-icon-warning text-red-600"></i>
+      <i
+        v-if="!isEnable2FA"
+        class="notification el-icon-warning text-red-600"
+      ></i>
     </div>
     <div>
       <div class="px-3 py-4">
-        <div class="font-bold">{{ userName }}</div>
-        <div class="text-subtitle">{{ userEmail }}</div>
+        <div class="text-sm text-gray-900">{{ userName }}</div>
+        <div class="text-gray-700 text-xs">{{ userEmail }}</div>
       </div>
       <hr />
       <div class="flex flex-col">
@@ -28,11 +31,11 @@
             class="flex justify-between items-center"
             @click="redirect(route.to)"
           >
-            <span class="font-bold">
+            <span class="font-normal text-gray-900">
               {{ $t(route.name) }}
             </span>
             <i
-              v-if="route.notification"
+              v-if="route.notification && !isEnable2FA"
               class="el-icon-warning text-red-600"
             ></i>
           </div>
@@ -43,13 +46,14 @@
         class="px-3 py-4 w-full cursor-pointer hover:bg-gray-100"
         @click="onLogout"
       >
-        <span class="font-bold text-error">{{ $t('signOut') }}</span>
+        <span class="font-normal text-error">{{ $t('signOut') }}</span>
       </div>
     </div>
   </el-popover>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { defineComponent } from '@nuxtjs/composition-api'
 import IconUser from '@/components/ui/icon/icon-user'
 const ROUTES_DEFAULT = [
@@ -72,6 +76,7 @@ export default defineComponent({
     }
   },
   computed: {
+    ...mapGetters(['isEnable2FA']),
     userName() {
       return this.$auth.user?.name || ''
     },

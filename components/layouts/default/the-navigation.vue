@@ -5,22 +5,51 @@
     <div
       v-for="(menu, index) in menus"
       :key="index + 'menu'"
-      class="menu-item p-1"
+      class="menu-item p-1 relative"
       :class="{ active: activeRouter.includes(menu.to) }"
+      @mouseenter="showSubMenu(menu.name)"
     >
       <nuxt-link
         v-if="menu.authCheck"
         :to="menu.to"
-        class="p-4 px-2 inline-block hover:text-primary"
+        class="p-4 px-2 flex flex-row justify-start items-center whitespace-nowrap hover:text-primary"
       >
         {{ $t(menu.name) }}
+        <icon-chevron-down
+          v-if="menu.subMenu"
+          class="h-3 w-4 font-bold"
+        ></icon-chevron-down>
       </nuxt-link>
+      <the-menu
+        v-if="menu.subMenu && activeMenu === menu.name"
+        :data="menu.subMenu"
+        @over="activeMenu = ''"
+      ></the-menu>
     </div>
   </div>
 </template>
 <script>
+import TheMenu from '@/components/layouts/default/the-menu'
+import IconBuy from '@/components/ui/icon/icon-buy'
+import IconSell from '@/components/ui/icon/icon-sell'
+import IconBuyOrder from '@/components/ui/icon/icon-buy-order'
+import IconSellOrder from '@/components/ui/icon/icon-sell-order'
+import IconBalance from '@/components/ui/icon/icon-balance'
+import IconDepositHistory from '@/components/ui/icon/icon-deposit'
+import IconWithdrawHistory from '@/components/ui/icon/icon-withdraw'
+import IconChevronDown from '@/components/ui/icon/icon-chevron-down'
+
 export default {
   name: 'TheNavigation',
+  components: {
+    TheMenu,
+    IconChevronDown,
+  },
+  data() {
+    return {
+      activeMenu: '',
+    }
+  },
   computed: {
     activeRouter() {
       return this.$route.path
@@ -29,13 +58,41 @@ export default {
       return [
         {
           name: 'navBuySell',
-          to: '/buy-sell',
+          to: '/dashboard',
           authCheck: true,
+          subMenu: [
+            {
+              title: this.$t('buy'),
+              subTitle: this.$t('buyMenuSubtitle'),
+              to: '/dashboard/buy',
+              icon: IconBuy,
+            },
+            {
+              title: this.$t('sell'),
+              subTitle: this.$t('sellMenuSubtitle'),
+              to: '/dashboard/sell',
+              icon: IconSell,
+            },
+          ],
         },
         {
           name: 'navPostOfTrade',
           to: '/wallet/buy',
           authCheck: true,
+          subMenu: [
+            {
+              title: this.$t('createBuyOrder'),
+              subTitle: this.$t('createBuyOrderMenuSubtitle'),
+              to: '/wallet/buy',
+              icon: IconBuyOrder,
+            },
+            {
+              title: this.$t('createSellOrder'),
+              subTitle: this.$t('createSellOrderMenuSubtitle'),
+              to: '/wallet/sell',
+              icon: IconSellOrder,
+            },
+          ],
         },
         {
           name: 'navAffiliate',
@@ -46,6 +103,26 @@ export default {
           name: 'navHolding',
           to: '/holding',
           authCheck: this.$auth.loggedIn,
+          subMenu: [
+            {
+              title: this.$t('currentBalance'),
+              subTitle: this.$t('currentBalanceMenuSubtitle'),
+              to: '/holding?tab=balance',
+              icon: IconBalance,
+            },
+            {
+              title: this.$t('depositHistory'),
+              subTitle: this.$t('depositMenuSubtitle'),
+              to: '/holding?tab=deposit',
+              icon: IconDepositHistory,
+            },
+            {
+              title: this.$t('withdrawHistory'),
+              subTitle: this.$t('withdrawMenuSubtitle'),
+              to: '/holding?tab=withdraw',
+              icon: IconWithdrawHistory,
+            },
+          ],
         },
         {
           name: 'navTradeHistory',
@@ -58,6 +135,11 @@ export default {
           authCheck: this.$auth.loggedIn,
         },
       ]
+    },
+  },
+  methods: {
+    showSubMenu(menu) {
+      this.activeMenu = menu
     },
   },
 }

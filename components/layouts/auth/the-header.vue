@@ -78,7 +78,7 @@ export default defineComponent({
   @apply cursor-pointer;
 }
 
-.buy-sell-group {
+.dashboard-group {
   display: flex;
   font-size: 12px;
   line-height: 14px;

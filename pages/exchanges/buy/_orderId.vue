@@ -3,7 +3,7 @@
     class="exchanges-buy container flex justify-center items-start min-h-screen"
   >
     <div class="w-full md:w-2/3 lg:w-1/2 xl:w-2/5">
-      <el-card shadow="never">
+      <el-card shadow="never" class="p-3 rounded-lg shadow-lg">
         <div
           class="card-header my-6 flex flex-col justify-center align-middle text-center"
         >
@@ -35,44 +35,33 @@
           </el-alert>
           <input-form :label="$t('payment_method')" class="mb-6">
             <div class="flex flex-col space-y-2 mt-2 px-2">
-              <el-radio v-model="payment_method" label="VCB">
-                <div class="inline-block">
-                  <div class="flex space-x-4">
-                    <span>Vietcombank</span>
-                    <img
-                      class="w-4"
-                      src="~/assets/images/banks/vietcom-bank.png"
-                    />
-                  </div>
-                </div>
-              </el-radio>
-              <el-radio v-model="payment_method" label="TCB">
-                <div class="inline-block">
-                  <div class="flex space-x-4">
-                    <span>Techcombank</span>
-                    <img
-                      class="w-4"
-                      src="~/assets/images/banks/techcom-bank.png"
-                    />
-                  </div>
-                </div>
-              </el-radio>
-              <el-radio v-model="payment_method" label="VNDS">
-                <div class="inline-block">
-                  <div class="flex space-x-4">
-                    <span>VNDS</span>
-                    <img class="w-4" src="~/assets/images/banks/vnds.png" />
-                  </div>
-                </div>
-              </el-radio>
-              <el-radio v-model="payment_method" label="ALL_BANK">
-                <div class="inline-block">
-                  <div class="flex space-x-4">
-                    <span>{{ $t('all-bank') }}</span>
-                    <img class="w-4" src="~/assets/images/banks/all-bank.png" />
-                  </div>
-                </div>
-              </el-radio>
+              <div
+                v-for="(bank, index) in paymentMethods"
+                :key="index + '_bank'"
+              >
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="
+                    $t('selectPaymentMethodInstruction', {
+                      symbol: bank.name,
+                    })
+                  "
+                  placement="top-start"
+                >
+                  <el-radio v-model="payment_method" :label="bank.value">
+                    <div class="inline-block">
+                      <div class="flex space-x-4">
+                        <span>{{ bank.name }}</span>
+                        <img
+                          class="w-4"
+                          :src="require(`~/assets/images/banks/${bank.icon}`)"
+                        />
+                      </div>
+                    </div>
+                  </el-radio>
+                </el-tooltip>
+              </div>
             </div>
           </input-form>
           <input-form :label="$t('price')" class="mb-6">
@@ -144,6 +133,12 @@ export default {
       yourCurrency: 0,
       loading: false,
       selectedBuyOrder: {},
+      paymentMethods: [
+        { name: 'Vietcombank', value: 'VCB', icon: 'vietcom-bank.png' },
+        { name: 'Techcombank', value: 'TCB', icon: 'techcom-bank.png' },
+        { name: 'VNDS', value: 'VNDS', icon: 'vnds.png' },
+        // { value: 'ALL_BANK', icon: 'all-bank.png' },
+      ],
     }
   },
   computed: {
@@ -211,14 +206,19 @@ export default {
         this.loading = true
         const { payment_url: paymentUrl } = await this.addExchangesBuy(body)
 
-        await this.$success({
-          title: this.$t('success'),
-          subtitle: this.$t('exchange-susscessful'),
-          actionText: this.$t('pleaseRedirectToPaymentPage'),
-          actionMethod: () => window.open(paymentUrl),
-        })
-
+        // await this.$success({
+        //   title: this.$t('success'),
+        //   subtitle: this.$t('exchange-susscessful'),
+        //   actionText: this.$t('pleaseRedirectToPaymentPage'),
+        //   actionMethod: () => window.open(paymentUrl),
+        // })
+        window.open(paymentUrl, '_blank')
         this.$router.push({ name: 'index' })
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('exchange-susscessful'),
+          type: 'success',
+        })
       } catch (e) {
         this.$notify({
           title: this.$t('failure'),

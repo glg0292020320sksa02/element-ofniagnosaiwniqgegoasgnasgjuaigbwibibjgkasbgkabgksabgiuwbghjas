@@ -1,6 +1,6 @@
 <template>
   <el-button
-    class="delete-bank-account text-xs uppercase"
+    class="delete-bank-account text-xs uppercase font-bold hover:underline"
     type="text"
     :loading="loading"
     @click="removeBankAccount"

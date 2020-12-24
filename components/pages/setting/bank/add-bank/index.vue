@@ -37,8 +37,11 @@
       </div>
     </template>
     <div v-if="currentStep === 1" class="add-bank">
-      <input-form label="Hình thức nhận thanh toán" class="my-4">
-        <el-radio-group v-model="selectedPaymentType">
+      <!-- <input-form label="Hình thức nhận thanh toán" class="my-4">
+        <el-radio-group
+          v-model="selectedPaymentType"
+          class="w-full flex flex-col justify-start items-stretch"
+        >
           <el-radio label="BANKACCOUNT" class="m-0 mt-2" border>
             <span class="text-xs">{{ $t('internetBankingVCB') }}</span>
           </el-radio>
@@ -46,11 +49,11 @@
             <span class="text-xs">{{ $t('receivedByBankAccountNumber') }}</span>
           </el-radio>
         </el-radio-group>
-      </input-form>
+      </input-form> -->
       <input-form label="Ngân hàng" class="my-4">
         <el-radio-group
           v-model="selectedBank"
-          class="w-full h-48 overflow-y-scroll"
+          class="w-full h-48 overflow-y-scroll flex flex-col justify-start items-stretch"
         >
           <el-radio
             v-for="(bank, index) in acceptBanks"
@@ -80,6 +83,7 @@
       <add-bank-account-number
         v-if="isAddBankAccountNumber"
         :bank="selectedBank"
+        @success="onClose"
       ></add-bank-account-number>
       <add-bank-account-techcombank
         v-else-if="isAddBankAccountTCB"
@@ -127,7 +131,7 @@ export default {
   },
   data() {
     return {
-      selectedPaymentType: 'BANKACCOUNT',
+      selectedPaymentType: 'BANKACCOUNTNUMBER',
       selectedBank: null,
       banks: [],
       currentStep: 1,
@@ -171,6 +175,7 @@ export default {
     onClose() {
       this.currentStep = 1
       this.$emit('update:visible', false)
+      this.$emit('close')
     },
     onRefresh() {
       this.onClose()
@@ -185,6 +190,9 @@ export default {
 </script>
 
 <style lang="scss">
+.add-bank-component .el-dialog {
+  @apply rounded-lg;
+}
 .add-bank-component .el-dialog__body {
   padding-top: 0 !important;
 }

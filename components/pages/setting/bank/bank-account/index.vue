@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center text-sm">
       <div>
         <div class="font-bold text-primary">{{ $t('bankAccount') }}</div>
         <div>
@@ -19,12 +19,12 @@
       <table-content-loader v-if="$fetchState.pending"></table-content-loader>
 
       <template v-else>
-        <el-card v-if="!hasBankAccount">
+        <el-card v-if="!hasBankAccount" class="shadow-sm rounded-lg text-xs">
           <div class="text-center p-6">
             <div class="mb-3">
               {{ $t('youHaveNotSetUpAnyPaymentMethods') }}
             </div>
-            <el-button type="primary" @click="addBankMethod">
+            <el-button type="primary" size="small" @click="addBankMethod">
               {{ $t('addAPaymentMethod') }}
             </el-button>
           </div>
@@ -51,8 +51,12 @@
                   <td>{{ bankAccount.bank.name }}</td>
                   <td>{{ bankAccount.name }}</td>
                   <td>
-                    <span class="px-4 py-1 rounded-full bg-success-200">
-                      <span class="text-xs text-success font-bold leading-none">
+                    <span
+                      class="px-4 py-1 rounded-full text-success bg-teal-100"
+                    >
+                      <span
+                        class="text-xs text-success font-bold leading-none uppercase"
+                      >
                         {{ $t('verified') }}
                       </span>
                     </span>

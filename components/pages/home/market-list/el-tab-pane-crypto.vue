@@ -7,7 +7,10 @@
             <th class="text-left">
               {{ type === 'sell' ? $t('seller') : $t('buyer') }}
             </th>
-            <th class="text-left">{{ $t('price') }}/ {{ activeTab }}</th>
+            <th class="text-left">
+              {{ type === 'sell' ? $t('priceSell') : $t('priceBuy') }}/
+              {{ activeTab }}
+            </th>
             <th class="text-right">{{ $t('quantity') }}</th>
             <th class="text-center">{{ $t('payment-by') }}</th>
             <th class="text-right">{{ $t('action') }}</th>
@@ -15,14 +18,12 @@
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="order.id" class="text-sm">
-            <td>
+            <td class="py-4">
               <div class="flex justify-start items-center">
-                <div>
-                  <img
-                    :src="`https://randomuser.me/api/portraits/thumb/men/${order.id}.jpg`"
-                    alt=""
-                    class="rounded-full avatar"
-                  />
+                <div class="rounded-full bg-blue-100 p-2">
+                  <icon-user
+                    class="rounded-full avatar w-6 h-6 text-primary"
+                  ></icon-user>
                 </div>
                 <div class="pl-2 flex flex-col justify-start items-start">
                   <span class="text-sm">{{ genUserName(order) }}</span>
@@ -72,9 +73,13 @@
 import { mapGetters } from 'vuex'
 import { filterPrice } from '@/filters'
 
+import IconUser from '@/components/ui/icon/icon-user'
 export default {
   name: 'ElTabPaneCrypto',
   filters: { filterPrice },
+  components: {
+    IconUser,
+  },
   props: {
     orders: {
       type: Array,

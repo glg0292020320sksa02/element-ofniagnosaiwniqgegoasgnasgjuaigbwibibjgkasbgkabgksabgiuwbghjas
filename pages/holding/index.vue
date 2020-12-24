@@ -1,52 +1,45 @@
 <template>
   <div class="page-holding container py-8 space-y-8">
     <div class="bg-white rounded">
-      <div class="border-b p-5 flex justify-between items-center">
-        <div class="text-xl font-bold">{{ $t('navHolding') }}</div>
-      </div>
-      <div class="p-5">
-        <div class="flex justify-between mt-4">
-          <div>
-            <el-tabs
-              v-model="activeTab"
-              class="text-base"
-              @tab-click="changeActiveTab"
-            >
-              <el-tab-pane :label="$t('balance')" name="holding"></el-tab-pane>
-              <el-tab-pane
-                :label="$t('depositHistory')"
-                name="deposit"
-              ></el-tab-pane>
-              <el-tab-pane
-                :label="$t('withdrawHistory')"
-                name="withdraw"
-              ></el-tab-pane>
-            </el-tabs>
-          </div>
-
-          <div>
-            <filter-date
-              :start-date.sync="options.from_date"
-              :end-date.sync="options.to_date"
-            ></filter-date>
-            <filter-status v-model="options.status"></filter-status>
-            <filter-currency v-model="options.currency"></filter-currency>
-          </div>
+      <div class="border-b p-8 pb-0 flex flex-col justify-start items-start">
+        <div class="text-xl font-bold">{{ $t('yourWallet') }}</div>
+        <div>
+          <el-tabs
+            v-model="activeTab"
+            class="text-base"
+            @tab-click="changeActiveTab"
+          >
+            <el-tab-pane :label="$t('balance')" name="balance"></el-tab-pane>
+            <el-tab-pane
+              :label="$t('depositHistory')"
+              name="deposit"
+            ></el-tab-pane>
+            <el-tab-pane
+              :label="$t('withdrawHistory')"
+              name="withdraw"
+            ></el-tab-pane>
+          </el-tabs>
         </div>
-        <div v-if="activeTab === 'holding'">
-          <div class="mt-10">
-            <div class="font-bold text-primary">{{ $t('yourWallet') }}</div>
-            <div class="text-subtitle text-sm">
-              <div>
-                {{ $t('these-wallets-created-c2a') }}
-              </div>
-              <div class="mt-2">
-                {{ $t('note-only-send-and-receive-cryptocurrencies') }}
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="px-8 pb-12">
+        <div
+          v-if="activeTab !== 'balance'"
+          class="flex justify-between w-2/5 mt-4 ml-auto mr-0"
+        >
+          <filter-date
+            :start-date.sync="options.from_date"
+            :end-date.sync="options.to_date"
+            class="mx-1"
+          ></filter-date>
+          <filter-status v-model="options.status" class="mx-1"></filter-status>
+          <filter-currency
+            v-model="options.currency"
+            class="mx-1"
+          ></filter-currency>
+        </div>
+        <div v-if="activeTab === 'balance'">
           <table-content-loader
-            v-if="$fetchState.pending"
+            v-if="$fetchState.pending || loading"
           ></table-content-loader>
 
           <div
@@ -61,7 +54,7 @@
         </div>
         <div v-else-if="activeTab === 'deposit'">
           <table-content-loader
-            v-if="$fetchState.pending"
+            v-if="$fetchState.pending || loading"
           ></table-content-loader>
 
           <div
@@ -76,7 +69,7 @@
         </div>
         <div v-else>
           <table-content-loader
-            v-if="$fetchState.pending"
+            v-if="$fetchState.pending || loading"
           ></table-content-loader>
 
           <div
@@ -122,7 +115,7 @@ export default {
   data() {
     return {
       listTransactions: [],
-      activeTab: 'holding',
+      activeTab: 'balance',
       total: 0,
       options: {
         from_date: '',
@@ -154,12 +147,37 @@ export default {
         ? this.getTransactions
         : this.getAllTransactions
     },
+    currentQuery() {
+      return this.$route.query.tab
+    },
   },
   watch: {
     optionsToString() {
       this.options.page = 1
       this.loadTransactions()
     },
+    currentQuery(val) {
+      this.activeTab = this.$route.query.tab || 'balance'
+
+      if (this.activeTab === 'deposit') {
+        this.options.type = 'DEPOSIT'
+      }
+
+      if (this.activeTab === 'withdraw') {
+        this.options.type = 'WITHDRAWAL'
+      }
+    },
+  },
+  mounted() {
+    this.activeTab = this.$route.query.tab || 'balance'
+
+    if (this.activeTab === 'deposit') {
+      this.options.type = 'DEPOSIT'
+    }
+
+    if (this.activeTab === 'withdraw') {
+      this.options.type = 'WITHDRAWAL'
+    }
   },
   methods: {
     ...mapActions({
@@ -184,10 +202,12 @@ export default {
     },
 
     async loadTransactions() {
+      this.loading = true
       const { data, total } = await this.methodGetTransition(this.options)
 
       this.listTransactions = data
       this.total = total
+      this.loading = false
     },
     changeActiveTab() {
       if (this.activeTab === 'deposit') {

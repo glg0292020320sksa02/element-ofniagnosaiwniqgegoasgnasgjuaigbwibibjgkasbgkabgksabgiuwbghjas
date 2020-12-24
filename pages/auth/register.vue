@@ -1,7 +1,7 @@
 <template>
   <div class="container flex justify-center items-start h-screen min-h-screen">
     <div class="w-full md:w-3/5 xl:w-1/3">
-      <el-card shadow="never" class="p-3">
+      <el-card shadow="never" class="p-3 rounded-lg shadow-lg">
         <div
           class="card-header mb-12 flex flex-col justify-center align-middle text-center"
         >
@@ -11,28 +11,27 @@
         <el-form
           ref="form"
           :model="model"
-          :rules="rules"
           label-position="top"
           label-width="120px"
           class="form-register"
           hide-required-asterisk
           @submit.native.prevent="onSubmit"
         >
-          <el-form-item prop="name">
+          <el-form-item prop="name" :rules="rules.name">
             <el-input
               ref="name"
               v-model="model.name"
               :placeholder="$t('fullName')"
             ></el-input>
           </el-form-item>
-          <el-form-item prop="email">
+          <el-form-item prop="email" :rules="rules.email">
             <el-input
               ref="email"
               v-model="model.email"
               :placeholder="$t('email')"
             ></el-input>
           </el-form-item>
-          <el-form-item prop="password">
+          <el-form-item prop="password" :rules="rules.password">
             <el-input
               ref="password"
               v-model="model.password"
@@ -41,7 +40,7 @@
               :placeholder="$t('password')"
             ></el-input>
           </el-form-item>
-          <el-form-item prop="confirmPassword">
+          <el-form-item prop="confirmPassword" :rules="rules.confirmPassword">
             <el-input
               ref="confirmPassword"
               v-model="model.confirmPassword"
@@ -50,7 +49,11 @@
               :placeholder="$t('confirmPassword')"
             ></el-input>
           </el-form-item>
-          <el-form-item prop="agreeTerms" class="mt-6">
+          <el-form-item
+            prop="agreeTerms"
+            class="mt-6"
+            :rules="rules.agreeTerms"
+          >
             <el-checkbox v-model="model.agreeTerms">
               <span class="text-body">{{ $t('agree') }}</span>
               <nuxt-link
@@ -177,9 +180,10 @@ export default {
           actionMethod: () => this.$router.push({ name: 'auth-login' }),
         })
       } catch (e) {
-        this.$error({
+        this.$notify({
           title: this.$t('registerFailure'),
-          subtitle: this.$t('pleaseRegisterAgain'),
+          message: this.$t('pleaseRegisterAgain'),
+          type: 'error',
         })
       } finally {
         this.loading = false

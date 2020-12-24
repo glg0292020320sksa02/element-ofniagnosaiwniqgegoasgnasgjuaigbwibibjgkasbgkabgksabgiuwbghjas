@@ -1,11 +1,8 @@
 <template>
-  <div class="p-8 space-y-10">
-    <change-password></change-password>
-    <div class="my-profile">
-      <div class="text-xl font-bold">{{ $t('my-profile') }}</div>
-      <hr class="my-2" />
+  <div class="p-8 space-y-10 flex flex-row justify-start items-start">
+    <div class="my-profile w-1/2 border-r border-gray-100">
       <div class="flex">
-        <div class="w-full lg:w-1/2 xl:w-1/3">
+        <div class="w-full pr-6">
           <el-form
             ref="form"
             :model="model"
@@ -37,6 +34,7 @@
                 :loading="loading"
                 type="primary"
                 native-type="submit"
+                class="px-8"
               >
                 <span class="font-bold">{{ $t('Save') }}</span>
               </el-button>
@@ -45,6 +43,7 @@
         </div>
       </div>
     </div>
+    <change-password class="pl-6"></change-password>
   </div>
 </template>
 

@@ -4,7 +4,7 @@
       <el-table-column label="ID" prop="id" width="70px">
         <template slot-scope="scope">
           <nuxt-link
-            class="text-primary underline cursor-pointer"
+            class="text-primary underline cursor-pointer font-bold"
             :to="`trade-history/${scope.row.id}`"
           >
             #{{ scope.row.id }}
@@ -21,11 +21,11 @@
         class="text-left"
         :label="$t('pair')"
         prop="pair"
-        width="100px"
+        width="120px"
       >
         <template slot-scope="scope">
           <span
-            class="text-primary underline cursor-pointer"
+            class="text-primary underline cursor-pointer font-bold"
             @click="redirectToHomePage(scope.row.source_symbol)"
           >
             {{
@@ -40,11 +40,11 @@
         class="text-left"
         :label="$t('partner')"
         prop="pair"
-        width="100px"
+        width="120px"
       >
         <template slot-scope="scope">
           <a
-            class="text-primary underline cursor-pointer"
+            class="text-primary underline cursor-pointer font-bold"
             @click="viewDetailUser(scope.row)"
           >
             {{ partnerName(scope.row) }}
@@ -55,15 +55,23 @@
         class="text-left"
         :label="$t('side')"
         prop="side"
-        width="70px"
+        width="100px"
       >
         <template slot-scope="scope">
-          <strong :class="getColorSide(scope.row.side)">
+          <strong
+            :class="getColorSide(scope.row.side)"
+            class="py-1 px-4 text-xs rounded-full"
+          >
             {{ scope.row.side }}
           </strong>
         </template>
       </el-table-column>
-      <el-table-column class="text-left" :label="$t('amount')" prop="amount">
+      <el-table-column
+        class="text-left"
+        :label="`${$t('amountCoin')} & ${$t('price')}`"
+        prop="amount"
+        width="200px"
+      >
         <template slot-scope="scope">
           <div class="flex justify-start items-center">
             <strong>{{ scope.row.amount | filterPrice }}</strong>
@@ -71,12 +79,8 @@
               {{ sourceSymbol(scope.row.source_symbol) }}
             </span>
           </div>
-        </template>
-      </el-table-column>
-      <el-table-column class="text-left" :label="$t('price')" prop="price">
-        <template slot-scope="scope">
-          <div class="flex justify-start items-center">
-            <strong>{{ scope.row.price | filterPrice }}</strong>
+          <div class="flex justify-start text-xs items-center">
+            <span>{{ scope.row.price | filterPrice }}</span>
             <span class="ml-1 text-xs text-subtitle">
               {{
                 `${targetSymbol(scope.row.target_symbol)}/${sourceSymbol(
@@ -87,7 +91,12 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column class="text-right" :label="$t('total')" prop="total">
+      <el-table-column
+        class="text-right"
+        :label="$t('total')"
+        prop="total"
+        width="200px"
+      >
         <template slot-scope="scope">
           <div class="flex justify-end items-center">
             <strong :class="getColorTotal(scope.row.total)">
@@ -161,7 +170,9 @@ export default {
       }
     },
     getColorSide(side) {
-      return side.toLowerCase() === 'buy' ? 'text-success' : 'text-error'
+      return side.toLowerCase() === 'buy'
+        ? 'text-success bg-green-100'
+        : 'text-error bg-red-100'
     },
     sourceSymbol(source_symbol) {
       return source_symbol || ''
@@ -195,7 +206,7 @@ export default {
       const partner = this.partner(transaction)
 
       this.setSelectedUserView(partner)
-      this.$router.push(`user-detail/${partner.id}`)
+      this.$router.push(`/user-detail/${partner.id}`)
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="container flex flex-col justify-start items-center h-screen">
     <div class="w-full md:w-2/3 lg:w-1/2 xl:w-2/5">
-      <el-card class="w-full min-w-full">
+      <el-card class="p-3 rounded-lg shadow-lg">
         <div class="flex">
           <div
             class="w-1/2 p-2 cursor-pointer"

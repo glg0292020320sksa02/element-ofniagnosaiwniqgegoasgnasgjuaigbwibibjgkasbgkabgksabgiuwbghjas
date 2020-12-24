@@ -16,7 +16,11 @@
       hide-required-asterisk
     >
       <el-form-item label="Ngân hàng" prop="bank_id">
-        <el-select-bank ref="bank_id" v-model="model.bank_id"></el-select-bank>
+        <el-select-bank
+          ref="bank_id"
+          v-model="model.bank_id"
+          disabled
+        ></el-select-bank>
       </el-form-item>
 
       <el-form-item label="Username" prop="username">

@@ -3,7 +3,7 @@
     class="change-password container flex justify-center items-start min-h-screen"
   >
     <div class="w-full md:w-2/3 xl:w-1/3">
-      <el-card>
+      <el-card class="p-3 rounded-lg shadow-lg">
         <div
           class="card-header mb-12 flex flex-col justify-center align-middle text-center"
         >
@@ -15,13 +15,12 @@
         <el-form
           ref="form"
           :model="model"
-          :rules="rules"
           label-position="top"
           label-width="120px"
           hide-required-asterisk
           @submit.native.prevent="onSubmit"
         >
-          <el-form-item prop="old_password">
+          <el-form-item prop="old_password" :rules="rules.old_password">
             <el-input
               ref="old_password"
               v-model="model.old_password"
@@ -30,7 +29,7 @@
               show-password
             ></el-input>
           </el-form-item>
-          <el-form-item prop="password">
+          <el-form-item prop="password" :rules="rules.password">
             <el-input
               ref="password"
               v-model="model.password"
@@ -39,7 +38,7 @@
               show-password
             ></el-input>
           </el-form-item>
-          <el-form-item prop="confirmPassword">
+          <el-form-item prop="confirmPassword" :rules="rules.confirmPassword">
             <el-input
               ref="confirmPassword"
               v-model="model.confirmPassword"
@@ -48,31 +47,24 @@
               show-password
             ></el-input>
           </el-form-item>
-
-          <div class="flex justify-center flex-wrap">
-            <span class="text-sm text-subtitle font-bold">
-              {{ $t('enterCodeFromGoogle') }}
-            </span>
-
-            <div class="w-1/2 mt-2">
-              <el-form-item prop="2fa_code">
-                <el-input
-                  ref="2fa_code"
-                  v-model="model['2fa_code']"
-                  class="google-code"
-                  maxlength="6"
-                >
-                  <svg-icon
-                    slot="prefix"
-                    class="el-input__icon"
-                    name="authen"
-                    size="20 25"
-                  ></svg-icon>
-                </el-input>
-              </el-form-item>
-            </div>
-          </div>
-
+          <input-form>
+            <el-form-item prop="2fa_code" :rules="rules[`2fa_code`]">
+              <el-input
+                ref="2fa_code"
+                v-model="model['2fa_code']"
+                :placeholder="$t('enterCodeFromGoogle')"
+                class="google-code"
+                maxlength="6"
+              >
+                <svg-icon
+                  slot="prefix"
+                  class="el-input__icon"
+                  name="authen"
+                  size="20 25"
+                ></svg-icon>
+              </el-input>
+            </el-form-item>
+          </input-form>
           <div class="mt-12">
             <el-button
               :loading="loading"
@@ -95,10 +87,13 @@ import { mapActions } from 'vuex'
 
 import { password, twoFACode } from '@/utils/form-rules'
 import validateForm from '@/mixins/validate-form'
-
+import InputForm from '@/components/common/input-form'
 export default {
   name: 'AuthChangePassword',
   layout: 'auth',
+  components: {
+    InputForm,
+  },
   mixins: [validateForm],
   validate({ store }) {
     return store.getters.isEnable2FA

@@ -1,13 +1,16 @@
 <template>
-  <div class="page-home container py-8 space-y-8">
+  <div class="page-dashboard container py-8 space-y-8">
     <market-trending></market-trending>
 
     <lazy-hydrate when-visible>
-      <market-sell-list :orders="orderList"></market-sell-list>
+      <market-sell-list
+        :orders="orderList"
+        :loading="loading"
+      ></market-sell-list>
     </lazy-hydrate>
 
     <lazy-hydrate when-visible>
-      <market-buy-list :orders="orderList"></market-buy-list>
+      <market-buy-list :orders="orderList" :loading="loading"></market-buy-list>
     </lazy-hydrate>
   </div>
 </template>
@@ -34,6 +37,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       orderList: [],
       value: 0,
       price: 0,
@@ -57,8 +61,10 @@ export default {
       getAllOrders: 'market/getAllOrders',
     }),
     async loadAllOrders() {
+      this.loading = true
       const { data } = await this.getAllOrders()
 
+      this.loading = false
       this.orderList = data
     },
     getPrecision(num) {

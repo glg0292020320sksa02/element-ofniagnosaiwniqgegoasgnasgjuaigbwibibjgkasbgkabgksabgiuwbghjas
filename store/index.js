@@ -1,6 +1,7 @@
 export const state = () => ({
   activeTab: 'BTC',
   selectedUserView: null,
+  selectedTransactionView: null,
 })
 export const getters = {
   isEnable2FA(state) {
@@ -13,6 +14,9 @@ export const getters = {
   },
   selectedUserView(state) {
     return state.selectedUserView ? state.selectedUserView : {}
+  },
+  selectedTransactionView(state) {
+    return state.selectedTransactionView ? state.selectedTransactionView : {}
   },
 }
 export const mutations = {
@@ -32,5 +36,8 @@ export const actions = {
   },
   getUserDetail({}, id) {
     return this.$axios.$get(`/api/exchanges/profile/${id}`)
+  },
+  getTransactionDetail({}, id) {
+    return this.$axios.$get(`/api/transactions/find/${id}`)
   },
 }

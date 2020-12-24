@@ -1,7 +1,7 @@
 <template>
   <div class="container flex justify-center items-start min-h-screen">
     <div class="w-full md:w-3/5 xl:w-1/3">
-      <el-card shadow="never" class="p-3">
+      <el-card shadow="never" class="p-3 rounded-lg shadow-lg">
         <div
           class="card-header mb-12 flex flex-col justify-center align-middle text-center"
         >

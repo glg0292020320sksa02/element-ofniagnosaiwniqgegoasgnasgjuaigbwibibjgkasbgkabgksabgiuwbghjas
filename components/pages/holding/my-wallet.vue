@@ -102,14 +102,14 @@
             <template slot-scope="scope">
               <div class="flex items-center justify-start space-x-4">
                 <div
-                  class="text-primary text-xs uppercase cursor-pointer"
-                  @click="depositCoin(scope.row)"
+                  class="text-primary text-xs font-bold uppercase cursor-pointer hover:underline"
+                  @click.stop="depositCoin(scope.row)"
                 >
                   {{ $t('deposit') }}
                 </div>
                 <div
-                  class="text-primary text-xs uppercase cursor-pointer"
-                  @click="withdrawCoin(scope.row)"
+                  class="text-primary text-xs font-bold uppercase cursor-pointer hover:underline"
+                  @click.stop="withdrawCoin(scope.row)"
                 >
                   {{ $t('widthdraw') }}
                 </div>
