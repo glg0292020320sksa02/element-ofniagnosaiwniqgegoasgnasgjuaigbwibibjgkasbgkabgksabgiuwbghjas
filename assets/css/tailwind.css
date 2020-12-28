@@ -2,12 +2,17 @@
 
 @import 'tailwindcss/components';
 
-@import "./table.css";
+@import './table.css';
 
 @import 'tailwindcss/utilities';
 
 @layer base {
   button:focus {
     outline: none;
+  }
+}
+@layer components {
+  .success-btn {
+    background-color: rgb(2, 192, 118);
   }
 }

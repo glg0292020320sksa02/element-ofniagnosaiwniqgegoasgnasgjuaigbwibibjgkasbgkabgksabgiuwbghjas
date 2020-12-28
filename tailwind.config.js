@@ -23,8 +23,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          200: 'rgb(0, 82, 204, 0.2)',
-          default: 'rgb(0,82,204)',
+          200: '#C7D2FE',
+          default: '#4F46E5',
         },
         success: {
           200: 'rgba(2, 192, 118, 0.2)',

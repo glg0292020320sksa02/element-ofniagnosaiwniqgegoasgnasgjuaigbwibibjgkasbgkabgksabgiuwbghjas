@@ -18,6 +18,7 @@
             <div v-else class="flex items-center space-x-8">
               <el-button
                 type="text"
+                class="font-bold"
                 @click="$router.push({ name: 'auth-login' })"
               >
                 {{ $t('signin') }}
@@ -25,6 +26,7 @@
               <el-button
                 type="primary"
                 size="small"
+                class="font-bold"
                 @click="$router.push({ name: 'auth-register' })"
               >
                 {{ $t('register') }}

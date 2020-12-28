@@ -95,11 +95,6 @@ export default {
           ],
         },
         {
-          name: 'navAffiliate',
-          to: '/affiliate',
-          authCheck: this.$auth.loggedIn,
-        },
-        {
           name: 'navHolding',
           to: '/holding',
           authCheck: this.$auth.loggedIn,

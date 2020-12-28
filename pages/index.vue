@@ -1,17 +1,10 @@
 <template>
   <div class="page-home container py-8 space-y-8">
     <market-trending></market-trending>
-
     <lazy-hydrate when-visible>
-      <market-sell-list
-        :orders="orderList"
-        :loading="loading"
-      ></market-sell-list>
+      <market-list :loading="loading"></market-list>
     </lazy-hydrate>
     <register-banner></register-banner>
-    <lazy-hydrate when-visible>
-      <market-buy-list :orders="orderList" :loading="loading"></market-buy-list>
-    </lazy-hydrate>
   </div>
 </template>
 
@@ -20,8 +13,7 @@ import { mapActions } from 'vuex'
 import LazyHydrate from 'vue-lazy-hydration'
 
 import MarketTrending from '@/components/pages/home/market-trending'
-import MarketSellList from '@/components/pages/home/market-list/market-sell-list'
-import MarketBuyList from '@/components/pages/home/market-list/market-buy-list'
+import MarketList from '@/components/pages/home/market-list/market-list'
 import RegisterBanner from '@/components/common/promotion/register-banner'
 export default {
   name: 'Home',
@@ -29,8 +21,7 @@ export default {
   components: {
     LazyHydrate,
     MarketTrending,
-    MarketSellList,
-    MarketBuyList,
+    MarketList,
     RegisterBanner,
   },
   fetch() {
