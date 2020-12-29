@@ -35,7 +35,7 @@
             </span>
             <span>
               Volume:
-              <strong>{{ marketCap.volume | filterPrice }} VNDS</strong>
+              <strong>{{ marketCap.volume | filterPriceMoney }} VNDS</strong>
             </span>
           </el-tag>
         </div>
@@ -61,7 +61,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { filterPrice } from '@/filters'
+import { filterPrice, filterPriceMoney } from '@/filters'
 
 import TableContentLoader from '@/components/common/table-content-loader'
 import FilterDate from '@/components/common/setting/filter-date'
@@ -71,7 +71,7 @@ import TradeHistory from '@/components/pages/trade-history/'
 
 export default {
   name: 'SettingTradeHistory',
-  filters: { filterPrice },
+  filters: { filterPrice, filterPriceMoney },
   components: {
     TableContentLoader,
     FilterDate,

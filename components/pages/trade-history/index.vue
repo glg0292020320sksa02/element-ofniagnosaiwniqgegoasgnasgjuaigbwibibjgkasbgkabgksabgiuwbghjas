@@ -80,7 +80,7 @@
             </span>
           </div>
           <div class="flex justify-start text-xs items-center">
-            <span>{{ scope.row.price | filterPrice }}</span>
+            <span>{{ scope.row.price | filterPriceMoney }}</span>
             <span class="ml-1 text-xs text-subtitle">
               {{
                 `${targetSymbol(scope.row.target_symbol)}/${sourceSymbol(
@@ -114,11 +114,11 @@
 <script>
 import { mapActions } from 'vuex'
 
-import { filterPrice } from '@/filters'
+import { filterPrice, filterPriceMoney } from '@/filters'
 
 export default {
   name: 'TradeHistory',
-  filters: { filterPrice },
+  filters: { filterPrice, filterPriceMoney },
   props: {
     data: {
       type: [Object, Array],

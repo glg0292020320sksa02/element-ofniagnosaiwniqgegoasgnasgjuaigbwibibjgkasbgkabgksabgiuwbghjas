@@ -50,7 +50,7 @@
                 </template>
               </input-currency>
               <span class="w-full text-gray-500 text-xs">
-                {{ $t('marketPrice') }}: {{ marketPrice | filterPrice }}
+                {{ $t('marketPrice') }}: {{ marketPrice | filterPriceMoney }}
               </span>
             </input-form>
             <input-form :label="$t('amountCoin')">
@@ -99,7 +99,7 @@
 /* eslint-disable no-alert, no-console */
 import Big from 'big.js'
 import { mapActions, mapGetters } from 'vuex'
-import { filterPrice } from '@/filters'
+import { filterPriceMoney } from '@/filters'
 
 import SelectCoin from '@/components/pages/wallet-sell/select-coin'
 import InputCurrency from '@/components/ui/input-currency'
@@ -110,7 +110,7 @@ const MONEY_SELL_DEFAULT = 'BTC'
 
 export default {
   name: 'WalletBuy',
-  filters: { filterPrice },
+  filters: { filterPriceMoney },
   layout: 'auth',
   components: { SelectCoin, InputCurrency, InputForm },
   async fetch() {
