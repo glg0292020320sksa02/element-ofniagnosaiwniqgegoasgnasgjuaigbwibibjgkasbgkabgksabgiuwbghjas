@@ -17,13 +17,15 @@
         class="bg-indigo-100 text-primary border-none"
         @click="onRedirectWallet"
       >
-        {{ $t('create-a-new-buy-order') }}
+        {{ createOrderButtonLabel }}
       </el-button>
     </div>
-    <order-table></order-table>
+    <order-table :orders="orderListFiltered" :side="activeSide"></order-table>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+import { coin, sideObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CGroupButton from '@/components/ui/control/c-group-button'
 import CTab from '@/components/ui/control/c-tab'
@@ -34,18 +36,51 @@ export default {
     CGroupButton,
     CTab,
   },
+  fetch() {
+    this.loadAllOrders()
+  },
   data() {
     return {
-      tabs: ['BTC', 'ETH', 'XRP', 'USDT', 'VNDS'],
-      sides: [
-        { text: 'Buy', value: 'BUY' },
-        { text: 'Sell', value: 'SELL' },
-      ],
-      activeSide: ' BUY',
-      activeTab: 'BTC',
+      tabs: Object.values(coin),
+      sides: Object.values(sideObj),
+      activeSide: side.BUY,
+      activeTab: coin.BTC,
+      orders: [],
+      loading: false,
     }
   },
+  computed: {
+    orderListFiltered() {
+      if (!this.orders.length) return []
+
+      return this.orders
+        .filter(order => order.type === this.activeSide)
+        .filter(order => {
+          const symbol = order?.wallet?.currency?.symbol
+
+          return symbol === this.activeTab
+        })
+        .sort((a, b) => {
+          return b.price - a.price
+        })
+    },
+    createOrderButtonLabel() {
+      return this.activeSide === 'BUY'
+        ? this.$t('create-a-new-buy-order')
+        : this.$t('create-a-new-sell-order')
+    },
+  },
   methods: {
+    ...mapActions({
+      getAllOrders: 'market/getAllOrders',
+    }),
+    async loadAllOrders() {
+      this.loading = true
+      const { data } = await this.getAllOrders()
+
+      this.loading = false
+      this.orders = data
+    },
     onRedirectWallet() {},
   },
 }

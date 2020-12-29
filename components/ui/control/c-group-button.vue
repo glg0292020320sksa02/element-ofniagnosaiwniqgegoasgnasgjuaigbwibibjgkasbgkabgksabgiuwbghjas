@@ -6,7 +6,7 @@
       v-for="(item, i) in listItem"
       :key="i + '_cgroupbutton'"
       class="px-2 py-1 text-xs rounded shadow-lg"
-      :class="isActive(item) ? 'bg-indigo-600 text-white ' : ''"
+      :class="returnValue === item.value ? 'bg-indigo-600 text-white' : ''"
       @click="changeTab(item)"
     >
       {{ item.text }}
@@ -43,25 +43,19 @@ export default {
       return this.items.map(x => {
         return {
           text: this.object ? x.text : x,
-          value: this.object ? x.value : x,
+          value: this.object ? x.value.toString() : x.toString(),
         }
       })
+    },
+    returnValue() {
+      console.log(this.returnObject ? this.value.value : this.value)
+
+      return this.returnObject ? this.value.value : this.value
     },
   },
   methods: {
     changeTab(payload) {
       this.$emit('input', this.returnObject ? payload : payload.value)
-    },
-    isActive(item) {
-      console.log(
-        this.returnObject
-          ? this.value.value === item.value
-          : this.value === item.value
-      )
-
-      return this.returnObject
-        ? this.value.value === item.value
-        : this.value === item.value
     },
   },
 }
