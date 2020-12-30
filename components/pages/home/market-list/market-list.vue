@@ -9,6 +9,7 @@
           class="mr-8"
           :items="sides"
           object
+          @change="selectActiveSide($event)"
         ></c-group-button>
         <c-tab v-model="activeTab" :items="tabs"></c-tab>
       </div>
@@ -73,6 +74,7 @@ export default {
   methods: {
     ...mapActions({
       getAllOrders: 'market/getAllOrders',
+      setActiveSide: 'setActiveSide',
     }),
     async loadAllOrders() {
       this.loading = true
@@ -82,6 +84,9 @@ export default {
       this.orders = data
     },
     onRedirectWallet() {},
+    selectActiveSide(payload) {
+      this.setActiveSide(payload)
+    },
   },
 }
 </script>
