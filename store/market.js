@@ -1,6 +1,7 @@
 export const state = () => ({
   selectedSellOrder: null,
   selectedBuyOrder: null,
+  selectedOrder: null,
 })
 export const mutations = {
   SET_SELECTED_BUY_ORDER(state, payload) {
@@ -9,13 +10,19 @@ export const mutations = {
   SET_SELECTED_SELL_ORDER(state, payload) {
     state.selectedSellOrder = payload
   },
+  SET_SELECTED_ORDER(state, payload) {
+    state.selectedOrder = payload
+  },
 }
 export const getters = {
   selectedSellOrder(state) {
-    return state.selectedSellOrder ? state.selectedSellOrder : {}
+    return state.selectedSellOrder || {}
   },
   selectedBuyOrder(state) {
-    return state.selectedBuyOrder ? state.selectedBuyOrder : {}
+    return state.selectedBuyOrder || {}
+  },
+  selectedOrder(state) {
+    return state.selectedOrder || {}
   },
 }
 export const actions = {
@@ -54,6 +61,9 @@ export const actions = {
   },
   setSelectedSellOrder({ commit }, payload) {
     commit('SET_SELECTED_SELL_ORDER', payload)
+  },
+  setSelectedOrder({ commit }, payload) {
+    commit('SET_SELECTED_ORDER', payload)
   },
   getExchangeAmount({}, body) {
     return this.$axios.$post('/api/exchanges/calculate_amount', body)

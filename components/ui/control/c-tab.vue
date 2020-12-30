@@ -55,6 +55,7 @@ export default {
   methods: {
     changeTab(payload) {
       this.$emit('input', this.returnObject ? payload : payload.value)
+      this.$emit('change', this.returnObject ? payload : payload.value)
     },
     isActive(item) {
       return this.returnObject

@@ -11,7 +11,11 @@
           object
           @change="selectActiveSide($event)"
         ></c-group-button>
-        <c-tab v-model="activeTab" :items="tabs"></c-tab>
+        <c-tab
+          v-model="activeTab"
+          :items="tabs"
+          @change="selectActiveTab($event)"
+        ></c-tab>
       </div>
       <el-button
         size="small"
@@ -75,6 +79,7 @@ export default {
     ...mapActions({
       getAllOrders: 'market/getAllOrders',
       setActiveSide: 'setActiveSide',
+      setActiveTab: 'setActiveTab',
     }),
     async loadAllOrders() {
       this.loading = true
@@ -83,9 +88,18 @@ export default {
       this.loading = false
       this.orders = data
     },
-    onRedirectWallet() {},
+    onRedirectWallet() {
+      const router = `/wallet/${this.activeSide.toLowerCase()}?coin=${
+        this.activeTab
+      }`
+
+      this.$router.push(router)
+    },
     selectActiveSide(payload) {
       this.setActiveSide(payload)
+    },
+    selectActiveTab(payload) {
+      this.setActiveTab(payload)
     },
   },
 }

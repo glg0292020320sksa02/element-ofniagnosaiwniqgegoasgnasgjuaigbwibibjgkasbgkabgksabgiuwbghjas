@@ -40,40 +40,38 @@
         <div class="flex flex-row justify-end items-end">
           <label class="block mr-2">
             <div>
-              <span class="text-subtitle text-xs">Số lượng</span>
+              <span class="text-subtitle text-xs">
+                Số lượng {{ selectedOrder.source_symbol }}
+              </span>
               <button
-                class="text-xxs rounded-full px-2 bg-indigo-100 text-primary"
+                v-for="(per, indx) in amountPercent"
+                :key="indx + '_percent'"
+                class="text-xxs rounded-full px-2 py-1 ml-1"
+                :class="
+                  selectedAmountPercent === per
+                    ? 'bg-primary text-white'
+                    : 'bg-indigo-100 text-primary'
+                "
+                @click="selectAmountPercent(per)"
               >
-                25%
-              </button>
-              <button
-                class="text-xxs rounded-full px-2 bg-indigo-100 text-primary"
-              >
-                50%
-              </button>
-              <button
-                class="text-xxs rounded-full px-2 bg-indigo-100 text-primary"
-              >
-                75%
-              </button>
-              <button
-                class="text-xxs rounded-full px-2 bg-indigo-100 text-primary"
-              >
-                MAX
+                {{ per }}%
               </button>
             </div>
-            <input
+            <input-currency
+              v-model="amount"
               class="form-input mt-1 block w-full text-sm border-indigo-600 focus:outline-indigo-100 focus:border-indigo-600"
-              placeholder="0,0000 BTC"
-            />
+            ></input-currency>
           </label>
-          <button class="px-4 py-2 rounded success-btn text-white font-bold">
-            Xác nhận
+          <button
+            class="px-4 py-3 h-12 rounded success-btn text-white font-bold"
+            @click="onCreateExchange"
+          >
+            Mua {{ selectedOrder.source_symbol }}
           </button>
         </div>
         <p class="text-xs text-subtitle mt-2">
-          <strong>≈ 23,0290101.02020</strong>
-          VNDS
+          <strong>≈ {{ total | filterPriceMoney }}</strong>
+          {{ payment_method === 'VNDS' ? selectedOrder.target_symbol : 'VND' }}
         </p>
       </div>
     </div>
@@ -81,17 +79,90 @@
 </template>
 
 <script>
+import Big from 'big.js'
+import { filterPriceMoney } from '@/filters'
+import { mapActions, mapGetters } from 'vuex'
+import InputCurrency from '@/components/ui/input-currency'
+
 export default {
   name: 'ExchangeSell',
+  filters: { filterPriceMoney },
+  components: { InputCurrency },
+  fetch() {
+    this.loadDetailOrder()
+  },
   data() {
     return {
       payment_method: 'VCB',
+      selectedAmountPercent: 0,
+      amount: 0,
       paymentMethods: [
         { name: 'Vietcombank', value: 'VCB', icon: 'vietcom-bank.png' },
         { name: 'Techcombank', value: 'TCB', icon: 'techcom-bank.png' },
         { name: 'VNDS', value: 'VNDS', icon: 'vnds.png' },
       ],
+      amountPercent: [25, 50, 75, 100],
     }
+  },
+  computed: {
+    ...mapGetters({
+      selectedOrder: 'market/selectedOrder',
+    }),
+    total() {
+      const price = Big(this.selectedOrder.price)
+
+      // Big decimal: total = this.price * this.amount
+      return this.amount ? price.times(this.amount).toNumber() : 0
+    },
+    orderAmount() {
+      return this.selectedOrder.amount
+    },
+  },
+  methods: {
+    ...mapActions({
+      addExchangesBuy: 'market/addExchangesBuy',
+    }),
+    loadDetailOrder() {
+      this.amount = this.selectedOrder.remaining_amount
+    },
+    selectAmountPercent(percent) {
+      const total = Big(this.orderAmount)
+
+      const amount = total.times(percent).div(100)
+
+      this.amount = amount.toNumber()
+      this.selectedAmountPercent = percent
+    },
+    async onCreateExchange() {
+      this.$notify.closeAll()
+
+      const body = {
+        payment_method: this.payment_method,
+        amount: this.amount.toString(),
+        order_id: this.selectedOrder.id,
+      }
+
+      try {
+        this.loading = true
+        const { payment_url: paymentUrl } = await this.addExchangesBuy(body)
+
+        window.open(paymentUrl, '_blank')
+        this.$router.push({ name: 'index' })
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('exchange-susscessful'),
+          type: 'success',
+        })
+      } catch (e) {
+        this.$notify({
+          title: this.$t('failure'),
+          message: e.exception,
+          type: 'error',
+        })
+      } finally {
+        this.loading = false
+      }
+    },
   },
 }
 </script>
