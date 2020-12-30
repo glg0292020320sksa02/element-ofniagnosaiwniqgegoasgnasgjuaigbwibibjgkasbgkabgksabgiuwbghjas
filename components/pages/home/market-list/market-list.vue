@@ -25,7 +25,12 @@
         {{ createOrderButtonLabel }}
       </el-button>
     </div>
-    <order-table :orders="orderListFiltered" :side="activeSide"></order-table>
+    <table-content-loader
+      v-if="$fetchState.pending || loading"
+    ></table-content-loader>
+    <div v-else>
+      <order-table :orders="orderListFiltered" :side="activeSide"></order-table>
+    </div>
   </div>
 </template>
 <script>
@@ -34,12 +39,14 @@ import { coin, sideRequestObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CGroupButton from '@/components/ui/control/c-group-button'
 import CTab from '@/components/ui/control/c-tab'
+import TableContentLoader from '@/components/common/table-content-loader'
 
 export default {
   components: {
     OrderTable,
     CGroupButton,
     CTab,
+    TableContentLoader,
   },
   fetch() {
     this.loadAllOrders()
