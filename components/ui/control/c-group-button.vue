@@ -1,12 +1,16 @@
 <template>
   <div
-    class="c-group-button bg-white rounded p-0 border border-indigo-100 flex flex-row justify-between items-stretch"
+    class="c-group-button bg-white rounded overflow-hidden p-1 border border-indigo-100 flex flex-row justify-between items-stretch"
   >
     <button
       v-for="(item, i) in listItem"
       :key="i + '_cgroupbutton'"
-      class="px-2 py-1 text-xs rounded shadow-lg"
-      :class="returnValue === item.value ? 'bg-indigo-600 text-white' : ''"
+      class="px-3 py-1 text-xs"
+      :class="
+        returnValue === item.value
+          ? 'bg-indigo-600 text-white shadow-sm rounded'
+          : ''
+      "
       @click="changeTab(item)"
     >
       {{ item.text }}

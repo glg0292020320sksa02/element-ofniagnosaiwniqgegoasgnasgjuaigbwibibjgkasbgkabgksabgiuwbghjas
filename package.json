@@ -62,6 +62,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/tailwindcss": "^3.0.2",
+    "@tailwindcss/custom-forms": "^0.2.1",
     "@vt7/svg-sprite": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "compression-webpack-plugin": "^4.0.1",

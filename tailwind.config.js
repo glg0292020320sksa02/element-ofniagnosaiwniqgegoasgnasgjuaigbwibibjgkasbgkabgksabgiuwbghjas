@@ -46,6 +46,7 @@ module.exports = {
       },
       fontSize: {
         'x-small': '0.5rem',
+        xxs: '0.5rem',
         small: '0.65rem',
       },
     },
@@ -57,6 +58,7 @@ module.exports = {
         body: { color: config('theme.colors.body') },
       })
     }),
+    require('@tailwindcss/custom-forms'),
   ],
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css

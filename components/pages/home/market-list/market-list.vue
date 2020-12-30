@@ -25,7 +25,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import { coin, sideObj, side } from '@/utils/constant'
+import { coin, sideRequestObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CGroupButton from '@/components/ui/control/c-group-button'
 import CTab from '@/components/ui/control/c-tab'
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       tabs: Object.values(coin),
-      sides: Object.values(sideObj),
+      sides: Object.values(sideRequestObj),
       activeSide: side.BUY,
       activeTab: coin.BTC,
       orders: [],
