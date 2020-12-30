@@ -33,7 +33,7 @@
             </td>
             <td class="text-left">
               <span class="font-bold text-green-600">
-                {{ order.price | filterPrice }}
+                {{ order.price | filterPriceMoney }}
               </span>
               <span class="text-xs text-subtitle">
                 {{ order.target_symbol }}
@@ -71,12 +71,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { filterPrice } from '@/filters'
+import { filterPrice, filterPriceMoney } from '@/filters'
 
 import IconUser from '@/components/ui/icon/icon-user'
 export default {
   name: 'ElTabPaneCrypto',
-  filters: { filterPrice },
+  filters: { filterPrice, filterPriceMoney },
   components: {
     IconUser,
   },

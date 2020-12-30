@@ -76,7 +76,7 @@
             </span>
           </div>
           <div class="flex justify-start items-center text-xs">
-            <span>{{ scope.row.price | filterPrice }}</span>
+            <span>{{ scope.row.price | filterPriceMoney }}</span>
             <span class="ml-1 text-xs text-subtitle">
               {{
                 `${targetSymbol(scope.row.target_symbol)}/${sourceSymbol(
@@ -129,13 +129,13 @@
 <script>
 import { mapActions } from 'vuex'
 
-import { filterPrice } from '@/filters'
+import { filterPrice, filterPriceMoney } from '@/filters'
 import TradeHistory from '@/components/pages/trade-history/'
 import TableContentLoader from '@/components/common/table-content-loader'
 
 export default {
   name: 'OpenOrder',
-  filters: { filterPrice },
+  filters: { filterPrice, filterPriceMoney },
   components: {
     TradeHistory,
     TableContentLoader,

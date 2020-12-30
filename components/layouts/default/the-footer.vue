@@ -1,10 +1,10 @@
 <template>
-  <footer class="the-footer text-sm pt-6 text-gray-500 bg-blue-900">
+  <footer class="the-footer text-xs pt-6 text-white bg-primary">
     <div class="container mx-auto">
       <div class="top-footer flex flex-row justify-between items-start py-6">
         <div>
           <the-logo class="text-white text-3xl"></the-logo>
-          <p class="text-gray-400">
+          <p class="text-white">
             Digital platform for exchange crypto currency
           </p>
           <ul class="mt-4">
@@ -23,7 +23,7 @@
           :key="index + '_footermenu'"
           class="menu flex flex-col justify-start items-stretch"
         >
-          <strong class="uppercase text-gray-400">{{ menu.title }}</strong>
+          <strong class="uppercase text-white">{{ menu.title }}</strong>
           <nuxt-link
             v-for="(sub, indexSub) in menu.subMenu"
             :key="indexSub + '_submenu'"
@@ -37,7 +37,7 @@
           <el-button
             type="primary"
             size="small"
-            class="m-0 mb-2 w-32 text-gray-100"
+            class="m-0 mb-2 w-32 text-primary bg-indigo-100"
             @click="changeLocales"
           >
             {{ $i18n.locale === 'en' ? 'English' : 'Tiếng việt' }}
@@ -45,41 +45,17 @@
           <el-button
             type="primary"
             size="small"
-            class="m-0 mb-2 w-32 text-gray-100"
+            class="m-0 mb-2 w-32 text-primary bg-indigo-100"
           >
             VND
           </el-button>
         </div>
       </div>
       <div
-        class="center-footer py-6 flex flex-row justify-between items-start border-t border-gray-700 border-opacity-80"
-      >
-        <div class="center-left flex flex-col justify-start items-start">
-          <strong>SUBSCRIBE TO OUR NEWSLETTER</strong>
-          <span>
-            The last news, articles, and resources, send to your inbox weekly
-          </span>
-        </div>
-        <div class="center-right flex flex-row justify-end items-center">
-          <el-input placeholder="Enter your email" class="mr-2"></el-input>
-          <el-button type="primary" class="text-gray-100">Subscribe</el-button>
-        </div>
-      </div>
-      <div
-        class="bottom-footer flex flex-row justify-between items-center py-6 border-t border-gray-700 border-opacity-80"
+        class="bottom-footer flex flex-row justify-between items-center py-6 border-t border-indigo-400 border-opacity-80"
       >
         <div class="bottom-left">
           <span class="text-xs">© 2020 by CoinToATM</span>
-        </div>
-        <div class="bottom-right flex flex-row justify-end items-center">
-          <a
-            v-for="(social, index) in socials"
-            :key="index + '_social'"
-            href="#"
-            class="flex justify-center items-center bg-gray-100 w-10 h-10 p-2 rounded-full ml-2"
-          >
-            <img :src="require(`@/assets/images/${social.image}`)" alt="" />
-          </a>
         </div>
       </div>
     </div>

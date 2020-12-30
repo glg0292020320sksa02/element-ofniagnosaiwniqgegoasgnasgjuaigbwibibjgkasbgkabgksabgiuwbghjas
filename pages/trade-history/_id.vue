@@ -87,7 +87,7 @@
                 </td>
                 <td>
                   <strong>
-                    {{ transactionDetail.price | filterPrice }}
+                    {{ transactionDetail.price | filterPriceMoney }}
                     <span class="text-subtitle text-xs font-normal">
                       {{ transactionDetail.target_symbol }}/{{
                         transactionDetail.source_symbol
@@ -163,13 +163,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { format as formatTimeago } from 'timeago.js'
-import { filterPrice } from '@/filters'
+import { filterPrice, filterPriceMoney } from '@/filters'
 
 import TableContentLoader from '@/components/common/table-content-loader'
 
 export default {
   name: 'TransactionDetail',
-  filters: { filterPrice },
+  filters: { filterPrice, filterPriceMoney },
   components: {
     TableContentLoader,
   },

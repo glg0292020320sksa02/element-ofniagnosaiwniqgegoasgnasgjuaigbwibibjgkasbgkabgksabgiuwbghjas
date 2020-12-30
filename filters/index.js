@@ -31,6 +31,12 @@ const filterPrice = function (value) {
   return numeral(number).format('0,0.[00000000]')
 }
 
+const filterPriceMoney = function (value) {
+  const number = Number(value) || 0
+
+  return numeral(number).format('0,0.[]')
+}
+
 const filterPriceString = function (value) {
   const numberString =
     value.toString().lastIndexOf('.') === -1 ||
@@ -47,4 +53,10 @@ const filterMarketCap = function (value) {
   return numeral(number).format('0.00a')
 }
 
-export { filterPercent, filterPrice, filterMarketCap, filterPriceString }
+export {
+  filterPercent,
+  filterPrice,
+  filterMarketCap,
+  filterPriceString,
+  filterPriceMoney,
+}

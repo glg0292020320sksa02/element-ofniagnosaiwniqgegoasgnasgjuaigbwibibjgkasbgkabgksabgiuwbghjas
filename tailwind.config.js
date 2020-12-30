@@ -23,8 +23,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          200: 'rgb(0, 82, 204, 0.2)',
-          default: 'rgb(0,82,204)',
+          200: '#C7D2FE',
+          default: '#4F46E5',
         },
         success: {
           200: 'rgba(2, 192, 118, 0.2)',
@@ -46,6 +46,7 @@ module.exports = {
       },
       fontSize: {
         'x-small': '0.5rem',
+        xxs: '0.5rem',
         small: '0.65rem',
       },
     },
@@ -57,6 +58,7 @@ module.exports = {
         body: { color: config('theme.colors.body') },
       })
     }),
+    require('@tailwindcss/custom-forms'),
   ],
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css

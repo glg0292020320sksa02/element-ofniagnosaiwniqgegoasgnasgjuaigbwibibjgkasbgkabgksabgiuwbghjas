@@ -14,7 +14,7 @@
       </span>
       <div class="flex flex-col justify-end items-start">
         <strong class="text-base">
-          1{{ item.symbol }} = {{ getMarketUSD.price | filterPrice }}$
+          1{{ item.symbol }} = {{ getMarketUSD.price | filterPriceMoney }}$
         </strong>
         <span class="text-subtitle">
           24h Vol {{ getMarketUSD.market_cap | filterMarketCap }}
@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import { filterPercent, filterPrice, filterMarketCap } from '@/filters'
+import { filterPercent, filterMarketCap, filterPriceMoney } from '@/filters'
 
 import IconLink from '@/components/ui/icon/icon-link'
 const BASE_URL_SPARKLINES =
@@ -51,7 +51,7 @@ const BASE_URL_SPARKLINES =
 
 export default {
   name: 'MarketTrendingItem',
-  filters: { filterPercent, filterPrice, filterMarketCap },
+  filters: { filterPercent, filterMarketCap, filterPriceMoney },
   components: {
     IconLink,
   },
