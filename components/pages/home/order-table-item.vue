@@ -1,11 +1,11 @@
 <template>
   <div
-    class="order-item border-b bg-white border-b-gray-200"
-    :class="{ 'my-4 shadow-lg rounded-lg overflow-hidden border': isExpand }"
+    class="order-item border-b bg-white border-b-gray-200 transform transition-all duration-75 ease-in-out"
+    :class="{ 'my-4 shadow-xl rounded-lg overflow-hidden border': isExpand }"
   >
     <div
       class="flex flex-row justify-between items-stretch p-6 cursor-pointer"
-      @click="isExpand = !isExpand"
+      @click="selectOrder(item)"
     >
       <div class="order-column w-2/12">
         <div class="flex flex-row justify-start items-center">
@@ -77,7 +77,10 @@
         </div>
       </div>
     </div>
-    <div v-if="isExpand" class="expand bg-gray-100 p-6 flex justify-end">
+    <div
+      v-if="isExpand"
+      class="expand border-t bg-gray-100 p-6 flex justify-end"
+    >
       <exchange-sell v-if="isBuy"></exchange-sell>
       <exchange-buy v-else></exchange-buy>
     </div>
@@ -86,12 +89,13 @@
 
 <script>
 import { paymentMethods } from '@/utils/constant'
+import { mapActions, mapGetters } from 'vuex'
+import { filterPrice, filterPriceMoney } from '@/filters'
 
 import ExchangeSell from '@/components/pages/home/exchange-sell'
 import ExchangeBuy from '@/components/pages/home/exchange-buy'
 
 import IconBuy from '@/components/ui/icon/icon-buy'
-import { filterPrice, filterPriceMoney } from '@/filters'
 
 export default {
   name: 'OrderTableItem',
@@ -113,16 +117,31 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      isExpand: false,
-    }
-  },
   computed: {
+    ...mapGetters({
+      selectedOrder: 'market/selectedOrder',
+    }),
     acceptPayment() {
       return paymentMethods.filter(
         item => item.accept === 'ALL' || item.accept === this.item.side
       )
+    },
+    isExpand() {
+      return this.selectedOrder.id === this.item.id
+    },
+  },
+  methods: {
+    ...mapActions({
+      setSelectedOrder: 'market/setSelectedOrder',
+    }),
+    selectOrder(payload) {
+      if (this.isExpand) {
+        this.setSelectedOrder(null)
+
+        return
+      }
+
+      this.setSelectedOrder(payload)
     },
   },
 }

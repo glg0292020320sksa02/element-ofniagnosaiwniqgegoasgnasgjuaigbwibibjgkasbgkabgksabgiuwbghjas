@@ -1,5 +1,6 @@
 export const state = () => ({
   activeTab: 'BTC',
+  activeSide: null,
   selectedUserView: null,
   selectedTransactionView: null,
 })
@@ -23,6 +24,9 @@ export const mutations = {
   SET_ACTIVE_TAB(state, payload) {
     state.activeTab = payload
   },
+  SET_ACTIVE_SIDE(state, payload) {
+    state.activeSide = payload
+  },
   SET_SELECTED_USER_VIEW(state, payload) {
     state.selectedUserView = payload
   },
@@ -30,6 +34,9 @@ export const mutations = {
 export const actions = {
   setActiveTab({ commit }, payload) {
     commit('SET_ACTIVE_TAB', payload)
+  },
+  setActiveSide({ commit }, payload) {
+    commit('SET_ACTIVE_SIDE', payload)
   },
   setSelectedUserView({ commit }, payload) {
     commit('SET_SELECTED_USER_VIEW', payload)

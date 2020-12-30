@@ -4,41 +4,115 @@
       <label class="block mr-2">
         <div>
           <span class="text-subtitle text-xs">Số lượng</span>
-          <button class="text-xxs rounded-full px-2 bg-indigo-100 text-primary">
-            25%
-          </button>
-          <button class="text-xxs rounded-full px-2 bg-indigo-100 text-primary">
-            50%
-          </button>
-          <button class="text-xxs rounded-full px-2 bg-indigo-100 text-primary">
-            75%
-          </button>
-          <button class="text-xxs rounded-full px-2 bg-indigo-100 text-primary">
-            MAX
+          <button
+            v-for="(per, indx) in amountPercent"
+            :key="indx + '_percent'"
+            class="text-xxs rounded-full px-2 py-1 ml-1"
+            :class="
+              selectedAmountPercent === per
+                ? 'bg-primary text-white'
+                : 'bg-indigo-100 text-primary'
+            "
+            @click="selectAmountPercent(per)"
+          >
+            {{ per }}%
           </button>
         </div>
-        <input
+        <input-currency
+          v-model="amount"
           class="form-input mt-1 block w-full text-sm border-indigo-600 focus:outline-indigo-100 focus:border-indigo-600"
-          placeholder="0,0000 BTC"
-        />
+        ></input-currency>
       </label>
-      <button class="px-4 py-2 rounded error-btn text-white font-bold">
-        Xác nhận
+      <button
+        class="px-4 py-3 h-12 rounded error-btn text-white font-bold"
+        @click="onCreateExchange"
+      >
+        Ban {{ selectedOrder.source_symbol }}
       </button>
     </div>
-    <div
-      class="flex flex-col justify-start items-start text-xs text-subtitle mt-2"
-    >
-      <p>
-        <strong>≈ 23,0290101.02020</strong>
-        VNDS
-      </p>
-    </div>
+    <p class="text-xs text-subtitle mt-2">
+      <strong>≈ {{ total | filterPriceMoney }}</strong>
+      VNDS
+    </p>
   </div>
 </template>
 
 <script>
+import Big from 'big.js'
+import { filterPriceMoney } from '@/filters'
+import { mapActions, mapGetters } from 'vuex'
+import InputCurrency from '@/components/ui/input-currency'
 export default {
   name: 'ExchangeSell',
+  filters: { filterPriceMoney },
+  components: { InputCurrency },
+  fetch() {
+    this.loadDetailOrder()
+  },
+  data() {
+    return {
+      payment_method: 'VNDS',
+      selectedAmountPercent: 0,
+      amount: 0,
+      amountPercent: [25, 50, 75, 100],
+    }
+  },
+  computed: {
+    ...mapGetters({
+      selectedOrder: 'market/selectedOrder',
+    }),
+    total() {
+      const price = Big(this.selectedOrder.price)
+
+      // Big decimal: total = this.price * this.amount
+      return this.amount ? price.times(this.amount).toNumber() : 0
+    },
+    orderAmount() {
+      return this.selectedOrder.amount
+    },
+  },
+  methods: {
+    ...mapActions({
+      addExchangesSell: 'market/addExchangesSell',
+    }),
+    loadDetailOrder() {
+      this.amount = this.selectedOrder.remaining_amount
+    },
+    selectAmountPercent(percent) {
+      const total = Big(this.orderAmount)
+
+      const amount = total.times(percent).div(100)
+
+      this.amount = amount.toNumber()
+      this.selectedAmountPercent = percent
+    },
+    async onCreateExchange() {
+      this.$notify.closeAll()
+
+      const body = {
+        amount: this.amount.toString(),
+        order_id: this.selectedOrder.id,
+      }
+
+      try {
+        this.loading = true
+        await this.addExchangesSell(body)
+        await this.$success({
+          title: this.$t('success'),
+          subtitle: this.$t('exchange-susscessful'),
+          actionText: this.$t('pleaseReturnHomePage'),
+          actionMethod: () => this.$router.push({ name: 'index' }),
+        })
+      } catch (e) {
+        this.$notify({
+          title: this.$t('failure'),
+          message: e.exception,
+          type: 'error',
+        })
+      } finally {
+        this.loading = false
+      }
+    },
+  },
 }
 </script>

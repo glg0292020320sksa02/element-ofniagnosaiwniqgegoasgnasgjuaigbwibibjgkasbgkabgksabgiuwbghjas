@@ -52,14 +52,13 @@ export default {
       })
     },
     returnValue() {
-      console.log(this.returnObject ? this.value.value : this.value)
-
       return this.returnObject ? this.value.value : this.value
     },
   },
   methods: {
     changeTab(payload) {
       this.$emit('input', this.returnObject ? payload : payload.value)
+      this.$emit('change', this.returnObject ? payload : payload.value)
     },
   },
 }
