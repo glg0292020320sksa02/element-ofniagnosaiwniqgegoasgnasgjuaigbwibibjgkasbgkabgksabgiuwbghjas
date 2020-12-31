@@ -1,39 +1,50 @@
 <template>
   <div class="exchange-sell text-sm">
-    <div class="flex flex-row justify-end items-end">
-      <label class="block mr-2">
-        <div>
-          <span class="text-subtitle text-xs">Số lượng</span>
-          <button
-            v-for="(per, indx) in amountPercent"
-            :key="indx + '_percent'"
-            class="text-xxs rounded-full px-2 py-1 ml-1"
-            :class="
-              selectedAmountPercent === per
-                ? 'bg-primary text-white'
-                : 'bg-indigo-100 text-primary'
-            "
-            @click="selectAmountPercent(per)"
-          >
-            {{ per }}%
-          </button>
-        </div>
-        <input-currency
-          v-model="amount"
-          class="form-input mt-1 block w-full text-sm border-indigo-600 focus:outline-indigo-100 focus:border-indigo-600"
-        ></input-currency>
-      </label>
+    <div v-if="$auth.loggedIn">
+      <div class="flex flex-row justify-end items-end">
+        <label class="block mr-2">
+          <div>
+            <span class="text-subtitle text-xs">Số lượng</span>
+            <button
+              v-for="(per, indx) in amountPercent"
+              :key="indx + '_percent'"
+              class="text-xxs rounded-full px-2 py-1 ml-1"
+              :class="
+                selectedAmountPercent === per
+                  ? 'bg-primary text-white'
+                  : 'bg-primary-100 text-primary'
+              "
+              @click="selectAmountPercent(per)"
+            >
+              {{ per }}%
+            </button>
+          </div>
+          <input-currency
+            v-model="amount"
+            class="form-input mt-1 block w-full text-sm border-subtitle focus:outline-primary-100 focus:border-body"
+          ></input-currency>
+        </label>
+        <button
+          class="px-6 py-3 h-12 rounded error-btn text-white font-bold"
+          @click="onCreateExchange"
+        >
+          Ban {{ selectedOrder.source_symbol }}
+        </button>
+      </div>
+      <p class="text-xs text-subtitle mt-2">
+        <strong>≈ {{ total | filterPriceMoney }}</strong>
+        VNDS
+      </p>
+    </div>
+    <div v-else>
       <button
-        class="px-4 py-3 h-12 rounded error-btn text-white font-bold"
-        @click="onCreateExchange"
+        class="rounded px-4 py-2 text-primary text-xs bg-primary-50 flex flex-nowrap"
+        @click="redirectToLogin"
       >
-        Ban {{ selectedOrder.source_symbol }}
+        Bạn cần đăng nhập trước khi bán
+        <icon-arrow-right class="w-4 h-4 ml-1"></icon-arrow-right>
       </button>
     </div>
-    <p class="text-xs text-subtitle mt-2">
-      <strong>≈ {{ total | filterPriceMoney }}</strong>
-      VNDS
-    </p>
   </div>
 </template>
 
@@ -42,10 +53,11 @@ import Big from 'big.js'
 import { filterPriceMoney } from '@/filters'
 import { mapActions, mapGetters } from 'vuex'
 import InputCurrency from '@/components/ui/input-currency'
+import IconArrowRight from '@/components/ui/icon/icon-arrow-right'
 export default {
   name: 'ExchangeSell',
   filters: { filterPriceMoney },
-  components: { InputCurrency },
+  components: { InputCurrency, IconArrowRight },
   fetch() {
     this.loadDetailOrder()
   },
@@ -112,6 +124,9 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    redirectToLogin() {
+      this.$router.push('/auth/login')
     },
   },
 }

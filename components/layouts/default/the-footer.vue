@@ -37,7 +37,7 @@
           <el-button
             type="primary"
             size="small"
-            class="m-0 mb-2 w-32 text-primary bg-indigo-100"
+            class="m-0 mb-2 w-32 text-primary bg-primary-100"
             @click="changeLocales"
           >
             {{ $i18n.locale === 'en' ? 'English' : 'Tiếng việt' }}
@@ -45,14 +45,14 @@
           <el-button
             type="primary"
             size="small"
-            class="m-0 mb-2 w-32 text-primary bg-indigo-100"
+            class="m-0 mb-2 w-32 text-primary bg-primary-100"
           >
             VND
           </el-button>
         </div>
       </div>
       <div
-        class="bottom-footer flex flex-row justify-between items-center py-6 border-t border-indigo-400 border-opacity-80"
+        class="bottom-footer flex flex-row justify-between items-center py-6 border-t border-primary-400 border-opacity-80"
       >
         <div class="bottom-left">
           <span class="text-xs">© 2020 by CoinToATM</span>

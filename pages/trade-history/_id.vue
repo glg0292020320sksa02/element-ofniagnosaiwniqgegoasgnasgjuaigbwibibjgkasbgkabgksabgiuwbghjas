@@ -11,8 +11,8 @@
             class="h-1 w-1 p-1 inline-block rounded-full border-4 absolute top-0 left-0"
             :class="
               transactionDetail.status === 'PENDING'
-                ? 'border-red-100 bg-error'
-                : 'border-blue-100 bg-success'
+                ? 'border-error-100 bg-error'
+                : 'borderprimary-100 bg-success'
             "
           ></span>
         </strong>
@@ -32,8 +32,8 @@
                     class="mr-2 border-0 px-4 rounded-full font-bold"
                     :class="
                       transactionDetail.side === 'BUY'
-                        ? 'bg-blue-100 text-success'
-                        : 'bg-red-100 text-error'
+                        ? 'bg-primary-100 text-success'
+                        : 'bg-error-100 text-error'
                     "
                   >
                     {{ transactionDetail.side }}
@@ -50,8 +50,8 @@
                     class="mr-2 border-0 px-4 rounded-full font-bold"
                     :class="
                       transactionDetail.status === 'PENDING'
-                        ? 'bg-red-100 text-error'
-                        : 'bg-blue-100 text-success'
+                        ? 'bg-error-100 text-error'
+                        : 'bg-primary-100 text-success'
                     "
                   >
                     {{ transactionDetail.status }}
@@ -180,12 +180,12 @@ export default {
     return {
       transactionDetail: {},
       color: [
-        'bg-red-500',
-        'bg-teal-500',
+        'bg-error',
+        'bg-primary',
         'bg-gray-500',
-        'bg-green-500',
+        'bg-success',
         'bg-pink-500',
-        'bg-yellow-500',
+        'bg-warning',
       ],
     }
   },

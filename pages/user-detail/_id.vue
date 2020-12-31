@@ -89,12 +89,12 @@ export default {
     return {
       userDetail: {},
       color: [
-        'bg-red-500',
-        'bg-teal-500',
+        'bg-error',
+        'bg-primary',
         'bg-gray-500',
-        'bg-green-500',
+        'bg-success',
         'bg-pink-500',
-        'bg-yellow-500',
+        'bg-warning',
       ],
     }
   },

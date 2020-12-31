@@ -9,7 +9,7 @@
           class="h-6 mx-auto"
         />
       </strong>
-      <span class="my-2 text-base font-bold text-red-600">
+      <span class="my-2 text-base font-bold text-error">
         {{ $t('tcbWelcome') }}
       </span>
     </div>
@@ -21,7 +21,7 @@
         <div
           class="flex flex-row justify-start items-center border-b border-gray-400 outline-none"
         >
-          <i class="el-icon-user-solid text-red-600"></i>
+          <i class="el-icon-user-solid text-error"></i>
           <input
             v-model="model.username"
             type="text"
@@ -35,7 +35,7 @@
           <div
             class="flex flex-row justify-start items-center border-b border-gray-400 outline-none"
           >
-            <i class="el-icon-lock text-red-600"></i>
+            <i class="el-icon-lock text-error"></i>
             <input
               v-model="model.password"
               :type="isShowPassword ? 'text' : 'password'"
@@ -47,7 +47,7 @@
         </el-tooltip>
       </input-form>
       <button
-        class="p-3 font-bold bg-red-600 text-white w-2/3 mx-auto my-4 rounded-sm"
+        class="p-3 font-bold bg-error text-white w-2/3 mx-auto my-4 rounded-sm"
         @click="onVerify"
       >
         {{ $t('tcbLogin') }}
@@ -67,7 +67,7 @@
         </div>
       </input-form>
       <button
-        class="p-3 font-bold bg-red-600 text-white w-2/3 mx-auto my-4 rounded-sm"
+        class="p-3 font-bold bg-error text-white w-2/3 mx-auto my-4 rounded-sm"
         @click="onSubmit"
       >
         {{ $t('confirmAndSave') }}
@@ -77,14 +77,14 @@
       <a
         href="https://www.techcombank.com.vn/zerofee4"
         target="_blank"
-        class="text-red-600"
+        class="text-error"
       >
         {{ $t('tcbRegister') }}
       </a>
       <a
         href="https://ib.techcombank.com.vn/ebankreset/input.jsp"
         target="_blank"
-        class="text-red-600"
+        class="text-error"
       >
         {{ $t('tcbForgotPassword') }}
       </a>

@@ -7,13 +7,13 @@
             class="w-1/2 p-2 cursor-pointer"
             @click="$router.push({ name: 'wallet-buy' })"
           >
-            <div class="text-center p-4 text-subtitle text-base font-bold">
+            <div class="text-center p-4 text-subtitle text-base">
               {{ $t('createBuyOrder') }}
             </div>
           </div>
           <div class="w-1/2 p-2">
             <div
-              class="text-center rounded p-4 text-primary text-base font-bold bg-disabled"
+              class="text-center p-4 text-primary text-base font-bold border-b-2 border-primary"
             >
               {{ $t('createSellOrder') }}
             </div>

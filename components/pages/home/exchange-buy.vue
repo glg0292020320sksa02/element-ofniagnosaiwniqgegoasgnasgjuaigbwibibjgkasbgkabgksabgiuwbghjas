@@ -1,79 +1,92 @@
 <template>
   <div class="exchange-sell text-sm">
-    <div class="flex flex-row justify-end items-start">
-      <label class="block mr-8">
-        <div>
-          <span class="text-subtitle text-xs">Phương thức thanh toán</span>
-        </div>
-        <div class="flex flex-row justify-start items-end pt-6">
-          <div
-            v-for="(bank, index) in paymentMethods"
-            :key="index + '_bank'"
-            class="mr-4"
-          >
-            <el-tooltip
-              class="item"
-              effect="dark"
-              :content="
-                $t('selectPaymentMethodInstruction', {
-                  symbol: bank.name,
-                })
-              "
-              placement="top-start"
-            >
-              <label class="inline-flex items-center">
-                <input
-                  v-model="payment_method"
-                  type="radio"
-                  class="form-radio text-primary"
-                  name="radio"
-                  :value="bank.value"
-                  checked
-                />
-                <span class="ml-2">{{ bank.name }}</span>
-              </label>
-            </el-tooltip>
+    <div v-if="$auth.loggedIn">
+      <div class="flex flex-row justify-end items-start">
+        <label class="block mr-8">
+          <div>
+            <span class="text-subtitle text-xs">Phương thức thanh toán</span>
           </div>
-        </div>
-      </label>
-      <div>
-        <div class="flex flex-row justify-end items-end">
-          <label class="block mr-2">
-            <div>
-              <span class="text-subtitle text-xs">
-                Số lượng {{ selectedOrder.source_symbol }}
-              </span>
-              <button
-                v-for="(per, indx) in amountPercent"
-                :key="indx + '_percent'"
-                class="text-xxs rounded-full px-2 py-1 ml-1"
-                :class="
-                  selectedAmountPercent === per
-                    ? 'bg-primary text-white'
-                    : 'bg-indigo-100 text-primary'
+          <div class="flex flex-row justify-start items-end pt-6">
+            <div
+              v-for="(bank, index) in paymentMethods"
+              :key="index + '_bank'"
+              class="mr-4"
+            >
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="
+                  $t('selectPaymentMethodInstruction', {
+                    symbol: bank.name,
+                  })
                 "
-                @click="selectAmountPercent(per)"
+                placement="top-start"
               >
-                {{ per }}%
-              </button>
+                <label class="inline-flex items-center">
+                  <input
+                    v-model="payment_method"
+                    type="radio"
+                    class="form-radio text-primary"
+                    name="radio"
+                    :value="bank.value"
+                    checked
+                  />
+                  <span class="ml-2">{{ bank.name }}</span>
+                </label>
+              </el-tooltip>
             </div>
-            <input-currency
-              v-model="amount"
-              class="form-input mt-1 block w-full text-sm border-indigo-600 focus:outline-indigo-100 focus:border-indigo-600"
-            ></input-currency>
-          </label>
-          <button
-            class="px-4 py-3 h-12 rounded success-btn text-white font-bold"
-            @click="onCreateExchange"
-          >
-            Mua {{ selectedOrder.source_symbol }}
-          </button>
+          </div>
+        </label>
+        <div>
+          <div class="flex flex-row justify-end items-end">
+            <label class="block mr-2">
+              <div>
+                <span class="text-subtitle text-xs">
+                  Số lượng {{ selectedOrder.source_symbol }}
+                </span>
+                <button
+                  v-for="(per, indx) in amountPercent"
+                  :key="indx + '_percent'"
+                  class="text-xxs rounded-full px-2 py-1 ml-1"
+                  :class="
+                    selectedAmountPercent === per
+                      ? 'bg-primary text-white'
+                      : 'bg-primary-100 text-primary'
+                  "
+                  @click="selectAmountPercent(per)"
+                >
+                  {{ per }}%
+                </button>
+              </div>
+              <input-currency
+                v-model="amount"
+                class="form-input mt-1 block w-full text-sm border-subtitle focus:outline-primary-100 focus:border-body"
+              ></input-currency>
+            </label>
+            <button
+              class="px-6 py-3 h-12 rounded success-btn text-white font-bold"
+              @click="onCreateExchange"
+            >
+              Mua {{ selectedOrder.source_symbol }}
+            </button>
+          </div>
+          <p class="text-xs text-subtitle mt-2">
+            <strong>≈ {{ total | filterPriceMoney }}</strong>
+            {{
+              payment_method === 'VNDS' ? selectedOrder.target_symbol : 'VND'
+            }}
+          </p>
         </div>
-        <p class="text-xs text-subtitle mt-2">
-          <strong>≈ {{ total | filterPriceMoney }}</strong>
-          {{ payment_method === 'VNDS' ? selectedOrder.target_symbol : 'VND' }}
-        </p>
       </div>
+    </div>
+    <div v-else>
+      <button
+        class="rounded px-4 py-2 text-primary text-xs bg-primary-50 flex flex-nowrap"
+        @click="redirectToLogin"
+      >
+        Bạn cần đăng nhập trước khi mua
+        <icon-arrow-right class="w-4 h-4 ml-1"></icon-arrow-right>
+      </button>
     </div>
   </div>
 </template>
@@ -83,11 +96,12 @@ import Big from 'big.js'
 import { filterPriceMoney } from '@/filters'
 import { mapActions, mapGetters } from 'vuex'
 import InputCurrency from '@/components/ui/input-currency'
+import IconArrowRight from '@/components/ui/icon/icon-arrow-right'
 
 export default {
   name: 'ExchangeSell',
   filters: { filterPriceMoney },
-  components: { InputCurrency },
+  components: { InputCurrency, IconArrowRight },
   fetch() {
     this.loadDetailOrder()
   },
@@ -162,6 +176,9 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    redirectToLogin() {
+      this.$router.push('/auth/login')
     },
   },
 }

@@ -4,7 +4,7 @@
       <div>
         <button
           type="button"
-          class="flex justify-center items-center w-12 h-12 rounded-full shadow-sm bg-primary text-xs font-medium text-white hover:bg-blue-600 focus:outline-none"
+          class="flex justify-center items-center w-12 h-12 rounded-full shadow-sm bg-primary text-xs font-medium text-white border-2 border-primary-100 hover:bg-primary focus:outline-none"
           aria-haspopup="true"
           aria-expanded="true"
           @click="showMenu = !showMenu"
@@ -12,17 +12,6 @@
           <icon-support class="h-6 w-6 text-white"></icon-support>
         </button>
       </div>
-
-      <!--
-      Dropdown panel, show/hide based on dropdown state.
-
-      Entering: "transition ease-out duration-100"
-        From: "transform opacity-0 scale-95"
-        To: "transform opacity-100 scale-100"
-      Leaving: "transition ease-in duration-75"
-        From: "transform opacity-100 scale-100"
-        To: "transform opacity-0 scale-95"
-    -->
       <div
         v-if="showMenu"
         class="origin-top-right border border-gray-200 absolute mt-2 w-56 rounded-lg shadow-lg bg-white p-2"

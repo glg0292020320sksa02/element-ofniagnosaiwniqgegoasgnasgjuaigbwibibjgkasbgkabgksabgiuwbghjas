@@ -5,7 +5,7 @@
         <div class="flex">
           <div class="w-1/2 p-2">
             <div
-              class="text-center rounded p-4 text-primary text-base font-bold bg-disabled"
+              class="text-center p-4 text-primary text-base font-bold border-b-2 border-primary"
             >
               {{ $t('widthdraw') }}
             </div>

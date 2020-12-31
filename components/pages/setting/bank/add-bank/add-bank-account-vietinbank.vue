@@ -9,7 +9,7 @@
         />
       </strong>
       <div
-        class="my-2 w-full text-base text-left text-blue-500"
+        class="my-2 w-full text-base text-left textprimary"
         v-html="$t('vtbWelcome')"
       ></div>
     </div>
@@ -35,7 +35,7 @@
         />
       </div>
       <button
-        class="p-3 font-bold bg-blue-500 text-white w-full mx-auto my-4 rounded-sm"
+        class="p-3 font-bold bg-primary text-white w-full mx-auto my-4 rounded-sm"
         @click="onVerify"
       >
         {{ $t('vtbLogin') }}
@@ -54,7 +54,7 @@
         <i class="el-icon-check text-success font-bold absolute checked"></i>
       </div>
       <button
-        class="p-3 font-bold bg-blue-500 text-white w-full mx-auto my-4 rounded-sm"
+        class="p-3 font-bold bg-primary text-white w-full mx-auto my-4 rounded-sm"
         @click="onSubmit"
       >
         {{ $t('confirmAndSave') }}
@@ -65,21 +65,21 @@
         <a
           href="https://www.techcombank.com.vn/zerofee4"
           target="_blank"
-          class="text-blue-500"
+          class="textprimary"
         >
           {{ $t('vtbSupport') }}
         </a>
         <a
           href="https://ib.techcombank.com.vn/ebankreset/input.jsp"
           target="_blank"
-          class="text-blue-500"
+          class="textprimary"
         >
           {{ $t('vtbSync') }}
         </a>
         <a
           href="https://ib.techcombank.com.vn/ebankreset/input.jsp"
           target="_blank"
-          class="text-blue-500"
+          class="textprimary"
         >
           {{ $t('vtbForgotPassword') }}
         </a>
@@ -88,21 +88,21 @@
         <a
           href="https://www.techcombank.com.vn/zerofee4"
           target="_blank"
-          class="text-blue-500"
+          class="textprimary"
         >
           {{ $t('vtbSecurity') }}
         </a>
         <a
           href="https://ib.techcombank.com.vn/ebankreset/input.jsp"
           target="_blank"
-          class="text-blue-500"
+          class="textprimary"
         >
           {{ $t('vtbRegister') }}
         </a>
         <a
           href="https://ib.techcombank.com.vn/ebankreset/input.jsp"
           target="_blank"
-          class="text-blue-500"
+          class="textprimary"
         >
           {{ $t('vtbForgotUsername') }}
         </a>

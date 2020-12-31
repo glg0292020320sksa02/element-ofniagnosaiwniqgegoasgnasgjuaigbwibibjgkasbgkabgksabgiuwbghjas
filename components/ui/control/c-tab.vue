@@ -1,11 +1,11 @@
 <template>
   <div
-    class="c-tab border-b border-indigo-100 flex flex-row justify-start items-center text-xs"
+    class="c-tab border-b border-primary-100 flex flex-row justify-start items-center text-xs"
   >
     <button
       v-for="(item, i) in listItem"
       :key="i + '_ctab'"
-      class="px-2 py-1 hover:bg-indigo-100"
+      class="px-2 py-1 hover:bg-primary-100"
       :class="
         isActive(item)
           ? 'border-b text-primary border-primary'

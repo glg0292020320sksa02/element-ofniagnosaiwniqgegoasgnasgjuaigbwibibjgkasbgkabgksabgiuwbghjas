@@ -50,7 +50,7 @@
               </el-button>
             </div>
 
-            <div class="mt-2 px-4 py-2 bg-red-100 rounded">
+            <div class="mt-2 px-4 py-2 bg-error-100 rounded">
               <div class="text-sm text-error">
                 Quý khách hàng lưu ý: chọn và nhập đúng thông tin ngân hàng cần
                 liên kết để nhận được chuyển khoản từ các đơn hàng.

@@ -1,6 +1,7 @@
 export const state = () => ({
   walletList: [],
   selectedCurrency: {},
+  selectedWallets: null,
   depositCoin: {},
   withdrawCoin: {},
 })
@@ -22,6 +23,9 @@ export const getters = {
   withdrawCoin(state) {
     return state.withdrawCoin
   },
+  selectedWallets(state) {
+    return state.selectedWallets
+  },
 }
 
 export const mutations = {
@@ -36,6 +40,9 @@ export const mutations = {
   },
   SET_WITHDRAW_COIN(state, payload) {
     state.withdrawCoin = payload
+  },
+  SET_SELECTED_WALLET(state, payload) {
+    state.selectedWallets = payload
   },
 }
 
@@ -56,5 +63,8 @@ export const actions = {
   },
   setWithdrawCoin({ commit }, body) {
     commit('SET_WITHDRAW_COIN', body)
+  },
+  setSelectedWallets({ commit }, payload) {
+    commit('SET_SELECTED_WALLET', payload)
   },
 }

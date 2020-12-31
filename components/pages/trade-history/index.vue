@@ -171,8 +171,8 @@ export default {
     },
     getColorSide(side) {
       return side.toLowerCase() === 'buy'
-        ? 'text-success bg-green-100'
-        : 'text-error bg-red-100'
+        ? 'text-success bg-success-100'
+        : 'text-error bg-error-100'
     },
     sourceSymbol(source_symbol) {
       return source_symbol || ''

@@ -31,9 +31,9 @@
                     <strong
                       class="rounded-full py-1 px-2 text-xs"
                       :class="{
-                        'text-success bg-teal-100':
+                        'text-success bg-primary-100':
                           props.row.status === 'COMPLETED',
-                        'text-yellow-600 bg-yellow-200':
+                        'text-warning bg-warning-200':
                           props.row.status === 'PENDING',
                       }"
                     >
@@ -111,8 +111,8 @@
           <strong
             class="rounded-full py-1 px-2 text-xs"
             :class="{
-              'text-success bg-teal-100': scope.row.status === 'COMPLETED',
-              'text-yellow-600 bg-yellow-200': scope.row.status === 'PENDING',
+              'text-success bg-primary-100': scope.row.status === 'COMPLETED',
+              'text-warning bg-warning-200': scope.row.status === 'PENDING',
             }"
           >
             {{ scope.row.status }}

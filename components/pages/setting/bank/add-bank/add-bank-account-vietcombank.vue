@@ -12,7 +12,7 @@
       <span class="my-2">{{ $t('vcbWelcome') }}</span>
     </div>
     <div
-      class="notification shadow-lg rounded border-l-2 border-green-700 p-4 text-xs my-2"
+      class="notification shadow-lg rounded border-l-2 border-success p-4 text-xs my-2"
       v-html="$t('vcbNotice')"
     ></div>
     <div v-if="step === 'VERIFY'" class="form my-4">
@@ -68,14 +68,14 @@
       <a
         href="https://vcbdigibank.vietcombank.com.vn/#/resetpassword"
         target="_blank"
-        class="text-green-800"
+        class="text-success"
       >
         {{ $t('vcbvcbForgotPassword') }}
       </a>
       <a
         href="https://digibankm5.vietcombank.com.vn/get_file/ibomni/html/chuyen-doi-ib.pdf"
         target="_blank"
-        class="text-green-800"
+        class="text-success"
       >
         {{ $t('vcbInstruction') }}
       </a>

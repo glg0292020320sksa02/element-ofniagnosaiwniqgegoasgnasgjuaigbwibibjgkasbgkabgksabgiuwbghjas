@@ -4,7 +4,8 @@
 
     <el-button
       v-if="download"
-      class="button-fab font-bold button-download"
+      class="button-fab absolute font-bold button-download"
+      :class="position"
       icon="el-icon-download"
       size="mini"
       circle
@@ -43,6 +44,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    position: {
+      type: String,
+      default: 'bottom-right',
+    },
   },
   data() {
     return {
@@ -79,9 +84,20 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.button-download {
-  position: absolute;
+.bottom-right {
   bottom: 12px;
   right: -20px;
+}
+.bottom-left {
+  bottom: 12px;
+  left: -20px;
+}
+.top-right {
+  top: 12px;
+  right: -20px;
+}
+.top-left {
+  top: 12px;
+  left: -20px;
 }
 </style>

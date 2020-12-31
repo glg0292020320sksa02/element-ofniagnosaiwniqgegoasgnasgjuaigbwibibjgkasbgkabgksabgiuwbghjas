@@ -12,7 +12,7 @@
             <span>{{ $t(tab.name) }}</span>
             <i
               v-if="tab.notification && !isEnable2FA"
-              class="notification el-icon-warning text-red-600"
+              class="notification el-icon-warning text-error"
             ></i>
           </div>
         </nuxt-link>

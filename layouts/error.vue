@@ -5,7 +5,7 @@
     >
       <div class="flex flex-row justify-start items-start p-6 py-8">
         <div
-          class="rounded-full w-12 h-12 bg-red-100 flex justify-center items-center"
+          class="rounded-full w-12 h-12 bg-error-100 flex justify-center items-center"
         >
           <icon-error class="h-8 w-8 text-error"></icon-error>
         </div>

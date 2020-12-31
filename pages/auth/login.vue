@@ -72,7 +72,7 @@
               <el-button
                 type="primary"
                 plain
-                class="w-full border-0 border-white hover:bg-indigo-100 hover:text-primary"
+                class="w-full border-0 border-white hover:bg-primary-100 hover:text-primary"
                 @click="$auth.loginWith('google')"
               >
                 <div class="flex justify-center items-center">

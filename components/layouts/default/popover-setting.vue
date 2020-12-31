@@ -12,7 +12,7 @@
       </el-button>
       <i
         v-if="!isEnable2FA"
-        class="notification el-icon-warning text-red-600"
+        class="notification el-icon-warning text-error"
       ></i>
     </div>
     <div>
@@ -36,7 +36,7 @@
             </span>
             <i
               v-if="route.notification && !isEnable2FA"
-              class="el-icon-warning text-red-600"
+              class="el-icon-warning text-error"
             ></i>
           </div>
         </div>

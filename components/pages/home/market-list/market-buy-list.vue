@@ -12,7 +12,7 @@
       </div>
       <el-button
         size="small"
-        class="bg-indigo-100 text-primary border-none"
+        class="bg-primary-100 text-primary border-none"
         @click="onRedirectWallet"
       >
         Tạo lệnh mua mới

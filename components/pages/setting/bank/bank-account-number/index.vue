@@ -54,7 +54,7 @@
                   <td>{{ bankAccount.name }}</td>
                   <td>
                     <span
-                      class="px-4 py-1 rounded-full text-success bg-teal-100"
+                      class="px-4 py-1 rounded-full text-success bg-primary-100"
                     >
                       <span
                         class="text-xs text-success font-bold leading-none uppercase"

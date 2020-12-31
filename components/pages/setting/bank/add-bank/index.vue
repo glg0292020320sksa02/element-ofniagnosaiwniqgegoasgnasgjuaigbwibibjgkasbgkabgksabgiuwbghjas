@@ -17,7 +17,7 @@
             <p class="text-subtitle text-sm">{{ $t('BankingSubTitle') }}</p>
           </div>
         </div>
-        <div class="mt-2 px-4 pt-2 bg-red-100 rounded">
+        <div class="mt-2 px-4 pt-2 bg-error-100 rounded">
           <div class="text-xs text-error">
             {{
               selectedPaymentType === 'bankAccount'

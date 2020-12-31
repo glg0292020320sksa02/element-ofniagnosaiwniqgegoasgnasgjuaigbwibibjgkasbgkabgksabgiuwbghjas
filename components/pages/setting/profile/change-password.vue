@@ -3,7 +3,7 @@
     <div
       circle
       disabled
-      class="w-16 h-16 rounded-full bg-blue-100 flex justify-center items-center"
+      class="w-16 h-16 rounded-full bg-primary-100 flex justify-center items-center"
     >
       <svg-icon name="key" size="18" class="text-primary"></svg-icon>
     </div>

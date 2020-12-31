@@ -9,7 +9,9 @@
               $router.push({ name: 'wallet-withdraw', query: $route.query })
             "
           >
-            <div class="text-center p-4 text-subtitle text-base font-bold">
+            <div
+              class="text-center p-4 text-primary text-base font-bold border-b-2 border-primary"
+            >
               {{ $t('widthdraw') }}
             </div>
           </div>

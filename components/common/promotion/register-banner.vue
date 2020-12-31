@@ -13,7 +13,7 @@
         <div class="inline-flex rounded-md shadow">
           <nuxt-link
             to="/auth/register"
-            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-bold rounded-md text-primary bg-white hover:bg-gray-100"
+            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-bold rounded-md text-primary bg-white hover:bg-primary-50"
           >
             {{ $t('registerNow') }}
           </nuxt-link>

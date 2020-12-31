@@ -1,6 +1,6 @@
 <template>
   <div
-    class="c-group-button bg-white rounded overflow-hidden p-1 border border-indigo-100 flex flex-row justify-between items-stretch"
+    class="c-group-button bg-white rounded overflow-hidden p-1 border border-primary-100 flex flex-row justify-between items-stretch"
   >
     <button
       v-for="(item, i) in listItem"
@@ -8,7 +8,7 @@
       class="px-3 py-1 text-xs"
       :class="
         returnValue === item.value
-          ? 'bg-indigo-600 text-white shadow-sm rounded'
+          ? 'bg-primary text-white shadow-sm rounded'
           : ''
       "
       @click="changeTab(item)"

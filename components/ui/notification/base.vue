@@ -3,7 +3,7 @@
     v-if="visible"
     class="z-50 min-h-screen fixed top-0 left-0 right-0 bottom-0 overflow-hidden"
   >
-    <div class="notify-mask bg-blue-900 w-full h-full absolute"></div>
+    <div class="notify-mask bg-primary w-full h-full absolute"></div>
     <div class="notify-form bg-white rounded-lg shadow-lg">
       <el-button
         circle
@@ -140,7 +140,7 @@ export default {
 <style scoped lang="scss">
 .notify-mask {
   // background: rgb(17, 51, 83);
-  @apply bg-blue-900;
+  @apply bg-primary;
 }
 .notify-form {
   width: 400px;

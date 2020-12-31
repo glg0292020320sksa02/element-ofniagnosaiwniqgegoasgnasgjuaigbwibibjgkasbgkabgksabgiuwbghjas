@@ -5,7 +5,7 @@
       plain
       type="primary"
       icon="el-icon-back"
-      class="text-primary font-bold border-0 hover:bg-indigo-100 hover:text-primary"
+      class="text-primary font-bold border-0 hover:bg-primary-100 hover:text-primary"
       @click="onRedirect"
     ></el-button>
   </div>

@@ -1,6 +1,8 @@
 <template>
-  <div class="page-holding container py-8 space-y-8">
-    <div class="bg-white rounded">
+  <div
+    class="page-holding container bg-gray-100 p-6 rounded-lg flex flex-col justify-start items-stretch"
+  >
+    <div>
       <div class="border-b p-8 pb-0 flex flex-col justify-start items-start">
         <div class="text-xl font-bold">{{ $t('yourWallet') }}</div>
         <div>
@@ -42,14 +44,8 @@
             v-if="$fetchState.pending || loading"
           ></table-content-loader>
 
-          <div
-            v-else
-            v-infinite-scroll="loadMoreTransactions"
-            :infinite-scroll-disabled="disabledInfinitiScroll"
-            class="overflow-x-auto mt-6"
-            style="height: 500px"
-          >
-            <my-wallet></my-wallet>
+          <div v-else>
+            <wallet-table></wallet-table>
           </div>
         </div>
         <div v-else-if="activeTab === 'deposit'">
@@ -90,7 +86,7 @@
 <script>
 import { mapActions } from 'vuex'
 
-import MyWallet from '@/components/pages/holding/my-wallet'
+import WalletTable from '@/components/pages/holding/wallet-table'
 import FilterDate from '@/components/common/setting/filter-date'
 import FilterStatus from '@/components/common/setting/filter-status'
 import FilterCurrency from '@/components/common/setting/filter-currency'
@@ -101,7 +97,7 @@ import WithdrawHistory from '@/components/pages/holding/withdraw-history'
 export default {
   name: 'SettingHoldingPage',
   components: {
-    MyWallet,
+    WalletTable,
     TableContentLoader,
     FilterDate,
     FilterStatus,

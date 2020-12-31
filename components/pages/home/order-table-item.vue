@@ -25,7 +25,9 @@
           <strong class="text-lg text-bold mr-1">
             {{ item.price | filterPriceMoney }}
           </strong>
-          <span class="text-subtitle text-xs">VND</span>
+          <span class="text-subtitle text-xs">
+            VND / 1{{ item.source_symbol }}
+          </span>
         </div>
       </div>
       <div class="order-column w-4/12">
@@ -56,7 +58,7 @@
             :key="j + '_pay'"
             class="text-xs flex flex-row justify-start items-center mb-2"
           >
-            <span class="bg-yellow-500 text-xs rounded-sm p-1 mr-1">
+            <span class="bg-warning text-xs rounded-sm p-1 mr-1">
               <icon-buy class="w-2 h-2 text-white"></icon-buy>
             </span>
             <p class="w-2/3 truncate whitespace-normal">{{ pay.name }}</p>
