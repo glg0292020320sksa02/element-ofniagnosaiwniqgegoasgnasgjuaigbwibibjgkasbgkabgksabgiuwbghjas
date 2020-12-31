@@ -12,7 +12,7 @@
           <span
             class="text-xs w-4 h-4 mr-1 text-white rounded-full bg-primary text-center flex justify-center items-center"
           >
-            B
+            {{ index > 9 ? 'M' : index }}
           </span>
           <span class="text-sm text-primary">{{ item.user.name }}</span>
         </div>
@@ -122,6 +122,10 @@ export default {
     isBuy: {
       type: Boolean,
       default: false,
+    },
+    index: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {

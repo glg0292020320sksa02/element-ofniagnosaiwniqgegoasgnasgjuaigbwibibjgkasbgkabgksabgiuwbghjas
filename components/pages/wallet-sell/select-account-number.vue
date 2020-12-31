@@ -12,7 +12,7 @@
       :value="account.id"
     >
       <div class="flex flex-col justify-start items-start">
-        <strong>
+        <strong class="text-xs">
           {{ account.name }} /
           <span class="text-subtitle">{{ account.number }}</span>
         </strong>

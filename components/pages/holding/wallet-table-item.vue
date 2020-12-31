@@ -9,11 +9,11 @@
     >
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-center">
-          <span
-            class="text-xs w-4 h-4 mr-1 text-white rounded-full bg-primary text-center flex justify-center items-center"
-          >
-            B
-          </span>
+          <img
+            :src="`https://s2.coinmarketcap.com/static/img/coins/32x32/${item.currency.id}.png`"
+            alt=""
+            class="text-xs w-4 h-4 rounded-full mr-1"
+          />
           <span class="text-sm text-primary">{{ item.currency.name }}</span>
         </div>
       </div>

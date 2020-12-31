@@ -23,6 +23,7 @@
           v-for="(item, i) in orders"
           :key="i"
           :item="item"
+          :index="i + 1"
           :is-buy="isBuySide"
         ></order-table-item>
       </div>
