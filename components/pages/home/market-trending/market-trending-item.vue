@@ -1,6 +1,6 @@
 <template>
   <div
-    class="market-trending-item rounded-lg shadow-sm text-xs p-4 flex flex-row justify-between items-stretch h-32 bg-white"
+    class="market-trending-item rounded-lg overflow-hidden shadow-sm text-xs p-4 flex flex-row justify-between items-stretch h-32 bg-white relative"
   >
     <div class="coin-info flex flex-col justify-between items-start">
       <span class="flex justify-start">
@@ -40,11 +40,26 @@
         <icon-link class="w-4 h-4 text-gray-600 hover:text-primary"></icon-link>
       </a>
     </div>
+    <div
+      v-if="canExchange"
+      class="action rounded-lg absolute flex-row justify-center items-center w-full h-full"
+    >
+      <button
+        class="px-3 py-1 success-btn text-white mr-1 rounded text-xs whitespace-nowrap flex-nowrap relative z-10"
+      >
+        Mua
+      </button>
+      <button
+        class="px-3 py-1 error-btn text-white ml-1 rounded text-xs whitespace-nowrap flex-nowrap relative z-10"
+      >
+        Bán
+      </button>
+    </div>
   </div>
 </template>
 <script>
 import { filterPercent, filterPrice, filterMarketCap } from '@/filters'
-
+import { coin } from '@/utils/constant'
 import IconLink from '@/components/ui/icon/icon-link'
 const BASE_URL_SPARKLINES =
   'https://s3.coinmarketcap.com/generated/sparklines/web/7d/usd'
@@ -71,6 +86,9 @@ export default {
     vector() {
       return `${BASE_URL_SPARKLINES}/${this.item.id}.png`
     },
+    canExchange() {
+      return Object.keys(coin).includes(this.item.symbol)
+    },
   },
 }
 </script>
@@ -80,5 +98,23 @@ export default {
 }
 .graph-down {
   filter: hue-rotate(300deg) saturate(210%) brightness(0.7) contrast(170%);
+}
+.action {
+  top: 0;
+  left: 0;
+  display: none;
+}
+.market-trending-item:hover .action {
+  display: flex;
+}
+.action::before {
+  content: '';
+  background: black;
+  opacity: 0.15;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

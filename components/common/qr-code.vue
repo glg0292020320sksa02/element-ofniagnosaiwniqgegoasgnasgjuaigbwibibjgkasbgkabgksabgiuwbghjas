@@ -85,19 +85,19 @@ export default defineComponent({
 
 <style scoped>
 .bottom-right {
-  bottom: 12px;
+  bottom: 6px;
   right: -20px;
 }
 .bottom-left {
-  bottom: 12px;
+  bottom: 6px;
   left: -20px;
 }
 .top-right {
-  top: 12px;
+  top: 6px;
   right: -20px;
 }
 .top-left {
-  top: 12px;
+  top: 6px;
   left: -20px;
 }
 </style>

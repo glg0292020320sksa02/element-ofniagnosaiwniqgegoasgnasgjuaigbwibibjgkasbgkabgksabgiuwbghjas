@@ -27,7 +27,7 @@
       <div class="order-column w-3/12 flex items-center">
         <div class="flex flex-row justify-start items-baseline">
           <strong class="text-sm text-bold mr-1">
-            {{ item.real_balance }}
+            {{ item.real_balance | filterPrice }}
           </strong>
           <span class="text-xs text-bold mr-1">
             {{ item.currency.symbol }}
@@ -37,7 +37,7 @@
       <div class="order-column w-3/12 flex items-center">
         <div class="flex flex-row justify-start items-baseline">
           <strong class="text-sm text-bold mr-1" @click.stop="showOrder(item)">
-            {{ item.in_order_balance }}
+            {{ item.in_order_balance | filterPrice }}
           </strong>
           <span class="text-xs text-bold mr-1">
             {{ item.currency.symbol }}

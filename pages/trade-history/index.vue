@@ -94,6 +94,7 @@ export default {
         side: '',
         pair: '',
         page: 1,
+        type: 'EXCHANGE',
       },
       loading: false,
       marketCap: {},

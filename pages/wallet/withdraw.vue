@@ -29,30 +29,17 @@
                 :loading="$fetchState.pending"
               ></select-coin>
             </input-form>
-            <input-form :label="$t('FromAddress')" class="mb-4">
-              <el-input
-                v-model="walletSelected.address"
-                class="input-with-select"
-                disabled
-              >
-                <el-button slot="append" v-clipboard="walletSelected.address">
-                  <transition-scale-icon>
-                    <i
-                      v-if="isClipboardSelection(walletSelected)"
-                      key="icon-check"
-                      class="el-icon-check"
-                    ></i>
-                    <i v-else key="icon-copy" class="el-icon-copy-document"></i>
-                  </transition-scale-icon>
-                </el-button>
-              </el-input>
-            </input-form>
             <input-form :label="$t('ToAddress')" class="mb-4">
               <el-input v-model="address"></el-input>
             </input-form>
             <input-form :label="$t('amountCoin')" class="mb-4">
               <input-currency v-model="amount"></input-currency>
-              <div class="select-amount-percent mt-1 flex justify-end">
+              <div class="select-amount-percent mt-1 flex justify-between">
+                <span class="text-xs text-subtitle">
+                  Current balance:
+                  {{ walletSelected.real_balance | filterPrice }}
+                  {{ walletSelected.currency.symbol || 'BTC' }}
+                </span>
                 <el-button
                   round
                   :type="isMaxSelected"
@@ -96,6 +83,7 @@
 <script>
 import Big from 'big.js'
 import { clipboard } from 'vue-clipboards'
+import { filterPrice } from '@/filters'
 
 import SelectCoin from '@/components/pages/wallet-sell/select-coin'
 import InputCurrency from '@/components/ui/input-currency'
@@ -104,7 +92,6 @@ import WithdrawHistory from '@/components/pages/holding/withdraw-history'
 import TableContentLoader from '@/components/common/table-content-loader'
 
 import clipboardSelection from '@/mixins/clipboard-selection'
-import TransitionScaleIcon from '@/components/common/transition-scale-icon'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -113,12 +100,12 @@ const MONEY_SELL_DEFAULT = 'BTC'
 
 export default {
   name: 'WalletOuput',
+  filters: { filterPrice },
   layout: 'auth',
   components: {
     SelectCoin,
     InputCurrency,
     InputForm,
-    TransitionScaleIcon,
     WithdrawHistory,
     TableContentLoader,
   },
@@ -160,7 +147,7 @@ export default {
     walletSelected() {
       return this.walletFilteredList.find(wallet => wallet.id === this.walletId)
         ? this.walletFilteredList.find(wallet => wallet.id === this.walletId)
-        : { address: '' }
+        : { address: '', currency: {} }
     },
     walletSelectedWithSymbol() {
       return this.walletSelected?.currency?.symbol

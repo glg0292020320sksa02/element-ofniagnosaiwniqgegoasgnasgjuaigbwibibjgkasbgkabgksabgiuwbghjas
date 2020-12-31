@@ -27,7 +27,7 @@
       <div class="order-column w-3/12 flex items-center">
         <div class="flex flex-row justify-start items-baseline">
           <strong class="text-sm text-bold mr-1">
-            {{ item.real_balance }}
+            {{ item.real_balance | filterPriceMoney }}
           </strong>
           <span class="text-xs text-bold mr-1">
             {{ item.currency.symbol }}
@@ -37,7 +37,7 @@
       <div class="order-column w-3/12 flex items-center">
         <div class="flex flex-row justify-start items-baseline">
           <strong class="text-sm text-bold mr-1" @click.stop="showOrder(item)">
-            {{ item.in_order_balance }}
+            {{ item.in_order_balance | filterPriceMoney }}
           </strong>
           <span class="text-xs text-bold mr-1">
             {{ item.currency.symbol }}
@@ -61,13 +61,6 @@
         </div>
       </div>
     </div>
-    <!-- <div
-      v-if="isExpand"
-      class="expand border-t bg-gray-100 p-6 flex justify-end"
-    >
-      <holding-deposit v-if="actionType === 'DEPOSIT'"></holding-deposit>
-      <holding-withdraw v-if="actionType === 'WITHDRAW'"></holding-withdraw>
-    </div> -->
   </div>
 </template>
 
@@ -113,7 +106,7 @@ export default {
     },
     buyCoin(payload) {
       this.actionType = 'DEPOSIT'
-      this.$router.push('/wallet/buy?coin=ETH')
+      this.$router.push('/wallet/buy?coin=VNDS')
     },
     sellCoin(payload) {
       this.actionType = 'WITHDRAW'

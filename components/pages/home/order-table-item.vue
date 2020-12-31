@@ -26,7 +26,7 @@
             {{ item.price | filterPriceMoney }}
           </strong>
           <span class="text-subtitle text-xs">
-            VND / 1{{ item.source_symbol }}
+            VND / 1 {{ item.source_symbol }}
           </span>
         </div>
       </div>
@@ -70,7 +70,12 @@
           <button
             v-if="!isExpand"
             class="rounded px-4 py-2 text-white font-bold text-xs"
-            :class="isBuy ? 'error-btn' : 'success-btn'"
+            :class="{
+              'error-btn': isBuy && !isMyOrder,
+              'success-btn': !isBuy && !isMyOrder,
+              'bg-gray-100 text-subtitle cursor-not-allowed': isMyOrder,
+            }"
+            :disabled="isMyOrder"
           >
             {{
               isBuy ? `Bán ${item.source_symbol}` : `Mua ${item.source_symbol}`
@@ -131,13 +136,19 @@ export default {
     isExpand() {
       return this.selectedOrder.id === this.item.id
     },
+    currentUser() {
+      return this.$auth.user
+    },
+    isMyOrder() {
+      return this.currentUser.id === this.item.user_id
+    },
   },
   methods: {
     ...mapActions({
       setSelectedOrder: 'market/setSelectedOrder',
     }),
     selectOrder(payload) {
-      if (this.isExpand) {
+      if (this.isExpand || this.isMyOrder) {
         this.setSelectedOrder(null)
 
         return

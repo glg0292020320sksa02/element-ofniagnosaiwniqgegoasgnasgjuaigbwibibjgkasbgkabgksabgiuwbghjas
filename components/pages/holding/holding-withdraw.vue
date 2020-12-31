@@ -88,7 +88,7 @@ export default {
     },
   },
   methods: {
-    ...mapGetters({
+    ...mapActions({
       withdraw: 'wallet/withdraw',
     }),
     loadDetailWallet() {
@@ -106,8 +106,8 @@ export default {
       this.$notify.closeAll()
 
       const body = {
-        amount: this.amount,
-        address: this.address,
+        amount: this.amount.toString(),
+        address: this.address.toString(),
       }
 
       try {

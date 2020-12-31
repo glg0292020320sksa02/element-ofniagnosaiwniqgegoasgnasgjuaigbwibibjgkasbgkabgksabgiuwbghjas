@@ -43,10 +43,9 @@ export default {
   },
   computed: {
     marketTrendingSelected() {
-      return this.marketTrendingList.slice(
-        START_MARKET_SELECTED,
-        MAX_LENGTH_MARKET_SELECTED
-      )
+      const enableIds = [1, 1027, 1321, 52, 825, 3, 2, 1839, 1958]
+
+      return this.marketTrendingList.filter(item => enableIds.includes(item.id))
     },
     isPending() {
       return this.$fetchState.pending
