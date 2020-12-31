@@ -246,7 +246,7 @@
   "sellList": "I want to buy",
   "partner": "Partner",
   "your-balance": "Your balance",
-  "infinitySetup": "Setup infinity order",
+  "infinitySetup": "Automatic sell all balance",
   "infinityBuyTooltip": "With this config, the order always show when your VNDS balance is greater than or equa 5$",
   "infinitySellTooltip": "With this config, the order always show when your {symbol} balance is greater than or equa 5$",
   "yourVNDSBalance": "Your VNDS balance",

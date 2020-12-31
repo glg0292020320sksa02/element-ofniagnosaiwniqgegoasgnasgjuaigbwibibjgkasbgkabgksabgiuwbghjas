@@ -35,6 +35,7 @@
                 <el-checkbox
                   v-model="model.is_infinite"
                   :label="$t('infinitySetup')"
+                  @change="changeInfinity"
                 ></el-checkbox>
               </el-tooltip>
             </input-form>
@@ -45,19 +46,6 @@
                 :filter="false"
                 @input="loadCurrentCurrencyPrice"
               ></select-coin>
-            </input-form>
-            <input-form :label="$t('payment_method')" class="mb-5">
-              <el-select
-                v-model="model.payment_method"
-                placeholder=""
-                class="select-payment-method w-full"
-              >
-                <el-option
-                  :label="$t('vcb-or-tcb')"
-                  value="VCB_OR_TCB"
-                ></el-option>
-                <el-option :label="$t('all-bank')" value="ALL_BANK"></el-option>
-              </el-select>
             </input-form>
             <input-form :label="$t('bank-account')" class="mb-5">
               <select-account-number
@@ -82,9 +70,17 @@
                 {{ $t('marketPrice') }}: {{ marketPrice | filterPriceMoney }}
               </span>
             </input-form>
-            <input-form :label="$t('amountCoin')">
-              <input-currency v-model="model.amount"></input-currency>
-              <div class="select-amount-percent mt-1 flex justify-end">
+            <input-form :label="$t('amountCoin')" class="mb-5">
+              <input-currency
+                v-model="model.amount"
+                :disabled="model.is_infinite"
+              ></input-currency>
+              <div class="select-amount-percent mt-1 flex justify-between">
+                <span class="text-xs text-subtitle">
+                  {{ $t('your-balance') }} :
+                  {{ walletSelected.real_balance | filterPrice }}
+                  {{ walletSelectedWithSymbol }}
+                </span>
                 <el-button
                   round
                   :type="typeMaxButton"
@@ -99,13 +95,6 @@
               <input-currency v-model="total" disabled>
                 <template slot="append">
                   {{ moneyReceivedDefault }}
-                </template>
-              </input-currency>
-            </input-form>
-            <input-form :label="$t('your-balance')" class="mb-5">
-              <input-currency :value="walletSelected.real_balance" disabled>
-                <template slot="append">
-                  {{ walletSelectedWithSymbol }}
                 </template>
               </input-currency>
             </input-form>
@@ -129,7 +118,7 @@
 <script>
 import Big from 'big.js'
 import { mapActions, mapGetters } from 'vuex'
-import { filterPriceMoney } from '@/filters'
+import { filterPriceMoney, filterPrice } from '@/filters'
 
 import SelectAccountNumber from '@/components/pages/wallet-sell/select-account-number'
 import SelectCoin from '@/components/pages/wallet-sell/select-coin'
@@ -141,7 +130,7 @@ const MONEY_SELL_DEFAULT = 'BTC'
 
 export default {
   name: 'WalletSell',
-  filters: { filterPriceMoney },
+  filters: { filterPriceMoney, filterPrice },
   layout: 'auth',
   components: { SelectAccountNumber, SelectCoin, InputCurrency, InputForm },
   async fetch() {
@@ -269,6 +258,10 @@ export default {
       const amount = this.walletSelected.real_balance
 
       this.model.amount = amount
+    },
+    changeInfinity() {
+      if (this.model.is_infinite)
+        this.model.amount = this.walletSelected.real_balance
     },
   },
 }

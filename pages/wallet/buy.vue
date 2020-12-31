@@ -31,6 +31,7 @@
                 <el-checkbox
                   v-model="isInfinite"
                   :label="$t('infinitySetup')"
+                  @change="changeInfinity"
                 ></el-checkbox>
               </el-tooltip>
             </input-form>
@@ -54,7 +55,10 @@
               </span>
             </input-form>
             <input-form :label="$t('amountCoin')">
-              <input-currency v-model="amount"></input-currency>
+              <input-currency
+                v-model="amount"
+                :disabled="isInfinite"
+              ></input-currency>
               <div class="select-amount-percent mt-1 flex justify-end">
                 <el-button
                   round
@@ -72,11 +76,13 @@
                 :suffix="moneyReceivedDefault"
                 disabled
               ></input-currency>
-            </input-form>
-            <input-form :label="$t('yourVNDSBalance')" class="mb-5">
-              <input-currency :value="VNDS.real_balance" disabled>
-                <template slot="append">VNDS</template>
-              </input-currency>
+              <div class="select-amount-percent mt-1 flex justify-start">
+                <span class="text-xs text-subtitle">
+                  {{ $t('yourVNDSBalance') }} :
+                  {{ VNDS.real_balance | filterPriceMoney }}
+                  VNDS
+                </span>
+              </div>
             </input-form>
           </div>
           <div class="my-12">
@@ -235,6 +241,9 @@ export default {
       const amount = total.div(this.price)
 
       this.amount = amount.toNumber()
+    },
+    changeInfinity() {
+      if (this.isInfinite) this.amount = this.walletSelected.real_balance
     },
   },
 }

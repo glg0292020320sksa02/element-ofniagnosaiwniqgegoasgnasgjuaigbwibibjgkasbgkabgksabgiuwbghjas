@@ -78,8 +78,8 @@ export default {
     },
     createOrderButtonLabel() {
       return this.activeSide === 'BUY'
-        ? this.$t('create-a-new-buy-order')
-        : this.$t('create-a-new-sell-order')
+        ? this.$t('create-a-new-sell-order')
+        : this.$t('create-a-new-buy-order')
     },
   },
   methods: {
@@ -96,7 +96,8 @@ export default {
       this.orders = data
     },
     onRedirectWallet() {
-      const router = `/wallet/${this.activeSide.toLowerCase()}?coin=${
+      const exchangeSide = this.activeSide === side.BUY ? side.SELL : side.BUY
+      const router = `/wallet/${exchangeSide.toLowerCase()}?coin=${
         this.activeTab
       }`
 

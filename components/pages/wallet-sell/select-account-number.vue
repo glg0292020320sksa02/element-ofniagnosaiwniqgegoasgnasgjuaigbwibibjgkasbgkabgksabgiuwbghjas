@@ -10,7 +10,17 @@
       :key="account.id"
       :label="account.name"
       :value="account.id"
-    ></el-option>
+    >
+      <div class="flex flex-col justify-start items-start">
+        <strong>
+          {{ account.name }} /
+          <span class="text-subtitle">{{ account.number }}</span>
+        </strong>
+        <span class="text-subtitle text-xs">
+          [{{ account.bank.alias }}] {{ account.bank.name }}
+        </span>
+      </div>
+    </el-option>
     <el-option
       v-if="!bankAccountNumbers || bankAccountNumbers.length === 0"
       class="text-center flex justify-center"
@@ -61,3 +71,8 @@ export default {
   },
 }
 </script>
+<style>
+.el-select-dropdown__item {
+  height: auto !important;
+}
+</style>

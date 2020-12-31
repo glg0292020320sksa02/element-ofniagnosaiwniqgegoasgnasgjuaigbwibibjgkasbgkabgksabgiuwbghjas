@@ -28,7 +28,7 @@
           class="px-6 py-3 h-12 rounded error-btn text-white font-bold"
           @click="onCreateExchange"
         >
-          Ban {{ selectedOrder.source_symbol }}
+          Bán {{ selectedOrder.source_symbol }}
         </button>
       </div>
       <p class="text-xs text-subtitle mt-2">
