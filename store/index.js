@@ -1,6 +1,6 @@
 export const state = () => ({
   activeTab: 'BTC',
-  activeSide: null,
+  activeSide: 'BUY',
   selectedUserView: null,
   selectedTransactionView: null,
 })
@@ -12,6 +12,9 @@ export const getters = {
   },
   activeTab(state) {
     return state.activeTab
+  },
+  activeSide(state) {
+    return state.activeSide
   },
   selectedUserView(state) {
     return state.selectedUserView ? state.selectedUserView : {}

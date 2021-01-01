@@ -5,15 +5,15 @@
     <div class="flex flex-row justify-between items-baseline py-4 px-1">
       <div class="flex flex-row justify-start items-end">
         <c-group-button
-          v-model="activeSide"
+          :value="activeSide"
           class="mr-8"
           :items="sides"
           object
           @change="selectActiveSide($event)"
         ></c-group-button>
         <c-tab
-          v-model="activeTab"
-          :items="tabs"
+          :value="activeTab"
+          :items="tabsBySide"
           @change="selectActiveTab($event)"
         ></c-tab>
       </div>
@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { coin, sideRequestObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CGroupButton from '@/components/ui/control/c-group-button'
@@ -55,13 +55,15 @@ export default {
     return {
       tabs: Object.values(coin),
       sides: Object.values(sideRequestObj),
-      activeSide: side.BUY,
-      activeTab: coin.BTC,
       orders: [],
       loading: false,
     }
   },
   computed: {
+    ...mapGetters({
+      activeTab: 'activeTab',
+      activeSide: 'activeSide',
+    }),
     orderListFiltered() {
       if (!this.orders.length) return []
 
@@ -80,6 +82,11 @@ export default {
       return this.activeSide === 'BUY'
         ? this.$t('create-a-new-sell-order')
         : this.$t('create-a-new-buy-order')
+    },
+    tabsBySide() {
+      return this.activeSide === 'SELL'
+        ? this.tabs.filter(item => item !== 'VNDS')
+        : this.tabs
     },
   },
   methods: {

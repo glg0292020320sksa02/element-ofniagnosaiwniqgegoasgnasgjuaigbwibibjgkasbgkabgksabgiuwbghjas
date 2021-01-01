@@ -372,5 +372,11 @@
   "htmlCreateBuyOrder": "Tạo lệnh <strong>mua</strong>",
   "htmlCreateSellOrder": "Tạo lệnh <strong>bán</strong>",
   "htmlBuy": "<strong>Mua</strong>",
-  "htmlSell": "<strong>Bán</strong>"
+  "htmlSell": "<strong>Bán</strong>",
+  "advertisers": "Người quảng cáo",
+  "limitAvailable": "Giới hạn/Hạn mức",
+  "limit": "Giới hạn",
+  "available": "Hạn mức",
+  "payment": "Thanh toán",
+  "trade": "Giao dịch" 
 }

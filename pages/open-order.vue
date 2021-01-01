@@ -27,6 +27,7 @@
           <div
             class="table table-hover text-sm relative mb-16 bg-gray-100 rounded-lg"
           >
+            <open-order-table :items="listOrders"></open-order-table>
             <open-order :data="listOrders" @reload="loadOrders"></open-order>
           </div>
         </div>
@@ -43,6 +44,7 @@ import FilterDate from '@/components/common/setting/filter-date'
 import FilterPair from '@/components/common/setting/filter-pair'
 import FilterSide from '@/components/common/setting/filter-side'
 import OpenOrder from '@/components/pages/open-order'
+import OpenOrderTable from '@/components/pages/open-order/open-order-table'
 
 export default {
   name: 'OpenOrderPage',
@@ -52,6 +54,7 @@ export default {
     FilterSide,
     FilterPair,
     OpenOrder,
+    OpenOrderTable,
   },
   fetch() {
     this.loadOrders()

@@ -26,7 +26,7 @@
         <template slot-scope="scope">
           <span
             class="text-primary underline cursor-pointer font-bold"
-            @click="redirectToHomePage(scope.row.source_symbol)"
+            @click="redirectToHomePage(scope.row.source_symbol, scope.row.side)"
           >
             {{
               `${targetSymbol(scope.row.target_symbol)}/${sourceSymbol(
@@ -129,6 +129,7 @@ export default {
     ...mapActions({
       deleteOrder: 'market/deleteOrder',
       setActiveTab: 'setActiveTab',
+      setActiveSide: 'setActiveSide',
       setSelectedUserView: 'setSelectedUserView',
     }),
 
@@ -198,8 +199,9 @@ export default {
         ? transaction.seller.name
         : transaction.buyer.name
     },
-    redirectToHomePage(target) {
+    redirectToHomePage(target, side) {
       this.setActiveTab(target)
+      this.setActiveSide(side.toUpperCase())
       this.$router.push('/')
     },
     viewDetailUser(transaction) {

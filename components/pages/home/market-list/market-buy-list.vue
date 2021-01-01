@@ -5,7 +5,7 @@
     <div class="flex flex-row justify-between items-baseline py-4 px-1">
       <div class="flex flex-row justify-start items-end">
         <c-tab
-          v-model="activeTab"
+          :value="activeTab"
           :items="tabs"
           @change="selectActiveTab($event)"
         ></c-tab>
@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { coin, sideRequestObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CTab from '@/components/ui/control/c-tab'
@@ -44,15 +44,17 @@ export default {
   },
   data() {
     return {
-      tabs: Object.values(coin),
+      tabs: Object.values(coin).filter(item => item !== 'VNDS'),
       sides: Object.values(sideRequestObj),
       activeSide: side.SELL,
-      activeTab: coin.BTC,
       orders: [],
       loading: false,
     }
   },
   computed: {
+    ...mapGetters({
+      activeTab: 'activeTab',
+    }),
     orderListFiltered() {
       if (!this.orders.length) return []
 

@@ -372,5 +372,11 @@
   "htmlCreateBuyOrder": "Create a <strong>buy</strong> order",
   "htmlCreateSellOrder": "Create a <strong>sell</strong> order",
   "htmlBuy": "<strong>Buy</strong>",
-  "htmlSell": "<strong>Sell</strong>"
+  "htmlSell": "<strong>Sell</strong>",
+  "advertisers": "Advertisers",
+  "limitAvailable": "Limit/Available",
+  "limit": "Limit",
+  "available": "Available",
+  "payment": "Payment",
+  "trade": "Trade"
 }

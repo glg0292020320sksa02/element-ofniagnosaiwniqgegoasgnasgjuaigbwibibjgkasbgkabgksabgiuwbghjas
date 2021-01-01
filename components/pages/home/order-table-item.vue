@@ -33,14 +33,14 @@
       <div class="order-column w-4/12">
         <div class="flex flex-col justify-center items-start">
           <div class="flex flex-row justify-start items-baseline text-xs">
-            <span class="text-subtitle mr-1">Số lượng:</span>
+            <span class="text-subtitle mr-1">{{ $t('limit') }}:</span>
             <span>
               {{ item.remaining_amount | filterPrice }}
               <span class="text-subtitle">{{ item.source_symbol }}</span>
             </span>
           </div>
           <div class="flex flex-row justify-start items-baseline text-xs mt-2">
-            <span class="text-subtitle mr-1">Hạn mức:</span>
+            <span class="text-subtitle mr-1">{{ $t('available') }}:</span>
             <span>
               {{ 0 | filterPriceMoney }}
               <span class="text-subtitle">{{ item.target_symbol }}</span>
