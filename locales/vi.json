@@ -378,5 +378,6 @@
   "limit": "Giới hạn",
   "available": "Hạn mức",
   "payment": "Thanh toán",
-  "trade": "Giao dịch" 
+  "trade": "Giao dịch",
+  "transNotFound": "Chưa có lịch sử giao dich"
 }

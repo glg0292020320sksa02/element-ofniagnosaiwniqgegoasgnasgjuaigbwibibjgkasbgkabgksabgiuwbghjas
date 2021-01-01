@@ -378,5 +378,6 @@
   "limit": "Limit",
   "available": "Available",
   "payment": "Payment",
-  "trade": "Trade"
+  "trade": "Trade",
+  "transNotFound": "Transaction not found"
 }

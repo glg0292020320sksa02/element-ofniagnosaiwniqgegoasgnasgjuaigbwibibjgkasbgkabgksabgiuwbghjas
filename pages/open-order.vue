@@ -1,6 +1,6 @@
 <template>
   <div class="page-open-order container py-8 space-y-8">
-    <div class="bg-white rounded-lg shadow-lg">
+    <div class="bg-gray-100 rounded-lg shadow-lg">
       <div class="border-b p-8 flex justify-between items-center">
         <div class="text-xl font-bold">{{ $t('openOrder') }}</div>
       </div>
@@ -17,18 +17,14 @@
 
         <table-content-loader v-if="$fetchState.pending"></table-content-loader>
 
-        <div
-          v-else
-          v-infinite-scroll="loadMoreOrders"
-          :infinite-scroll-disabled="disabledInfinitiScroll"
-          class="overflow-x-auto mt-6"
-          style="height: 500px"
-        >
+        <div v-else class="mt-6 overflow-y-scroll" style="height: 500px">
           <div
             class="table table-hover text-sm relative mb-16 bg-gray-100 rounded-lg"
           >
-            <open-order-table :items="listOrders"></open-order-table>
-            <open-order :data="listOrders" @reload="loadOrders"></open-order>
+            <open-order-table
+              :items="listOrders"
+              @reload="loadOrders"
+            ></open-order-table>
           </div>
         </div>
       </div>
@@ -43,7 +39,6 @@ import TableContentLoader from '@/components/common/table-content-loader'
 import FilterDate from '@/components/common/setting/filter-date'
 import FilterPair from '@/components/common/setting/filter-pair'
 import FilterSide from '@/components/common/setting/filter-side'
-import OpenOrder from '@/components/pages/open-order'
 import OpenOrderTable from '@/components/pages/open-order/open-order-table'
 
 export default {
@@ -53,7 +48,6 @@ export default {
     FilterDate,
     FilterSide,
     FilterPair,
-    OpenOrder,
     OpenOrderTable,
   },
   fetch() {

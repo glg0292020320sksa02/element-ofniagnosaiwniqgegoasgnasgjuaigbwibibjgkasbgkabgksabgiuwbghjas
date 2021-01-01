@@ -10,33 +10,31 @@
       <div class="header-column w-1/12">
         <span class="text-subtitle">{{ $t('pair') }}</span>
       </div>
-      <div class="header-column w-1/12">
+      <div class="header-column w-2/12 flex justify-center">
         <span class="text-subtitle">{{ $t('side') }}</span>
       </div>
-      <div class="header-column w-3/12 flex justify-end">
+      <div class="header-column w-2/12">
         <span class="text-subtitle">
           {{ `${$t('amountCoin')} & ${$t('price')}` }}
         </span>
       </div>
-      <div class="header-column w-1/12 flex justify-end">
+      <div class="header-column w-1/12">
         <span class="text-subtitle">{{ $t('filled') }}</span>
       </div>
-      <div class="header-column w-2/12 flex justify-end">
+      <div class="header-column w-2/12">
         <span class="text-subtitle">{{ $t('total') }}</span>
       </div>
       <div class="header-column w-1/12 flex justify-end">
         <span class="text-subtitle">{{ $t('action') }}</span>
       </div>
     </div>
-    <table-content-loader
-      v-if="$fetchState.pending || loading"
-    ></table-content-loader>
-    <div v-else class="wallet-list rounded-lg">
+    <div class="wallet-list rounded-lg">
       <div v-if="items && items.length > 0">
         <open-order-table-item
           v-for="(item, i) in items"
           :key="i + '_vorder'"
           :item="item"
+          @reload="$emit('reload')"
         ></open-order-table-item>
       </div>
       <div
@@ -57,8 +55,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { format as formatTimeago } from 'timeago.js'
 
 import OpenOrderTableItem from '@/components/pages/open-order/open-order-table-item'
-
-import TableContentLoader from '@/components/common/table-content-loader'
+import IconEmpty from '@/components/ui/icon/icon-empty'
 
 import { filterPrice } from '@/filters'
 
@@ -66,8 +63,8 @@ export default {
   name: 'WalletTable',
   filters: { filterPrice },
   components: {
-    TableContentLoader,
     OpenOrderTableItem,
+    IconEmpty,
   },
   props: {
     items: {
@@ -75,12 +72,5 @@ export default {
       required: true,
     },
   },
-  fetch() {},
-  data() {
-    return {
-      loading: false,
-    }
-  },
-  computed: {},
 }
 </script>
