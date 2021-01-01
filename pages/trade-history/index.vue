@@ -1,6 +1,6 @@
 <template>
   <div class="page-trade-history container py-8 space-y-8">
-    <div class="bg-white rounded-lg shadow-lg">
+    <div class="bg-gray-100 rounded-lg shadow-lg">
       <div class="border-b p-8 pb-0 flex flex-col justify-start items-start">
         <div class="text-xl font-bold">{{ $t('tradeHistory') }}</div>
         <div>
@@ -51,7 +51,9 @@
           style="height: 500px"
         >
           <div class="table table-hover text-sm relative">
-            <trade-history :data="listTransactions"></trade-history>
+            <trade-history-table
+              :items="listTransactions"
+            ></trade-history-table>
           </div>
         </div>
       </div>
@@ -67,7 +69,7 @@ import TableContentLoader from '@/components/common/table-content-loader'
 import FilterDate from '@/components/common/setting/filter-date'
 import FilterPair from '@/components/common/setting/filter-pair'
 import FilterSide from '@/components/common/setting/filter-side'
-import TradeHistory from '@/components/pages/trade-history/'
+import TradeHistoryTable from '@/components/pages/trade-history/trade-history-table'
 
 export default {
   name: 'SettingTradeHistory',
@@ -77,7 +79,7 @@ export default {
     FilterDate,
     FilterSide,
     FilterPair,
-    TradeHistory,
+    TradeHistoryTable,
   },
   fetch() {
     this.loadTransactions()

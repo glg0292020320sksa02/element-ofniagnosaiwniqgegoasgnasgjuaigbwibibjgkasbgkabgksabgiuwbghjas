@@ -74,7 +74,7 @@
       class="expand border-t bg-gray-100 p-6 flex justify-center"
     >
       <div v-if="transTotal && transTotal > 0">
-        {{ listTransactions }}
+        <trade-history-table :items="listTransactions"></trade-history-table>
       </div>
       <div
         v-else
@@ -93,15 +93,15 @@
 import { mapActions, mapGetters } from 'vuex'
 import { filterPrice, filterPriceMoney } from '@/filters'
 
-import HoldingDeposit from '@/components/pages/holding/holding-deposit'
-import HoldingWithdraw from '@/components/pages/holding/holding-withdraw'
 import IconEmpty from '@/components/ui/icon/icon-empty'
+import TradeHistoryTable from '@/components/pages/trade-history/trade-history-table'
 
 export default {
   name: 'WalletsTableItem',
   filters: { filterPrice, filterPriceMoney },
   components: {
     IconEmpty,
+    TradeHistoryTable,
   },
   props: {
     item: {
