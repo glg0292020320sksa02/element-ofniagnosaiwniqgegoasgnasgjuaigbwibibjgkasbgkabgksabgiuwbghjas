@@ -368,5 +368,9 @@
   "addBankAccountSuccess": "Thêm số tài khoản thành công.",
   "addBankAccountFail":"Xác thực tài khoản thất bại",
   "addBankAccountFailMessage": "Vui lòng kiểm tra lại thông tin ngân hàng của bạn.",
-  "scanToGetAddress": "Quét để lấy địa chỉ ví"
+  "scanToGetAddress": "Quét để lấy địa chỉ ví",
+  "htmlCreateBuyOrder": "Tạo lệnh <strong>mua</strong>",
+  "htmlCreateSellOrder": "Tạo lệnh <strong>bán</strong>",
+  "htmlBuy": "<strong>Mua</strong>",
+  "htmlSell": "<strong>Bán</strong>"
 }

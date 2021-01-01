@@ -62,13 +62,13 @@ export default {
           authCheck: true,
           subMenu: [
             {
-              title: this.$t('buy'),
+              title: this.$t('htmlBuy'),
               subTitle: this.$t('buyMenuSubtitle'),
               to: '/dashboard/buy',
               icon: IconBuy,
             },
             {
-              title: this.$t('sell'),
+              title: this.$t('htmlSell'),
               subTitle: this.$t('sellMenuSubtitle'),
               to: '/dashboard/sell',
               icon: IconSell,
@@ -81,13 +81,13 @@ export default {
           authCheck: true,
           subMenu: [
             {
-              title: this.$t('createBuyOrder'),
+              title: this.$t('htmlCreateBuyOrder'),
               subTitle: this.$t('createBuyOrderMenuSubtitle'),
               to: '/wallet/buy',
               icon: IconBuyOrder,
             },
             {
-              title: this.$t('createSellOrder'),
+              title: this.$t('htmlCreateSellOrder'),
               subTitle: this.$t('createSellOrderMenuSubtitle'),
               to: '/wallet/sell',
               icon: IconSellOrder,

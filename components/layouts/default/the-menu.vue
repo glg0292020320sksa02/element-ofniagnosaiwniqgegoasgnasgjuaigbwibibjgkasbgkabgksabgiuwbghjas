@@ -21,9 +21,10 @@
             ></component>
 
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-900">
-                {{ item.title }}
-              </p>
+              <p
+                class="text-sm font-medium text-gray-900"
+                v-html="item.title"
+              ></p>
               <p
                 class="p-0 text-xs font-normal text-gray-700 whitespace-normal"
               >

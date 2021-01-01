@@ -368,5 +368,9 @@
   "addBankAccountSuccess": "Add bank account success.",
   "addBankAccountFail": "Add bank account fail.",
   "addBankAccountFailMessage": "Please reconfirm your bank account",
-  "scanToGetAddress": "Scan to get wallet address"
+  "scanToGetAddress": "Scan to get wallet address",
+  "htmlCreateBuyOrder": "Create a <strong>buy</strong> order",
+  "htmlCreateSellOrder": "Create a <strong>sell</strong> order",
+  "htmlBuy": "<strong>Buy</strong>",
+  "htmlSell": "<strong>Sell</strong>"
 }
