@@ -42,16 +42,12 @@
                 @input="loadCurrentCurrencyPrice"
               ></select-coin>
             </input-form>
-            <input-form :label="$t('price')" class="mb-5">
-              <input-currency v-model="price">
-                <template slot="append">
-                  <span>{{ moneyReceivedDefault }}</span>
-                  <span>/</span>
-                  <span>{{ walletSelectedWithSymbol }}</span>
-                </template>
-              </input-currency>
+            <input-form :label="$t('price')" class="mb-5 relative">
+              <input-currency v-model="price"></input-currency>
+              <span class="price-unit text-subtitle">{{ priceUnit }}</span>
               <span class="w-full text-gray-500 text-xs">
                 {{ $t('marketPrice') }}: {{ marketPrice | filterPriceMoney }}
+                {{ priceUnit }}
               </span>
             </input-form>
             <input-form :label="$t('amountCoin')">
@@ -70,12 +66,11 @@
                 </el-button>
               </div>
             </input-form>
-            <input-form :label="$t('total')" class="mb-5">
-              <input-currency
-                :value="total"
-                :suffix="moneyReceivedDefault"
-                disabled
-              ></input-currency>
+            <input-form :label="$t('total')" class="mb-5 relative">
+              <input-currency :value="total" disabled></input-currency>
+              <span class="price-unit text-subtitle">
+                {{ moneyReceivedDefault }}
+              </span>
               <div class="select-amount-percent mt-1 flex justify-start">
                 <span class="text-xs text-subtitle">
                   {{ $t('yourVNDSBalance') }} :
@@ -162,6 +157,9 @@ export default {
       return this.VNDS && this.VNDS.final_balance === this.total
         ? 'primary'
         : 'none'
+    },
+    priceUnit() {
+      return `VNDS/${this.walletSelected?.currency?.symbol}`
     },
   },
   methods: {

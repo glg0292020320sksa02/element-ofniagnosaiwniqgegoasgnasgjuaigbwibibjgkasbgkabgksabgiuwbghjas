@@ -11,6 +11,11 @@
       >
         <market-trending-item :item="market"></market-trending-item>
       </div>
+      <div class="w-64 m-1 flex-grow">
+        <market-trending-item :item="vnds"></market-trending-item>
+      </div>
+      <div class="w-64 m-1 flex-grow"></div>
+      <div class="w-64 m-1 flex-grow"></div>
     </div>
   </div>
 </template>
@@ -43,9 +48,37 @@ export default {
   },
   computed: {
     marketTrendingSelected() {
-      const enableIds = [1, 1027, 1321, 52, 825, 3, 2, 1839, 1958]
+      const enableIds = [1, 1027, 1321, 52, 825, 3]
 
       return this.marketTrendingList.filter(item => enableIds.includes(item.id))
+    },
+    vnds() {
+      return {
+        id: 1321,
+        name: 'VNDS',
+        symbol: 'VNDS',
+        slug: 'ethereum-classic',
+        num_market_pairs: 284,
+        date_added: '2016-07-24T00:00:00.000Z',
+        tags: ['mineable', 'pow', 'ethash', 'platform', 'smart-contracts'],
+        max_supply: 210700000,
+        circulating_supply: 116313299,
+        total_supply: 116313299,
+        platform: null,
+        cmc_rank: 40,
+        last_updated: '2021-01-06T17:17:04.000Z',
+        quote: {
+          USD: {
+            price: 23092.5,
+            volume_24h: 250292,
+            percent_change_1h: 0.0426065,
+            percent_change_24h: 0.4446165,
+            percent_change_7d: 0.30965054,
+            market_cap: 198000000,
+            last_updated: '2021-01-06T17:17:04.000Z',
+          },
+        },
+      }
     },
     isPending() {
       return this.$fetchState.pending

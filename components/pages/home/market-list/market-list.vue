@@ -84,7 +84,7 @@ export default {
         : this.$t('create-a-new-buy-order')
     },
     tabsBySide() {
-      return this.activeSide === 'SELL'
+      return this.activeSide === 'BUY'
         ? this.tabs.filter(item => item !== 'VNDS')
         : this.tabs
     },

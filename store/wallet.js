@@ -14,6 +14,11 @@ export const getters = {
     return symbol =>
       state.walletList.filter(wallet => wallet.currency.symbol !== symbol)
   },
+  walletWithoutVNDS(state) {
+    return (
+      state.walletList.filter(item => item.currency.symbol !== 'VNDS') || []
+    )
+  },
   VNDS(state) {
     return state.walletList.find(item => item.currency.symbol === 'VNDS') || {}
   },

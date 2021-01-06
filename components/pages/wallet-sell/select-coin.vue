@@ -47,13 +47,20 @@ export default {
       type: [Boolean, String],
       default: MONEY_RECEIVED_DEFAULT,
     },
+    includeVnds: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters({
       walletFiltered: 'wallet/walletFiltered',
+      walletWithoutVNDS: 'wallet/walletWithoutVNDS',
     }),
     walletFilteredList() {
-      return this.walletFiltered(this.filter)
+      return this.includeVnds
+        ? this.walletFiltered(this.filter)
+        : this.walletWithoutVNDS
     },
     walletSelected() {
       return this.walletFilteredList.find(wallet => wallet.id === this.walletId)

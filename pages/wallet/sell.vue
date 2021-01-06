@@ -44,6 +44,7 @@
                 v-model="model.wallet_id"
                 :loading="$fetchState.pending"
                 :filter="false"
+                :include-vnds="false"
                 @input="loadCurrentCurrencyPrice"
               ></select-coin>
             </input-form>
@@ -52,22 +53,12 @@
                 v-model="model.bank_account_number_id"
               ></select-account-number>
             </input-form>
-            <input-form :label="$t('price')" class="mb-5">
-              <input-currency v-model="model.price">
-                <template slot="append">
-                  <span>{{ moneyReceivedDefault }}</span>
-                  <span>/</span>
-                  <span>
-                    {{
-                      walletSelectedWithSymbol === 'VNDS'
-                        ? 'VND'
-                        : walletSelectedWithSymbol
-                    }}
-                  </span>
-                </template>
-              </input-currency>
+            <input-form :label="$t('price')" class="mb-5 relative">
+              <input-currency v-model="model.price"></input-currency>
+              <span class="price-unit text-subtitle">{{ priceUnit }}</span>
               <span class="w-full text-gray-500 text-xs">
                 {{ $t('marketPrice') }}: {{ marketPrice | filterPriceMoney }}
+                {{ priceUnit }}
               </span>
             </input-form>
             <input-form :label="$t('amountCoin')" class="mb-5">
@@ -78,8 +69,10 @@
               <div class="select-amount-percent mt-1 flex justify-between">
                 <span class="text-xs text-subtitle">
                   {{ $t('your-balance') }} :
-                  {{ walletSelected.real_balance | filterPrice }}
-                  {{ walletSelectedWithSymbol }}
+                  <strong>
+                    {{ walletSelected.real_balance | filterPrice }}
+                    {{ walletSelectedWithSymbol }}
+                  </strong>
                 </span>
                 <el-button
                   round
@@ -91,12 +84,11 @@
                 </el-button>
               </div>
             </input-form>
-            <input-form :label="$t('total')" class="mb-5">
-              <input-currency
-                :value="total"
-                :suffix="moneyReceivedDefault"
-                disabled
-              ></input-currency>
+            <input-form :label="$t('total')" class="mb-5 relative">
+              <input-currency :value="total" disabled></input-currency>
+              <span class="price-unit text-subtitle">
+                {{ moneyReceivedDefault }}
+              </span>
             </input-form>
           </div>
           <div class="my-12">
@@ -186,6 +178,9 @@ export default {
         ? 'primary'
         : 'none'
     },
+    priceUnit() {
+      return `VNDS/${this.walletSelected?.currency?.symbol}`
+    },
   },
   methods: {
     ...mapActions({
@@ -274,5 +269,11 @@ export default {
 }
 .select-amount-percent .el-button {
   padding: 2px 4px !important;
+}
+.price-unit {
+  position: absolute;
+  right: 4px;
+  top: 40px;
+  font-size: 0.75rem;
 }
 </style>

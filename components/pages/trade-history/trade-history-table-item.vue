@@ -65,7 +65,7 @@
       <div class="order-column w-2/12 flex items-center">
         <div class="flex justify-end items-center">
           <strong :class="getColorTotal(item.side)">
-            {{ item.total | filterPrice }}
+            {{ item.total | filterPriceMoney }}
           </strong>
           <span class="ml-1 text-xs text-subtitle">
             {{ targetSymbol(item.target_symbol) }}

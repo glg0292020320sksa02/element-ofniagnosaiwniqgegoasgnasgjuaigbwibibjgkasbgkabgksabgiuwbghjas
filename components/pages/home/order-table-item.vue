@@ -42,7 +42,7 @@
           <div class="flex flex-row justify-start items-baseline text-xs mt-2">
             <span class="text-subtitle mr-1">{{ $t('limit') }}:</span>
             <span>
-              {{ 0 | filterPriceMoney }}
+              {{ 50000 | filterPriceMoney }}
               <span class="text-subtitle">{{ item.target_symbol }}</span>
               -
               {{ item.remaining_total | filterPriceMoney }}

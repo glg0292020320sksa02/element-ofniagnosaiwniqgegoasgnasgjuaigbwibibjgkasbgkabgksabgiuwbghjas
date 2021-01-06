@@ -7,9 +7,14 @@
     trigger="click"
   >
     <div slot="reference" class="relative">
-      <el-button circle class="button-user text-base text-primary">
+      <button
+        class="text-base bg-primary-50 text-primary p-1 px-3 rounded flex flex-row justify-between items-center"
+      >
+        <div class="text-sm text-primary text-right mr-2 uppercase">
+          {{ userName }}
+        </div>
         <icon-user class="text-primary text-2xl w-5 h-5"></icon-user>
-      </el-button>
+      </button>
       <i
         v-if="!isEnable2FA"
         class="notification el-icon-warning text-error"
