@@ -92,11 +92,11 @@
               </div>
             </input-form>
             <input-form :label="$t('total')" class="mb-5">
-              <input-currency v-model="total" disabled>
-                <template slot="append">
-                  {{ moneyReceivedDefault }}
-                </template>
-              </input-currency>
+              <input-currency
+                :value="total"
+                :suffix="moneyReceivedDefault"
+                disabled
+              ></input-currency>
             </input-form>
           </div>
           <div class="my-12">
@@ -172,8 +172,9 @@ export default {
     total() {
       const price = Big(Number(this.model.price))
 
-      // Big decimal: total = this.price * this.amount
-      return this.model.amount ? price.times(this.model.amount).toNumber() : 0
+      return this.model.amount
+        ? Math.round(price.times(this.model.amount).toNumber())
+        : 0
     },
     typeMaxButton() {
       return this.walletSelected.real_balance &&

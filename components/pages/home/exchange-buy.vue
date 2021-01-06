@@ -4,7 +4,9 @@
       <div class="flex flex-row justify-end items-start">
         <label class="block mr-8">
           <div>
-            <span class="text-subtitle text-xs">Phương thức thanh toán</span>
+            <span class="text-subtitle text-xs">
+              {{ $t('payment_method') }}
+            </span>
           </div>
           <div class="flex flex-row justify-start items-end pt-6">
             <div
@@ -67,7 +69,11 @@
               class="px-6 py-3 h-12 rounded success-btn text-white font-bold"
               @click="onCreateExchange"
             >
-              Mua {{ selectedOrder.source_symbol }}
+              {{
+                $t(`buyCoin`, {
+                  symbol: selectedOrder.source_symbol,
+                })
+              }}
             </button>
           </div>
           <p class="text-xs text-subtitle mt-2">
@@ -84,7 +90,7 @@
         class="rounded px-4 py-2 text-primary text-xs bg-primary-50 flex flex-nowrap"
         @click="redirectToLogin"
       >
-        Bạn cần đăng nhập trước khi mua
+        {{ $t('requiredLogin') }}
         <icon-arrow-right class="w-4 h-4 ml-1"></icon-arrow-right>
       </button>
     </div>

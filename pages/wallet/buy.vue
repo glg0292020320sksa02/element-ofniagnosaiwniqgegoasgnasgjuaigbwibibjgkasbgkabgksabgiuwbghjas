@@ -156,8 +156,7 @@ export default {
     total() {
       const price = Big(Number(this.price))
 
-      // Big decimal: total = this.price * this.amount
-      return this.amount ? price.times(this.amount).toNumber() : 0
+      return this.amount ? Math.round(price.times(this.amount).toNumber()) : 0
     },
     typeMaxButton() {
       return this.VNDS && this.VNDS.final_balance === this.total

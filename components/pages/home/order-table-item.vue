@@ -17,7 +17,7 @@
           <span class="text-sm text-primary">{{ item.user.name }}</span>
         </div>
         <div class="text-subtitle text-xs pl-5 mt-2">
-          <span>62 lệnh 96.88% hoàn tất</span>
+          <span>{{ $t('partnerRate', { order: 62, rate: 96.85 }) }}</span>
         </div>
       </div>
       <div class="order-column w-3/12">
@@ -33,14 +33,14 @@
       <div class="order-column w-4/12">
         <div class="flex flex-col justify-center items-start">
           <div class="flex flex-row justify-start items-baseline text-xs">
-            <span class="text-subtitle mr-1">{{ $t('limit') }}:</span>
+            <span class="text-subtitle mr-1">{{ $t('available') }}:</span>
             <span>
               {{ item.remaining_amount | filterPrice }}
               <span class="text-subtitle">{{ item.source_symbol }}</span>
             </span>
           </div>
           <div class="flex flex-row justify-start items-baseline text-xs mt-2">
-            <span class="text-subtitle mr-1">{{ $t('available') }}:</span>
+            <span class="text-subtitle mr-1">{{ $t('limit') }}:</span>
             <span>
               {{ 0 | filterPriceMoney }}
               <span class="text-subtitle">{{ item.target_symbol }}</span>
@@ -78,7 +78,13 @@
             :disabled="isMyOrder"
           >
             {{
-              isBuy ? `Bán ${item.source_symbol}` : `Mua ${item.source_symbol}`
+              isBuy
+                ? $t(`sellCoin`, {
+                    symbol: item.source_symbol,
+                  })
+                : $t(`buyCoin`, {
+                    symbol: item.source_symbol,
+                  })
             }}
           </button>
         </div>
@@ -144,7 +150,7 @@ export default {
       return this.$auth.user
     },
     isMyOrder() {
-      return this.currentUser.id === this.item.user_id
+      return this.currentUser?.id === this.item?.user_id
     },
   },
   methods: {

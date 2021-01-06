@@ -4,7 +4,7 @@
       <div class="flex flex-row justify-end items-end">
         <label class="block mr-2">
           <div>
-            <span class="text-subtitle text-xs">Số lượng</span>
+            <span class="text-subtitle text-xs">{{ $t('amountCoin') }}</span>
             <button
               v-for="(per, indx) in amountPercent"
               :key="indx + '_percent'"
@@ -28,7 +28,11 @@
           class="px-6 py-3 h-12 rounded error-btn text-white font-bold"
           @click="onCreateExchange"
         >
-          Bán {{ selectedOrder.source_symbol }}
+          {{
+            $t(`sellCoin`, {
+              symbol: selectedOrder.source_symbol,
+            })
+          }}
         </button>
       </div>
       <p class="text-xs text-subtitle mt-2">
@@ -41,7 +45,7 @@
         class="rounded px-4 py-2 text-primary text-xs bg-primary-50 flex flex-nowrap"
         @click="redirectToLogin"
       >
-        Bạn cần đăng nhập trước khi bán
+        {{ $t('requiredLogin') }}
         <icon-arrow-right class="w-4 h-4 ml-1"></icon-arrow-right>
       </button>
     </div>

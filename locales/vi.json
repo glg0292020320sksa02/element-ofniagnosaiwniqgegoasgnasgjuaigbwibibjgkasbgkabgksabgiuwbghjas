@@ -379,5 +379,9 @@
   "available": "Hạn mức",
   "payment": "Thanh toán",
   "trade": "Giao dịch",
-  "transNotFound": "Chưa có lịch sử giao dich"
+  "transNotFound": "Chưa có lịch sử giao dich",
+  "buyCoin": "Mua {symbol}",
+  "sellCoin": "Bán {symbol}",
+  "partnerRate": "{order} lệnh, {rate} % hoàn tất",
+  "requiredLogin": "Bạn cần đăng nhập trước khi bán"
 }

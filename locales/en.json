@@ -379,5 +379,9 @@
   "available": "Available",
   "payment": "Payment",
   "trade": "Trade",
-  "transNotFound": "Transaction not found"
+  "transNotFound": "Transaction not found",
+  "buyCoin": "Buy {symbol}",
+  "sellCoin": "Sell {symbol}",
+  "partnerRate": "{order} order, {rate} % completed",
+  "requiredLogin": "Please login before exchange"
 }

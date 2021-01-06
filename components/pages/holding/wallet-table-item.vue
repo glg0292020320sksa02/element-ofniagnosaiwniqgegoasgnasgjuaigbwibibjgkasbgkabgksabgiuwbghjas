@@ -47,16 +47,16 @@
       <div class="order-column w-2/12 flex flex-row justify-end items-center">
         <div class="flex flex-row justify-end items-center">
           <button
-            class="rounded px-4 py-2 text-primary font-bold text-xs hover:bg-primary-100"
+            class="rounded px-4 py-2 text-primary font-bold text-xs hover:bg-primary-100 uppercase"
             @click.self.stop="depositCoin(item)"
           >
-            NAP
+            {{ $t('deposit') }}
           </button>
           <button
-            class="rounded px-4 py-2 text-primary font-bold text-xs hover:bg-primary-100"
+            class="rounded px-4 py-2 text-primary font-bold text-xs hover:bg-primary-100 uppercase"
             @click.self.stop="withdrawCoin(item)"
           >
-            RUT
+            {{ $t('withdraw') }}
           </button>
         </div>
       </div>
