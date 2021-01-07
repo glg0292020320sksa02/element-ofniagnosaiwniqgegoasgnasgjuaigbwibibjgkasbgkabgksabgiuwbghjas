@@ -67,15 +67,11 @@
       </div>
       <div class="order-column w-2/12 flex flex-row justify-end items-center">
         <div class="flex flex-row justify-end items-center">
-          <button
+          <el-button
             v-if="!isExpand"
-            class="rounded px-4 py-2 text-white font-bold text-xs"
-            :class="{
-              'error-btn': isBuy && !isMyOrder,
-              'success-btn': !isBuy && !isMyOrder,
-              'bg-gray-100 text-subtitle cursor-not-allowed': isMyOrder,
-            }"
+            :type="!isBuy ? 'success' : 'danger'"
             :disabled="isMyOrder"
+            size="small"
           >
             {{
               isBuy
@@ -86,7 +82,7 @@
                     symbol: item.source_symbol,
                   })
             }}
-          </button>
+          </el-button>
         </div>
       </div>
     </div>
@@ -139,9 +135,16 @@ export default {
       selectedOrder: 'market/selectedOrder',
     }),
     acceptPayment() {
-      return paymentMethods.filter(
-        item => item.accept === 'ALL' || item.accept === this.item.side
-      )
+      return paymentMethods.filter(item => {
+        if (this.item.source_symbol === 'VNDS') {
+          return (
+            item.value !== 'VNDS' &&
+            (item.accept === 'ALL' || item.accept === this.item.side)
+          )
+        }
+
+        return item.accept === 'ALL' || item.accept === this.item.side
+      })
     },
     isExpand() {
       return this.selectedOrder.id === this.item.id

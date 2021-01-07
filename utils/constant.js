@@ -7,8 +7,8 @@ const sideObj = {
   SELL: { text: 'Sell', value: 'SELL' },
 }
 const sideRequestObj = {
-  BUY: { text: 'Sell', value: 'BUY' },
-  SELL: { text: 'Buy', value: 'SELL' },
+  BUY: { text: 'sell', value: 'BUY', style: 'bg-error' },
+  SELL: { text: 'buy', value: 'SELL', style: 'bg-success' },
 }
 const coin = {
   BTC: 'BTC',

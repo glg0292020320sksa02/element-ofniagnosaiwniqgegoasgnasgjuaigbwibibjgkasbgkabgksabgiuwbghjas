@@ -6,11 +6,7 @@
       v-for="(item, i) in listItem"
       :key="i + '_cgroupbutton'"
       class="px-3 py-1 text-xs"
-      :class="
-        returnValue === item.value
-          ? 'bg-primary text-white shadow-sm rounded'
-          : ''
-      "
+      :class="returnValue === item.value ? item.style : ''"
       @click="changeTab(item)"
     >
       {{ item.text }}
@@ -46,8 +42,9 @@ export default {
     listItem() {
       return this.items.map(x => {
         return {
-          text: this.object ? x.text : x,
+          text: this.object ? this.$t(x.text) : this.$t(x),
           value: this.object ? x.value.toString() : x.toString(),
+          style: `${x.style} text-white shadow-sm rounded`,
         }
       })
     },

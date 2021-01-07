@@ -10,7 +10,7 @@
           </div>
           <div class="flex flex-row justify-start items-end pt-6">
             <div
-              v-for="(bank, index) in paymentMethods"
+              v-for="(bank, index) in acceptPayment"
               :key="index + '_bank'"
               class="mr-4"
             >
@@ -65,8 +65,9 @@
                 class="form-input mt-1 block w-full text-sm border-subtitle focus:outline-primary-100 focus:border-body"
               ></input-currency>
             </label>
-            <button
-              class="px-6 py-3 h-12 rounded success-btn text-white font-bold"
+            <el-button
+              type="success"
+              :loading="loading"
               @click="onCreateExchange"
             >
               {{
@@ -74,7 +75,7 @@
                   symbol: selectedOrder.source_symbol,
                 })
               }}
-            </button>
+            </el-button>
           </div>
           <p class="text-xs text-subtitle mt-2">
             <strong>≈ {{ total | filterPriceMoney }}</strong>
@@ -136,6 +137,15 @@ export default {
     },
     orderAmount() {
       return this.selectedOrder.amount
+    },
+    acceptPayment() {
+      return this.paymentMethods.filter(item => {
+        if (this.selectedOrder.source_symbol === 'VNDS') {
+          return item.value !== 'VNDS'
+        }
+
+        return true
+      })
     },
   },
   methods: {

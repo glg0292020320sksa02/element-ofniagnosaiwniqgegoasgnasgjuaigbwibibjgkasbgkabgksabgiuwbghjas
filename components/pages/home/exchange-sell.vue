@@ -24,16 +24,13 @@
             class="form-input mt-1 block w-full text-sm border-subtitle focus:outline-primary-100 focus:border-body"
           ></input-currency>
         </label>
-        <button
-          class="px-6 py-3 h-12 rounded error-btn text-white font-bold"
-          @click="onCreateExchange"
-        >
+        <el-button type="danger" :loading="loading" @click="onCreateExchange">
           {{
             $t(`sellCoin`, {
               symbol: selectedOrder.source_symbol,
             })
           }}
-        </button>
+        </el-button>
       </div>
       <p class="text-xs text-subtitle mt-2">
         <strong>≈ {{ total | filterPriceMoney }}</strong>
@@ -71,6 +68,7 @@ export default {
       selectedAmountPercent: 0,
       amount: 0,
       amountPercent: [25, 50, 75, 100],
+      loading: false,
     }
   },
   computed: {
