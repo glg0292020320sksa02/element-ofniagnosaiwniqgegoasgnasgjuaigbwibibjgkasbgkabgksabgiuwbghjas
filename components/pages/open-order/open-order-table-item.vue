@@ -62,7 +62,7 @@
       </div>
       <div class="order-column w-1/12 flex items-center justify-end">
         <button
-          class="rounded px-4 py-2 text-white font-bold text-xs bg-warning-50 text-warning"
+          class="rounded px-4 py-2 text-white font-bold text-xs bg-warning-50 text-warning uppercase"
           @click.stop="onCancelOrder(item.id)"
         >
           {{ $t('Cancel') }}

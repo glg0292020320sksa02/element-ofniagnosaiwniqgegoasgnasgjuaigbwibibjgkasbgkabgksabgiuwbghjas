@@ -1,7 +1,10 @@
 <template>
-  <div @mouseleave="$emit('over')">
+  <div
+    class="absolute bg-transparent pt-12 top-0 left-0"
+    @mouseleave="$emit('over')"
+  >
     <div
-      class="absolute z-10 -ml-4 mt-3 transform px-2 max-w-md w-screen sm:px-0 lg:ml-0 lg:left-0"
+      class="z-10 -ml-4 mt-6 transform px-2 max-w-md w-screen sm:px-0 lg:ml-0 lg:left-0"
     >
       <div
         class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden"

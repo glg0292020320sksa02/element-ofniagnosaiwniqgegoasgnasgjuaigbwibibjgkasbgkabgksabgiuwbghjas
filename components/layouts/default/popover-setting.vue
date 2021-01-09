@@ -8,12 +8,12 @@
   >
     <div slot="reference" class="relative">
       <button
-        class="text-base bg-primary-100 text-primary p-2 px-3 rounded flex flex-row justify-between items-center"
+        class="text-sm bg-primary-100 text-primary p-2 px-3 rounded flex flex-row justify-between items-center"
       >
         <div class="text-sm text-primary text-right mr-2">
           {{ userName }}
         </div>
-        <icon-user class="text-primary text-2xl w-4 h-4"></icon-user>
+        <icon-user class="text-primary w-4 h-4"></icon-user>
       </button>
       <i
         v-if="!isEnable2FA"
@@ -22,11 +22,11 @@
     </div>
     <div>
       <div class="px-3 py-4">
-        <div class="text-sm text-gray-900">{{ userName }}</div>
-        <div class="text-gray-700 text-xs">{{ userEmail }}</div>
+        <div class="text-sm text-gray-900 font-bold">{{ userName }}</div>
+        <div class="text-gray-600 text-xs">{{ userEmail }}</div>
       </div>
       <hr />
-      <div class="flex flex-col">
+      <div class="flex flex-col text-sm">
         <div
           v-for="(route, key) in routeList"
           :key="key"
@@ -48,7 +48,7 @@
       </div>
       <hr />
       <div
-        class="px-3 py-4 w-full cursor-pointer hover:bg-gray-100"
+        class="px-3 py-4 w-full cursor-pointer text-sm hover:bg-gray-100"
         @click="onLogout"
       >
         <span class="font-normal text-error">{{ $t('signOut') }}</span>

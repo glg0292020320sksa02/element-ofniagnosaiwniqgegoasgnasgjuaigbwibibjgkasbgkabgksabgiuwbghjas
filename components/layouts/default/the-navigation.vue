@@ -23,7 +23,7 @@
       <the-menu
         v-if="menu.subMenu && activeMenu === menu.name"
         :data="menu.subMenu"
-        @over="activeMenu = ''"
+        @over="showSubMenu()"
       ></the-menu>
     </div>
   </div>

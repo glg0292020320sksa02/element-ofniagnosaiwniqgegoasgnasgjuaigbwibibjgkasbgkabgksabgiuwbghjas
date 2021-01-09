@@ -24,7 +24,12 @@
             class="form-input mt-1 block w-full text-sm border-subtitle focus:outline-primary-100 focus:border-body"
           ></input-currency>
         </label>
-        <el-button type="danger" :loading="loading" @click="onCreateExchange">
+        <el-button
+          type="danger"
+          class="uppercase font-bold text-xs py-4"
+          :loading="loading"
+          @click="onCreateExchange"
+        >
           {{
             $t(`sellCoin`, {
               symbol: selectedOrder.source_symbol,

@@ -253,4 +253,10 @@ export default {
 .select-amount-percent .el-button {
   padding: 2px 4px !important;
 }
+.price-unit {
+  position: absolute;
+  right: 4px;
+  top: 40px;
+  font-size: 0.75rem;
+}
 </style>

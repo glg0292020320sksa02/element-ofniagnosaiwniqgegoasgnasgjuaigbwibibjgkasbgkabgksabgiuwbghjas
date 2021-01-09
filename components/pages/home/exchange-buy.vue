@@ -28,7 +28,7 @@
                   <input
                     v-model="payment_method"
                     type="radio"
-                    class="form-radio text-primary"
+                    class="form-radio text-base text-primary"
                     name="radio"
                     :value="bank.value"
                     checked
@@ -67,6 +67,7 @@
             </label>
             <el-button
               type="success"
+              class="uppercase font-bold text-xs py-4"
               :loading="loading"
               @click="onCreateExchange"
             >

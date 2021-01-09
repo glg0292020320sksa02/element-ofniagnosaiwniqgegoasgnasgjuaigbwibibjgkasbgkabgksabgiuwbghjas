@@ -23,6 +23,7 @@
               <el-button
                 type="primary"
                 size="small"
+                class="text-sm py-2"
                 @click="$router.push({ name: 'auth-register' })"
               >
                 {{ $t('register') }}

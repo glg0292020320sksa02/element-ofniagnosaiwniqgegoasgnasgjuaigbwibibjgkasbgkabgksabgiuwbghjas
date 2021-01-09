@@ -88,6 +88,8 @@ export default {
   width: 100vw;
   background-color: #0052cc;
   background-image: url('../assets/images/main-background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
   z-index: 0;
 }
 .body-content {
