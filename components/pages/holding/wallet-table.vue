@@ -28,6 +28,11 @@
         :key="i + '_vnds'"
         :item="item"
       ></vnds-wallet-table-item>
+      <pm-wallet-table-item
+        v-for="(item, i) in PMWallet"
+        :key="i + '_pm'"
+        :item="item"
+      ></pm-wallet-table-item>
       <wallet-table-item
         v-for="(item, i) in otherWallet"
         :key="i + '_vother'"
@@ -44,6 +49,7 @@ import { format as formatTimeago } from 'timeago.js'
 
 import WalletTableItem from '@/components/pages/holding/wallet-table-item'
 import VndsWalletTableItem from '@/components/pages/holding/vnds-wallet-table-item'
+import PmWalletTableItem from '@/components/pages/holding/pm-wallet-table-item'
 
 import TableContentLoader from '@/components/common/table-content-loader'
 
@@ -57,6 +63,7 @@ export default {
     TableContentLoader,
     VndsWalletTableItem,
     WalletTableItem,
+    PmWalletTableItem,
   },
   directives: { clipboard },
   mixins: [clipboardSelection],
@@ -70,8 +77,13 @@ export default {
     VNDSSWallet() {
       return this.walletList.filter(item => item.currency.symbol === 'VNDS')
     },
+    PMWallet() {
+      return this.walletList.filter(item => item.currency.symbol === 'PM')
+    },
     otherWallet() {
-      return this.walletList.filter(item => item.currency.symbol !== 'VNDS')
+      return this.walletList.filter(
+        item => item.currency.symbol !== 'VNDS' && item.currency.symbol !== 'PM'
+      )
     },
   },
   data() {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="absolute bg-transparent pt-12 top-0 left-0"
-    @mouseleave="$emit('over')"
+    @mouseover="$emit('over')"
   >
     <div
       class="z-10 -ml-4 mt-6 transform px-2 max-w-md w-screen sm:px-0 lg:ml-0 lg:left-0"

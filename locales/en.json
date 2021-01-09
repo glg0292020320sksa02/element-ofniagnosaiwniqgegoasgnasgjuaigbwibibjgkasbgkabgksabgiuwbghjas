@@ -383,5 +383,7 @@
   "buyCoin": "Buy {symbol}",
   "sellCoin": "Sell {symbol}",
   "partnerRate": "{order} order, {rate} % completed",
-  "requiredLogin": "Please login before exchange"
+  "requiredLogin": "Please login before exchange",
+  "proceed": "Process",
+  "ToAddressPm": "PM account"
 }

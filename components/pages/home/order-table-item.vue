@@ -74,6 +74,7 @@
             :disabled="isMyOrder"
             class="font-bold uppercase"
             size="small"
+            @click="$emit('click')"
           >
             {{
               isBuy

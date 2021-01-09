@@ -10,9 +10,9 @@
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-center">
           <span
-            class="text-xs w-4 h-4 mr-1 text-white rounded-full bg-warning text-center flex justify-center items-center"
+            class="text-xs w-4 h-4 mr-1 text-white rounded-full bg-primary text-center flex justify-center items-center"
           >
-            V
+            P
           </span>
           <span class="text-sm text-primary">{{ item.currency.name }}</span>
         </div>
@@ -27,7 +27,7 @@
       <div class="order-column w-3/12 flex items-center">
         <div class="flex flex-row justify-start items-baseline">
           <strong class="text-sm text-bold mr-1">
-            {{ item.real_balance | filterPriceMoney }}
+            {{ item.real_balance | filterPrice }}
           </strong>
           <span class="text-xs text-bold mr-1">
             {{ item.currency.symbol }}
@@ -37,7 +37,7 @@
       <div class="order-column w-3/12 flex items-center">
         <div class="flex flex-row justify-start items-baseline">
           <strong class="text-sm text-bold mr-1" @click.stop="showOrder(item)">
-            {{ item.in_order_balance | filterPriceMoney }}
+            {{ item.in_order_balance | filterPrice }}
           </strong>
           <span class="text-xs text-bold mr-1">
             {{ item.currency.symbol }}
@@ -48,18 +48,27 @@
         <div class="flex flex-row justify-end items-center">
           <button
             class="rounded px-4 py-2 text-primary font-bold text-xs bg-primary-50 hover:bg-primary-100 uppercase mr-1"
-            @click.self.stop="buyCoin(item)"
+            @click.self.stop="depositCoin(item)"
           >
-            {{ $t('buy') }}
+            {{ $t('deposit') }}
           </button>
           <button
             class="rounded px-4 py-2 text-primary font-bold text-xs bg-primary-50 hover:bg-primary-100 uppercase"
-            @click.self.stop="sellCoin(item)"
+            @click.self.stop="withdrawCoin(item)"
           >
-            {{ $t('sell') }}
+            {{ $t('withdraw') }}
           </button>
         </div>
       </div>
+    </div>
+    <div
+      v-if="isExpand"
+      class="expand border-t bg-gray-100 p-6 flex justify-end"
+    >
+      <holding-deposit-pm v-if="actionType === 'DEPOSIT'"></holding-deposit-pm>
+      <holding-withdraw-pm
+        v-if="actionType === 'WITHDRAW'"
+      ></holding-withdraw-pm>
     </div>
   </div>
 </template>
@@ -67,9 +76,17 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { filterPrice, filterPriceMoney } from '@/filters'
+
+import HoldingDepositPm from '@/components/pages/holding/holding-deposit-pm'
+import HoldingWithdrawPm from '@/components/pages/holding/holding-withdraw-pm'
+
 export default {
   name: 'WalletsTableItem',
   filters: { filterPrice, filterPriceMoney },
+  components: {
+    HoldingDepositPm,
+    HoldingWithdrawPm,
+  },
   props: {
     item: {
       type: Object,
@@ -80,7 +97,7 @@ export default {
   },
   data() {
     return {
-      actionType: null,
+      actionType: 'DEPOSIT',
     }
   },
   computed: {
@@ -104,13 +121,13 @@ export default {
 
       this.setSelectedWallets(payload)
     },
-    buyCoin(payload) {
+    depositCoin(payload) {
       this.actionType = 'DEPOSIT'
-      this.$router.push('/wallet/buy?coin=VNDS')
+      this.setSelectedWallets(payload)
     },
-    sellCoin(payload) {
+    withdrawCoin(payload) {
       this.actionType = 'WITHDRAW'
-      this.$router.push('/wallet/sell?coin=VNDS')
+      this.setSelectedWallets(payload)
     },
     showOrder(payload) {
       this.actionType = 'SHOWORDER'

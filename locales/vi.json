@@ -383,5 +383,7 @@
   "buyCoin": "Mua {symbol}",
   "sellCoin": "Bán {symbol}",
   "partnerRate": "{order} lệnh, {rate} % hoàn tất",
-  "requiredLogin": "Bạn cần đăng nhập trước khi bán"
+  "requiredLogin": "Bạn cần đăng nhập trước khi bán",
+  "proceed": "Xử lý",
+  "ToAddressPm": "Tài khoản PM"
 }

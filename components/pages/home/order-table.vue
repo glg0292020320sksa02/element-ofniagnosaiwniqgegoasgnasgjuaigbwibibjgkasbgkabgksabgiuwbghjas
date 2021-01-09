@@ -27,6 +27,7 @@
           :item="item"
           :index="i + 1"
           :is-buy="isBuySide"
+          @click="drawer = true"
         ></order-table-item>
       </div>
       <div
@@ -39,17 +40,24 @@
         <span class="text-xs">{{ $t('orderNotFound') }}</span>
       </div>
     </div>
+    <div class="drawer">
+      <el-drawer :visible.sync="drawer" :append-to-body="true">
+        <exchange-drawer-buy></exchange-drawer-buy>
+      </el-drawer>
+    </div>
   </div>
 </template>
 <script>
 import { side } from '@/utils/constant'
 import OrderTableItem from '@/components/pages/home/order-table-item'
 import IconEmpty from '@/components/ui/icon/icon-empty'
+import ExchangeDrawerBuy from '@/components/pages/home/exchange-drawer-buy'
 export default {
   name: 'OrderTable',
   components: {
     OrderTableItem,
     IconEmpty,
+    ExchangeDrawerBuy,
   },
   props: {
     orders: {
@@ -62,6 +70,11 @@ export default {
       type: String,
       default: side.BUY,
     },
+  },
+  data() {
+    return {
+      drawer: false,
+    }
   },
   computed: {
     isBuySide() {

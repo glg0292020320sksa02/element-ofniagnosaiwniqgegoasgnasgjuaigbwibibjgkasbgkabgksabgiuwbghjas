@@ -12,7 +12,8 @@
       <nuxt-link
         v-if="menu.authCheck"
         :to="menu.to"
-        class="p-4 px-2 text-sm flex flex-row justify-start items-center whitespace-nowrap hover:text-primary"
+        class="p-4 px-2 text-sm flex flex-row justify-start items-center whitespace-nowrap hover:text-primary relative z-20"
+        @mouseenter="showSubMenu(menu.name)"
       >
         {{ $t(menu.name) }}
         <icon-chevron-down
