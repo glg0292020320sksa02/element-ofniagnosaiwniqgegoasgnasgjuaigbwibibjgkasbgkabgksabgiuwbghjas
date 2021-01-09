@@ -23,11 +23,11 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#EEF2FF',
-          100: '#E0E7FF',
-          200: '#C7D2FE',
-          400: '#818CF8',
-          default: '#3730A3',
+          50: '#EFF6FF',
+          100: '#DBEAFE',
+          200: '#BFDBFE',
+          400: '#60A5FA',
+          default: '#1D4ED8',
         },
         success: {
           50: '#ECFDF5',

@@ -8,12 +8,12 @@
   >
     <div slot="reference" class="relative">
       <button
-        class="text-base bg-primary-50 text-primary p-1 px-3 rounded flex flex-row justify-between items-center"
+        class="text-base bg-primary-100 text-primary p-2 px-3 rounded flex flex-row justify-between items-center"
       >
-        <div class="text-sm text-primary text-right mr-2 font-bold">
+        <div class="text-sm text-primary text-right mr-2">
           {{ userName }}
         </div>
-        <icon-user class="text-primary text-2xl w-5 h-5"></icon-user>
+        <icon-user class="text-primary text-2xl w-4 h-4"></icon-user>
       </button>
       <i
         v-if="!isEnable2FA"

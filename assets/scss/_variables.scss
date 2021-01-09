@@ -1,9 +1,9 @@
-$--color-primary: #4F46E5 !default;
-$--color-success: #02C076 !default;
-$--color-warning: #FFC400 !default;
-$--color-danger: #F84960 !default;
-$--color-info: #2D3748 !default;
-$--color-text-primary: #091E42 !default;
+$--color-primary: #1d4ed8 !default;
+$--color-success: #02c076 !default;
+$--color-warning: #ffc400 !default;
+$--color-danger: #f84960 !default;
+$--color-info: #2d3748 !default;
+$--color-text-primary: #091e42 !default;
 $--color-text-regular: $--color-text-primary !default;
 $--font-display: 'swap' !default;
 $--input-height: 48px !default;
@@ -11,3 +11,15 @@ $--button-padding-vertical: 16px !default;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 $--notification-title-font-size: 0.85rem !default;
 $--notification-content-font-size: 0.75rem;
+/// fontSize|1|Font Size|0
+$--font-size-extra-large: 22px !default;
+/// fontSize|1|Font Size|0
+$--font-size-large: 20px !default;
+/// fontSize|1|Font Size|0
+$--font-size-medium: 18px !default;
+/// fontSize|1|Font Size|0
+$--font-size-base: 16px !default;
+/// fontSize|1|Font Size|0
+$--font-size-small: 15px !default;
+/// fontSize|1|Font Size|0
+$--font-size-extra-small: 14px !default;

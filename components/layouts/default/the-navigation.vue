@@ -12,12 +12,12 @@
       <nuxt-link
         v-if="menu.authCheck"
         :to="menu.to"
-        class="p-4 px-2 flex flex-row justify-start items-center whitespace-nowrap hover:text-primary"
+        class="p-4 px-2 text-sm flex flex-row justify-start items-center whitespace-nowrap hover:text-primary"
       >
         {{ $t(menu.name) }}
         <icon-chevron-down
           v-if="menu.subMenu"
-          class="h-3 w-4 font-bold"
+          class="h-3 w-4"
         ></icon-chevron-down>
       </nuxt-link>
       <the-menu

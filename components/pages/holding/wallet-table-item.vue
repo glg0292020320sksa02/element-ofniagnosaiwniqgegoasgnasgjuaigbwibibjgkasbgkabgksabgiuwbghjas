@@ -1,7 +1,7 @@
 <template>
   <div
     class="order-item border-b bg-white border-b-gray-200 transform transition-all duration-75 ease-in-out"
-    :class="{ 'my-4 shadow-xl rounded-lg overflow-hidden border': isExpand }"
+    :class="{ 'my-4 shadow-xl overflow-hidden border': isExpand }"
   >
     <div
       class="flex flex-row justify-between items-stretch p-6 cursor-pointer"
@@ -47,13 +47,13 @@
       <div class="order-column w-2/12 flex flex-row justify-end items-center">
         <div class="flex flex-row justify-end items-center">
           <button
-            class="rounded px-4 py-2 text-primary font-bold text-xs hover:bg-primary-100 uppercase"
+            class="rounded px-4 py-2 text-primary font-bold text-xs bg-primary-50 hover:bg-primary-100 uppercase mr-1"
             @click.self.stop="depositCoin(item)"
           >
             {{ $t('deposit') }}
           </button>
           <button
-            class="rounded px-4 py-2 text-primary font-bold text-xs hover:bg-primary-100 uppercase"
+            class="rounded px-4 py-2 text-primary font-bold text-xs bg-primary-50 hover:bg-primary-100 uppercase"
             @click.self.stop="withdrawCoin(item)"
           >
             {{ $t('withdraw') }}

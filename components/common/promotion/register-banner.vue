@@ -29,6 +29,8 @@ export default {
 </script>
 <style scoped>
 .register-banner {
-  background-image: url('../../../assets/images/mainbackground.jpg');
+  background-image: url('../../../assets/images/main-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

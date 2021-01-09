@@ -17,7 +17,13 @@
 
         <table-content-loader v-if="$fetchState.pending"></table-content-loader>
 
-        <div v-else class="mt-6 overflow-y-scroll" style="height: 500px">
+        <div
+          v-else
+          v-infinite-scroll="loadMoreOrders"
+          :infinite-scroll-disabled="disabledInfinitiScroll"
+          class="mt-6 overflow-y-scroll"
+          style="height: 500px"
+        >
           <div
             class="table table-hover text-sm relative mb-16 bg-gray-100 rounded-lg"
           >

@@ -1,7 +1,7 @@
 <template>
   <div
     class="order-item border-b bg-white border-b-gray-200 transform transition-all duration-75 ease-in-out text-sm"
-    :class="{ 'my-4 shadow-xl rounded-lg border': isExpand }"
+    :class="{ 'my-4 shadow-xl border': isExpand }"
   >
     <div
       class="flex flex-row justify-between items-stretch p-6 cursor-pointer"

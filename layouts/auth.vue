@@ -47,7 +47,7 @@ export default {
   right: 0;
   width: 100vw;
   background-color: #0052cc;
-  background-image: url('../assets/images/tokenbackground.jpg');
+  background-image: url('../assets/images/main-background.svg');
   z-index: 0;
 }
 .body-content {

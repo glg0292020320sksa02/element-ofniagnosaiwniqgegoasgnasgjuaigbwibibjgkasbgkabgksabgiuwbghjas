@@ -1,11 +1,9 @@
 <template>
-  <header
-    class="fixed top-0 w-full bg-white z-50 shadow font-bold whitespace-no-wrap"
-  >
+  <header class="fixed top-0 w-full bg-white z-50 shadow whitespace-no-wrap">
     <div class="container">
       <div class="flex justify-between items-center">
         <div class="flex justify-start items-center">
-          <the-logo></the-logo>
+          <the-logo class="font-bold text-2xl"></the-logo>
 
           <the-navigation class="ml-4"></the-navigation>
         </div>
@@ -18,7 +16,6 @@
             <div v-else class="flex items-center space-x-8">
               <el-button
                 type="text"
-                class="font-bold"
                 @click="$router.push({ name: 'auth-login' })"
               >
                 {{ $t('signin') }}
@@ -26,7 +23,7 @@
               <el-button
                 type="primary"
                 size="small"
-                class="font-bold"
+                class="text-sm"
                 @click="$router.push({ name: 'auth-register' })"
               >
                 {{ $t('register') }}
