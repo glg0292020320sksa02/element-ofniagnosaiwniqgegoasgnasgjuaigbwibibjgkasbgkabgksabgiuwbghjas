@@ -7,7 +7,7 @@
       :key="index + 'menu'"
       class="menu-item p-1 relative cursor-pointer"
       :class="{ active: activeRouter.includes(menu.to) }"
-      @click="showSubMenu(menu.name)"
+      @click="showSubMenu(menu.name, menu)"
     >
       <div
         v-if="menu.authCheck"
@@ -132,10 +132,11 @@ export default {
     },
   },
   methods: {
-    showSubMenu(menu) {
-      this.activeMenu = menu
+    showSubMenu(name, menu) {
+      this.activeMenu = name
 
-      if (!menu?.subMenu && menu?.to) {
+      if (!menu.subMenu && menu?.to) {
+        console.log('aaa')
         this.$router.push(menu.to)
       }
     },

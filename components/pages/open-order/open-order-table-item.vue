@@ -26,7 +26,7 @@
       </div>
       <div class="order-column w-2/12 flex items-start flex-col justify-center">
         <div class="flex justify-start items-center">
-          <strong>{{ item.amount | filterPrice }}</strong>
+          <strong>{{ item.remaining_amount | filterPrice }}</strong>
           <span class="ml-1 text-xs text-subtitle">
             {{ sourceSymbol(item.source_symbol) }}
           </span>
@@ -53,7 +53,7 @@
       <div class="order-column w-2/12 flex items-center">
         <div class="flex justify-end items-center">
           <strong :class="getColorTotal(item.side)">
-            {{ item.total | filterPriceMoney }}
+            {{ item.remaining_total | filterPriceMoney }}
           </strong>
           <span class="ml-1 text-xs text-subtitle">
             {{ targetSymbol(item.target_symbol) }}
@@ -71,10 +71,13 @@
     </div>
     <div
       v-if="isExpand"
-      class="expand border-t bg-gray-100 p-6 flex justify-center"
+      class="expand border-t bg-gray-100 p-2 flex justify-center"
     >
-      <div v-if="transTotal && transTotal > 0">
-        <trade-history-table :items="listTransactions"></trade-history-table>
+      <div v-if="transTotal && transTotal > 0" class="w-full">
+        <trade-history-table
+          :items="listTransactions"
+          class="w-full"
+        ></trade-history-table>
       </div>
       <div
         v-else
