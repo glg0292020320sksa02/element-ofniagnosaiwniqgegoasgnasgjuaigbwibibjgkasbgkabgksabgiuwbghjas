@@ -167,4 +167,7 @@ export default {
 .create-order .el-dialog__body {
   padding-top: 0 !important;
 }
+.create-order .el-dialog {
+  @apply rounded-lg;
+}
 </style>

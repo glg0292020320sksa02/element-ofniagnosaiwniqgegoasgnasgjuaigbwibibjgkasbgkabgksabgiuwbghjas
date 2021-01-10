@@ -24,6 +24,27 @@
     <div v-else>
       <order-table :orders="orderListFiltered" :side="activeSide"></order-table>
     </div>
+    <div class="create-order">
+      <el-dialog
+        :visible.sync="showCreateOrder"
+        :modal-append-to-body="false"
+        width="450px"
+        :show-close="false"
+      >
+        <template #title>
+          <div class="flex justify-center">
+            <div class="w-1/2 p-2">
+              <div
+                class="text-center p-4 text-base text-primary font-bold border-b-2 border-primary"
+              >
+                {{ $t('createBuyOrder') }}
+              </div>
+            </div>
+          </div>
+        </template>
+        <create-buy-order></create-buy-order>
+      </el-dialog>
+    </div>
   </div>
 </template>
 <script>
@@ -32,12 +53,14 @@ import { coin, sideRequestObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CTab from '@/components/ui/control/c-tab'
 import TableContentLoader from '@/components/common/table-content-loader'
+import CreateBuyOrder from '@/components/pages/home/create-buy-order'
 
 export default {
   components: {
     OrderTable,
     CTab,
     TableContentLoader,
+    CreateBuyOrder,
   },
   fetch() {
     this.loadAllOrders()
@@ -49,6 +72,7 @@ export default {
       activeSide: side.SELL,
       orders: [],
       loading: false,
+      showCreateOrder: false,
     }
   },
   computed: {
@@ -73,6 +97,7 @@ export default {
   methods: {
     ...mapActions({
       getAllOrders: 'market/getAllOrders',
+      setActiveSide: 'setActiveSide',
       setActiveTab: 'setActiveTab',
     }),
     async loadAllOrders() {
@@ -83,9 +108,11 @@ export default {
       this.orders = data
     },
     onRedirectWallet() {
-      const router = `/wallet/buy?coin=${this.activeTab}`
-
-      this.$router.push(router)
+      this.selectActiveSide(this.activeSide)
+      this.showCreateOrder = true
+    },
+    selectActiveSide(payload) {
+      this.setActiveSide(payload)
     },
     selectActiveTab(payload) {
       this.setActiveTab(payload)

@@ -124,6 +124,7 @@ export default {
   computed: {
     ...mapGetters({
       walletFiltered: 'wallet/walletFiltered',
+      activeTab: 'activeTab',
     }),
     walletFilteredList() {
       return this.walletFiltered()
@@ -159,6 +160,12 @@ export default {
       return `VNDS/${this.walletSelected?.currency?.symbol}`
     },
   },
+  watch: {
+    activeTab() {
+      this.loadWallets()
+      this.loadCoinDefault()
+    },
+  },
   methods: {
     ...mapActions({
       getWallets: 'wallet/getWallets',
@@ -181,7 +188,7 @@ export default {
       this.model.wallet_id = wallet?.id
     },
     getCoin() {
-      const coin = this.$route.query.coin
+      const coin = this.activeTab
 
       return !coin || coin === MONEY_RECEIVED_DEFAULT
         ? MONEY_SELL_DEFAULT
