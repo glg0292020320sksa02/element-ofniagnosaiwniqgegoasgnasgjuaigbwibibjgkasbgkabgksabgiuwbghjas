@@ -2,7 +2,7 @@
   <div class="flex flex-col items-stretch">
     <div
       v-if="label && label.length > 0"
-      class="text-xs font-bold text-subtitle mb-1 text-"
+      class="text-xs font-bold text-gray-800 mb-1 uppercase pl-1"
     >
       {{ label }}
     </div>
@@ -22,3 +22,8 @@ export default {
   },
 }
 </script>
+<style>
+.border-l-3 {
+  border-left-width: 3px;
+}
+</style>

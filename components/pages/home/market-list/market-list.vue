@@ -31,6 +31,43 @@
     <div v-else>
       <order-table :orders="orderListFiltered" :side="activeSide"></order-table>
     </div>
+    <div class="create-order">
+      <el-dialog
+        :visible.sync="showCreateOrder"
+        :modal-append-to-body="false"
+        width="450px"
+        :show-close="false"
+      >
+        <template #title>
+          <div class="flex">
+            <div class="w-1/2 p-2" @click="selectActiveSide(side.SELL)">
+              <div
+                class="text-center p-4 text-subtitle text-base"
+                :class="{
+                  'text-primary font-bold border-b-2 border-primary': !isBuySide,
+                  'text-subtitle cursor-pointer': isBuySide,
+                }"
+              >
+                {{ $t('createBuyOrder') }}
+              </div>
+            </div>
+            <div class="w-1/2 p-2" @click="selectActiveSide(side.BUY)">
+              <div
+                class="text-center p-4 text-base"
+                :class="{
+                  'text-primary font-bold border-b-2 border-primary': isBuySide,
+                  'text-subtitle cursor-pointer': !isBuySide,
+                }"
+              >
+                {{ $t('createSellOrder') }}
+              </div>
+            </div>
+          </div>
+        </template>
+        <create-sell-order v-if="isBuySide"></create-sell-order>
+        <create-buy-order v-else></create-buy-order>
+      </el-dialog>
+    </div>
   </div>
 </template>
 <script>
@@ -40,6 +77,8 @@ import OrderTable from '@/components/pages/home/order-table'
 import CGroupButton from '@/components/ui/control/c-group-button'
 import CTab from '@/components/ui/control/c-tab'
 import TableContentLoader from '@/components/common/table-content-loader'
+import CreateSellOrder from '@/components/pages/home/create-sell-order'
+import CreateBuyOrder from '@/components/pages/home/create-buy-order'
 
 export default {
   components: {
@@ -47,6 +86,8 @@ export default {
     CGroupButton,
     CTab,
     TableContentLoader,
+    CreateSellOrder,
+    CreateBuyOrder,
   },
   fetch() {
     this.loadAllOrders()
@@ -55,8 +96,10 @@ export default {
     return {
       tabs: Object.values(coin),
       sides: Object.values(sideRequestObj),
+      side,
       orders: [],
       loading: false,
+      showCreateOrder: false,
     }
   },
   computed: {
@@ -88,6 +131,9 @@ export default {
         ? this.tabs.filter(item => item !== 'VNDS')
         : this.tabs
     },
+    isBuySide() {
+      return this.activeSide === side.BUY
+    },
   },
   methods: {
     ...mapActions({
@@ -103,12 +149,10 @@ export default {
       this.orders = data
     },
     onRedirectWallet() {
-      const exchangeSide = this.activeSide === side.BUY ? side.SELL : side.BUY
-      const router = `/wallet/${exchangeSide.toLowerCase()}?coin=${
-        this.activeTab
-      }`
+      const targetSide = this.isBuySide ? side.BUY : side.SELL
 
-      this.$router.push(router)
+      this.setActiveSide(targetSide)
+      this.showCreateOrder = true
     },
     selectActiveSide(payload) {
       this.setActiveSide(payload)
@@ -119,3 +163,8 @@ export default {
   },
 }
 </script>
+<style>
+.create-order .el-dialog__body {
+  padding-top: 0 !important;
+}
+</style>

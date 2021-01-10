@@ -33,12 +33,14 @@
               class="form-input mt-1 block w-full text-sm focus:outline-primary-100 focus:border-body"
             ></input-currency>
           </label>
-          <button
-            class="px-6 py-3 h-12 rounded error-btn text-white font-bold"
+          <el-button
+            type="danger"
+            class="text-xs uppercase font-bold"
+            :loading="loading"
             @click="onWithdraw"
           >
             Rút {{ selectedWallets.currency.symbol }}
-          </button>
+          </el-button>
         </div>
       </div>
     </div>
@@ -74,6 +76,7 @@ export default {
       selectedAmountPercent: 0,
       amount: 0,
       address: '',
+      loading: false,
     }
   },
   computed: {

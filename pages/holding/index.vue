@@ -78,34 +78,6 @@
             <withdraw-history :data="listTransactions"></withdraw-history>
           </div>
         </div>
-        <form action="https://perfectmoney.is/api/step1.asp" method="POST">
-          <input type="hidden" name="PAYEE_ACCOUNT" value="U27777003" />
-          <input type="hidden" name="PAYEE_NAME" value="My Company" />
-          <input
-            type="text"
-            name="PAYMENT_AMOUNT"
-            value=""
-            placeholder="Amount"
-          />
-          <input type="hidden" name="PAYMENT_UNITS" value="USD" />
-          <input
-            type="hidden"
-            name="PAYMENT_URL"
-            value="http://example.com/success"
-          />
-          <input
-            type="hidden"
-            name="NOPAYMENT_URL"
-            value="http://example.com/fail"
-          />
-          <input
-            type="hidden"
-            name="STATUS_URL"
-            value="https://d3000bcf0d4a.ngrok.io/pm/status"
-          />
-
-          <input type="submit" value="Proceed" />
-        </form>
       </div>
     </div>
   </div>
