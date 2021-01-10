@@ -5,22 +5,20 @@
     <div
       v-for="(menu, index) in menus"
       :key="index + 'menu'"
-      class="menu-item p-1 relative"
+      class="menu-item p-1 relative cursor-pointer"
       :class="{ active: activeRouter.includes(menu.to) }"
-      @mouseenter="showSubMenu(menu.name)"
+      @click="showSubMenu(menu.name)"
     >
-      <nuxt-link
+      <div
         v-if="menu.authCheck"
-        :to="menu.to"
-        class="p-4 px-2 text-sm flex flex-row justify-start items-center whitespace-nowrap hover:text-primary relative z-20"
-        @mouseenter="showSubMenu(menu.name)"
+        class="p-4 px-2 text-sm flex flex-row justify-start items-center whitespace-nowrap hover:text-primary"
       >
         {{ $t(menu.name) }}
         <icon-chevron-down
           v-if="menu.subMenu"
           class="h-3 w-4"
         ></icon-chevron-down>
-      </nuxt-link>
+      </div>
       <the-menu
         v-if="menu.subMenu && activeMenu === menu.name"
         :data="menu.subMenu"
@@ -136,6 +134,10 @@ export default {
   methods: {
     showSubMenu(menu) {
       this.activeMenu = menu
+
+      if (!menu?.subMenu && menu?.to) {
+        this.$router.push(menu.to)
+      }
     },
   },
 }
