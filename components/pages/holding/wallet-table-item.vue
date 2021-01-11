@@ -24,24 +24,18 @@
           </span>
         </div>
       </div>
-      <div class="order-column w-3/12 flex items-center">
-        <div class="flex flex-row justify-start items-baseline">
+      <div class="order-column w-3/12 flex justify-end items-center">
+        <div class="flex flex-row justify-end items-baseline">
           <strong class="text-sm text-bold mr-1">
-            {{ item.real_balance | filterPrice }}
+            {{ item.real_balance | filterPriceFloat }}
           </strong>
-          <span class="text-xs text-bold mr-1">
-            {{ item.currency.symbol }}
-          </span>
         </div>
       </div>
-      <div class="order-column w-3/12 flex items-center">
-        <div class="flex flex-row justify-start items-baseline">
+      <div class="order-column w-3/12 flex justify-end items-center">
+        <div class="flex flex-row justify-end items-baseline">
           <strong class="text-sm text-bold mr-1" @click.stop="showOrder(item)">
-            {{ item.in_order_balance | filterPrice }}
+            {{ item.in_order_balance | filterPriceFloat }}
           </strong>
-          <span class="text-xs text-bold mr-1">
-            {{ item.currency.symbol }}
-          </span>
         </div>
       </div>
       <div class="order-column w-2/12 flex flex-row justify-end items-center">
@@ -73,14 +67,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { filterPrice, filterPriceMoney } from '@/filters'
+import { filterPrice, filterPriceMoney, filterPriceFloat } from '@/filters'
 
 import HoldingDeposit from '@/components/pages/holding/holding-deposit'
 import HoldingWithdraw from '@/components/pages/holding/holding-withdraw'
 
 export default {
   name: 'WalletsTableItem',
-  filters: { filterPrice, filterPriceMoney },
+  filters: { filterPrice, filterPriceMoney, filterPriceFloat },
   components: {
     HoldingDeposit,
     HoldingWithdraw,

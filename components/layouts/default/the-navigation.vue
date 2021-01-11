@@ -135,8 +135,7 @@ export default {
     showSubMenu(name, menu) {
       this.activeMenu = name
 
-      if (!menu.subMenu && menu?.to) {
-        console.log('aaa')
+      if (!menu?.subMenu && menu?.to) {
         this.$router.push(menu.to)
       }
     },

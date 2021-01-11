@@ -30,6 +30,11 @@ const filterPrice = function (value) {
 
   return numeral(number).format('0,0.[00000000]')
 }
+const filterPriceFloat = function (value) {
+  const number = Number(value) || 0
+
+  return numeral(number).format('0,0.00000000')
+}
 
 const filterPriceMoney = function (value) {
   const number = Number(value) || 0
@@ -59,4 +64,5 @@ export {
   filterMarketCap,
   filterPriceString,
   filterPriceMoney,
+  filterPriceFloat,
 }

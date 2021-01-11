@@ -87,6 +87,7 @@
   "active2faFailure": "2FA activation failed",
   "Send": "Send",
   "pleaseCheckYourEmail": "A confirmation email is sent to your inbox. \nPlease check your email and complete the process",
+  "pleaseCheckYourEmailHtml": "A confirmation email is sent to your inbox. \nPlease check your email <a href='mailto:{email}' class='text-primary'>{email}</a> and complete the process",
   "failure": "Failure",
   "pleaseCheckYourEmailAddress": "Please check your email address.",
   "googleAuthentication": "Google Authentication",
@@ -386,5 +387,7 @@
   "partnerRate": "{order} order, {rate} % completed",
   "requiredLogin": "Please login before exchange",
   "proceed": "Process",
-  "ToAddressPm": "PM account"
+  "ToAddressPm": "PM account",
+  "resendVerificationTitle": "Verify Email",
+  "resendVerificationSubTitle": "Please type your email you registed"
 }

@@ -71,7 +71,7 @@
         class="overflow-x-auto mt-6"
         style="height: 500px"
       >
-        <deposit-history :data="listTransactions"></deposit-history>
+        <history-table :items="listTransactions"></history-table>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ import QrCode from '@/components/common/qr-code'
 import { clipboard } from 'vue-clipboards'
 import SelectCoin from '@/components/pages/wallet-sell/select-coin'
 import TransitionScaleIcon from '@/components/common/transition-scale-icon'
-import DepositHistory from '@/components/pages/holding/deposit-history'
+import HistoryTable from '@/components/pages/holding/history-table'
 import TableContentLoader from '@/components/common/table-content-loader'
 import InputForm from '@/components/common/input-form'
 import clipboardSelection from '@/mixins/clipboard-selection'
@@ -99,7 +99,7 @@ export default {
     SelectCoin,
     TransitionScaleIcon,
     InputForm,
-    DepositHistory,
+    HistoryTable,
     TableContentLoader,
   },
   directives: { clipboard },

@@ -160,6 +160,7 @@ export default {
 
         this.$router.push({ name: 'index' })
       } catch (error) {
+        console.log(error)
         this.$notify.closeAll()
 
         if (error.errorCode === 'yourEmailAddressIsNotVerified') {
@@ -183,11 +184,12 @@ export default {
     },
     handleErrorResendVerification() {
       try {
-        this.$notify({
-          title: this.$t('emailIsNotVerified'),
-          message: this.$t('pleaseCheckYourEmail'),
-          type: 'error',
-        })
+        this.$router.push('/auth/resend-verification')
+        // this.$notify({
+        //   title: this.$t('emailIsNotVerified'),
+        //   message: this.$t('pleaseCheckYourEmail'),
+        //   type: 'error',
+        // })
       } catch {
         this.$notify({
           title: this.$t('resendVerificationFailure'),

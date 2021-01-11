@@ -17,9 +17,7 @@
       </div>
       <div class="mt-10 text-center">
         <div class="font-black text-base">{{ title }}</div>
-        <div class="text-subtitle text-sm">
-          {{ subtitle }}
-        </div>
+        <div class="text-subtitle text-sm" v-html="subtitle"></div>
       </div>
       <div class="mt-16">
         <el-button

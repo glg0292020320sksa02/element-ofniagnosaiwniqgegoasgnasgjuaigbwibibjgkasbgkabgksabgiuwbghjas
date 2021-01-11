@@ -74,7 +74,7 @@
         class="overflow-x-auto mt-6"
         style="height: 500px"
       >
-        <withdraw-history :data="listTransactions"></withdraw-history>
+        <history-table :items="listTransactions"></history-table>
       </div>
     </div>
   </div>
@@ -88,7 +88,7 @@ import { filterPrice } from '@/filters'
 import SelectCoin from '@/components/pages/wallet-sell/select-coin'
 import InputCurrency from '@/components/ui/input-currency'
 import InputForm from '@/components/common/input-form'
-import WithdrawHistory from '@/components/pages/holding/withdraw-history'
+import HistoryTable from '@/components/pages/holding/history-table'
 import TableContentLoader from '@/components/common/table-content-loader'
 
 import clipboardSelection from '@/mixins/clipboard-selection'
@@ -106,7 +106,7 @@ export default {
     SelectCoin,
     InputCurrency,
     InputForm,
-    WithdrawHistory,
+    HistoryTable,
     TableContentLoader,
   },
   directives: { clipboard },

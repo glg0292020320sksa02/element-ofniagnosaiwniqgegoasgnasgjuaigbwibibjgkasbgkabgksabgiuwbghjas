@@ -60,7 +60,7 @@
             class="overflow-x-auto mt-6"
             style="height: 500px"
           >
-            <deposit-history :data="listTransactions"></deposit-history>
+            <history-table :items="listTransactions"></history-table>
           </div>
         </div>
         <div v-else>
@@ -75,7 +75,7 @@
             class="overflow-x-auto mt-6"
             style="height: 500px"
           >
-            <withdraw-history :data="listTransactions"></withdraw-history>
+            <history-table :items="listTransactions"></history-table>
           </div>
         </div>
       </div>
@@ -91,8 +91,7 @@ import FilterDate from '@/components/common/setting/filter-date'
 import FilterStatus from '@/components/common/setting/filter-status'
 import FilterCurrency from '@/components/common/setting/filter-currency'
 import TableContentLoader from '@/components/common/table-content-loader'
-import DepositHistory from '@/components/pages/holding/deposit-history'
-import WithdrawHistory from '@/components/pages/holding/withdraw-history'
+import HistoryTable from '@/components/pages/holding/history-table'
 
 export default {
   name: 'SettingHoldingPage',
@@ -102,8 +101,7 @@ export default {
     FilterDate,
     FilterStatus,
     FilterCurrency,
-    WithdrawHistory,
-    DepositHistory,
+    HistoryTable,
   },
   fetch() {
     this.loadTransactions()

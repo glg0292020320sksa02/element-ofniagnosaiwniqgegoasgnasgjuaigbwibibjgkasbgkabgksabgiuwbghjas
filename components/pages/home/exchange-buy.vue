@@ -122,6 +122,7 @@ export default {
         { name: 'Vietcombank', value: 'VCB', icon: 'vietcom-bank.png' },
         { name: 'Techcombank', value: 'TCB', icon: 'techcom-bank.png' },
         { name: 'VNDS', value: 'VNDS', icon: 'vnds.png' },
+        { name: 'PerfectMoney', value: 'PM', icon: 'vnds.png' },
       ],
       amountPercent: [25, 50, 75, 100],
     }

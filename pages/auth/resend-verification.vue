@@ -5,9 +5,9 @@
         <div
           class="card-header mb-12 flex flex-col justify-center align-middle text-center"
         >
-          <strong class="text-3xl">{{ $t('forgotPasswordTitle') }}</strong>
+          <strong class="text-3xl">{{ $t('resendVerificationTitle') }}</strong>
           <p class="text-subtitle text-sm">
-            {{ $t('forgotPasswordSubTitle') }}
+            {{ $t('resendVerificationSubTitle') }}
           </p>
         </div>
         <el-form
@@ -37,14 +37,6 @@
             </el-button>
           </div>
         </el-form>
-        <div class="flex justify-end text-sm my-8">
-          <nuxt-link
-            :to="{ name: 'auth-login' }"
-            class="text-primary hover:underline cursor-pointer"
-          >
-            {{ $t('backToLogin') }}
-          </nuxt-link>
-        </div>
       </el-card>
     </div>
   </div>
@@ -57,7 +49,7 @@ import { email } from '@/utils/form-rules'
 import validateForm from '@/mixins/validate-form'
 
 export default {
-  name: 'AuthForgotPassword',
+  name: 'AuthResendVerification',
   layout: 'auth',
   auth: false,
   mixins: [validateForm],
@@ -77,7 +69,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      forgotPassword: 'authentications/forgotPassword',
+      resendVerification: 'authentications/resendVerification',
     }),
     async onSubmit() {
       const isValid = await this.validate()
@@ -86,7 +78,7 @@ export default {
 
       try {
         this.loading = true
-        await this.forgotPassword(this.model)
+        await this.resendVerification(this.model)
 
         await this.$success({
           title: this.$t('success'),

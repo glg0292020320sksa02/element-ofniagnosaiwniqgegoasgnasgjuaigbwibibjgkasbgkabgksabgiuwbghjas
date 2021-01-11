@@ -176,7 +176,9 @@ export default {
         await this.register(this.model)
         await this.$success({
           title: this.$t('registerSuccessful'),
-          subtitle: this.$t('pleaseCheckYourEmail'),
+          subtitle: this.$t('pleaseCheckYourEmailHtml', {
+            email: this.model.email,
+          }),
           actionMethod: () => this.$router.push({ name: 'auth-login' }),
         })
       } catch (e) {

@@ -17,6 +17,7 @@ const coin = {
   XRP: 'XRP',
   USDT: 'USDT',
   VNDS: 'VNDS',
+  PM: 'PM',
 }
 
 const paymentMethods = [
@@ -33,6 +34,7 @@ const paymentMethods = [
     accept: 'SELL',
   },
   { name: 'VNDS', value: 'VNDS', icon: 'vnds.png', accept: 'ALL' },
+  { name: 'PerfectMoney', value: 'PM', icon: 'pm.png', accept: 'ALL' },
 ]
 
 export { side, coin, sideObj, sideRequestObj, paymentMethods }
