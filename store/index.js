@@ -3,6 +3,7 @@ export const state = () => ({
   activeSide: 'BUY',
   selectedUserView: null,
   selectedTransactionView: null,
+  selectedTradeHistory: null,
 })
 export const getters = {
   isEnable2FA(state) {
@@ -22,6 +23,9 @@ export const getters = {
   selectedTransactionView(state) {
     return state.selectedTransactionView ? state.selectedTransactionView : {}
   },
+  selectedTradeHistory(state) {
+    return state.selectedTradeHistory ? state.selectedTradeHistory : {}
+  },
 }
 export const mutations = {
   SET_ACTIVE_TAB(state, payload) {
@@ -33,6 +37,9 @@ export const mutations = {
   SET_SELECTED_USER_VIEW(state, payload) {
     state.selectedUserView = payload
   },
+  SET_SELECTED_TRADE_HISTORY(state, payload) {
+    state.selectedTradeHistory = payload
+  },
 }
 export const actions = {
   setActiveTab({ commit }, payload) {
@@ -43,6 +50,9 @@ export const actions = {
   },
   setSelectedUserView({ commit }, payload) {
     commit('SET_SELECTED_USER_VIEW', payload)
+  },
+  setSelectedTradeHistory({ commit }, payload) {
+    commit('SET_SELECTED_TRADE_HISTORY', payload)
   },
   getUserDetail({}, id) {
     return this.$axios.$get(`/api/exchanges/profile/${id}`)

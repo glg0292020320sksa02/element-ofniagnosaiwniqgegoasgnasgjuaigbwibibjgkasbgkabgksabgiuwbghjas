@@ -189,7 +189,6 @@ export default {
 
         this.listTransactions = [...this.listTransactions, ...data]
       } catch (e) {
-        console.error(e)
       } finally {
         this.loading = false
       }

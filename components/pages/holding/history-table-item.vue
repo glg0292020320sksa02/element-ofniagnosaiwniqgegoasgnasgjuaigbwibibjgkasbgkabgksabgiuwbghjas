@@ -116,7 +116,7 @@
               <td class="py-4">
                 <strong class="mr-1">{{ $t('Confirmation') }}:</strong>
               </td>
-              <td>{{ 0 }}</td>
+              <td>{{ item.confirmations }}</td>
             </tr>
           </tbody>
         </table>

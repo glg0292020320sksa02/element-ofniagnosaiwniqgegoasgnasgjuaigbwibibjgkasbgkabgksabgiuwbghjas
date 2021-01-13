@@ -25,16 +25,30 @@ const paymentMethods = [
     name: 'Vietcombank',
     value: 'VCB',
     icon: 'vietcom-bank.png',
+    component: 'icon-vcb',
     accept: 'SELL',
   },
   {
     name: 'Techcombank',
     value: 'TCB',
+    component: 'icon-tcb',
     icon: 'techcom-bank.png',
     accept: 'SELL',
   },
-  { name: 'VNDS', value: 'VNDS', icon: 'vnds.png', accept: 'ALL' },
-  { name: 'PerfectMoney', value: 'PM', icon: 'pm.png', accept: 'ALL' },
+  {
+    name: 'VNDS',
+    value: 'VNDS',
+    component: 'icon-vnds',
+    icon: 'vnds.png',
+    accept: 'ALL',
+  },
+  {
+    name: 'PerfectMoney',
+    value: 'PM',
+    component: 'icon-pm',
+    icon: 'pm.png',
+    accept: 'ALL',
+  },
 ]
 
 export { side, coin, sideObj, sideRequestObj, paymentMethods }

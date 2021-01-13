@@ -59,10 +59,8 @@
             :key="j + '_pay'"
             class="text-xs flex flex-row justify-start items-center mb-2"
           >
-            <span class="bg-warning text-xs rounded-sm p-1 mr-1">
-              <icon-buy class="w-2 h-2 text-white"></icon-buy>
-            </span>
-            <p class="w-2/3 truncate whitespace-normal">{{ pay.name }}</p>
+            <components :is="pay.component" class="mr-1"></components>
+            <p class="w-full truncate whitespace-normal">{{ pay.name }}</p>
           </div>
         </div>
       </div>
@@ -107,13 +105,18 @@ import { filterPrice, filterPriceMoney } from '@/filters'
 import ExchangeSell from '@/components/pages/home/exchange-sell'
 import ExchangeBuy from '@/components/pages/home/exchange-buy'
 
-import IconBuy from '@/components/ui/icon/icon-buy'
-
+import IconVnds from '@/components/ui/icon/icon-vnds'
+import IconVcb from '@/components/ui/icon/icon-vcb'
+import IconTcb from '@/components/ui/icon/icon-tcb'
+import IconPm from '@/components/ui/icon/icon-pm'
 export default {
   name: 'OrderTableItem',
   filters: { filterPrice, filterPriceMoney },
   components: {
-    IconBuy,
+    IconVnds,
+    IconVcb,
+    IconTcb,
+    IconPm,
     ExchangeSell,
     ExchangeBuy,
   },

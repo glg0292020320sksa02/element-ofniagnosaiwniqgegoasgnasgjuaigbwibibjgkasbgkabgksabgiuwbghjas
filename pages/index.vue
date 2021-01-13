@@ -5,6 +5,7 @@
       <market-list></market-list>
     </lazy-hydrate>
     <register-banner></register-banner>
+    <trade-history></trade-history>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import LazyHydrate from 'vue-lazy-hydration'
 
 import MarketTrending from '@/components/pages/home/market-trending'
 import MarketList from '@/components/pages/home/market-list/market-list'
+import TradeHistory from '@/components/pages/home/trade-history'
 import RegisterBanner from '@/components/common/promotion/register-banner'
 export default {
   name: 'Home',
@@ -23,6 +25,7 @@ export default {
     MarketTrending,
     MarketList,
     RegisterBanner,
+    TradeHistory,
   },
 }
 </script>

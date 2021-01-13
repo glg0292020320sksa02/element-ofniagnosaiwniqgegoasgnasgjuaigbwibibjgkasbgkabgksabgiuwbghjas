@@ -1,20 +1,14 @@
 <template>
-  <div
-    class="order-item border-b bg-white border-b-gray-200 cursor-pointer"
-    :class="{ 'my-4 shadow-xl overflow-hidden border': isExpand }"
-  >
-    <div
-      class="flex flex-row justify-between items-stretch p-6"
-      @click="selectTradeHistory(item)"
-    >
+  <div class="order-item border-b bg-white border-b-gray-200">
+    <div class="flex flex-row justify-between items-stretch p-6">
       <div class="order-column w-1/12 flex items-center">
         <strong class="text-sm">
-          <nuxt-link
+          <span
             class="text-primary underline cursor-pointer font-bold"
-            :to="`trade-history/${item.id}`"
+            @click="viewTransaction(item)"
           >
             #{{ item.id }}
-          </nuxt-link>
+          </span>
         </strong>
       </div>
       <div class="order-column w-2/12 flex items-center">
@@ -50,14 +44,14 @@
           {{ item.side }}
         </span>
       </div>
-      <div class="order-column w-2/12 flex items-start flex-col justify-center">
-        <div class="flex justify-start items-center">
+      <div class="order-column w-2/12 flex flex-col justify-center items-end">
+        <div class="flex justify-end items-center">
           <strong>{{ item.amount | filterPrice }}</strong>
           <span class="ml-1 text-xs text-subtitle">
             {{ sourceSymbol(item.source_symbol) }}
           </span>
         </div>
-        <div class="flex justify-start items-center text-xs">
+        <div class="flex justify-end items-center text-xs">
           <span>{{ item.price | filterPriceMoney }}</span>
           <span class="ml-1 text-xs text-subtitle">
             {{
@@ -68,7 +62,7 @@
           </span>
         </div>
       </div>
-      <div class="order-column w-2/12 flex items-center">
+      <div class="order-column w-2/12 flex items-center justify-end">
         <div class="flex justify-end items-center">
           <strong :class="getColorTotal(item.side)">
             {{ item.total | filterPriceMoney }}
@@ -78,14 +72,6 @@
           </span>
         </div>
       </div>
-    </div>
-    <div
-      v-if="isExpand"
-      class="expand border-t bg-gray-100 p-6 flex justify-end"
-    >
-      <span class="px-4 rounded-full font-bold bg-primary-50 text-primary">
-        {{ item.description }}
-      </span>
     </div>
   </div>
 </template>
@@ -119,23 +105,16 @@ export default {
     isExpand() {
       return this.selectedTradeHistory.id === this.item.id
     },
+    isDisableClick() {
+      return this.item.target_symbol === 'VND'
+    },
   },
   methods: {
     ...mapActions({
       setActiveTab: 'setActiveTab',
       setActiveSide: 'setActiveSide',
       setSelectedUserView: 'setSelectedUserView',
-      setSelectedTradeHistory: 'setSelectedTradeHistory',
     }),
-    selectTradeHistory(payload) {
-      if (this.isExpand) {
-        this.setSelectedTradeHistory(null)
-
-        return
-      }
-
-      this.setSelectedTradeHistory(payload)
-    },
     getColorSide(side) {
       return side.toLowerCase() === 'buy'
         ? 'text-success bg-success-100'
@@ -160,13 +139,28 @@ export default {
         ? transaction?.seller?.name
         : transaction?.buyer?.name
     },
+    viewTransaction(item) {
+      if (this.isDisableClick) {
+        return
+      }
+
+      this.$router.push(`/trade-history/${item.id}`)
+    },
     viewDetailUser(transaction) {
+      if (this.isDisableClick) {
+        return
+      }
+
       const partner = this.partner(transaction)
 
       this.setSelectedUserView(partner)
       this.$router.push(`/user-detail/${partner.id}`)
     },
     redirectToHomePage(target, side) {
+      if (this.isDisableClick) {
+        return
+      }
+
       this.setActiveTab(target)
       this.setActiveSide(side.toUpperCase())
       this.$router.push('/')
