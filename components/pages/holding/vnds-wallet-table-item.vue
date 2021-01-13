@@ -31,14 +31,14 @@
           </strong>
         </div>
       </div>
-      <div class="order-column w-3/12 flex justify-end items-center">
+      <div class="order-column w-2/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
           <strong class="text-sm text-bold mr-1" @click.stop="showOrder(item)">
             {{ item.in_order_balance | filterPriceMoney }}
           </strong>
         </div>
       </div>
-      <div class="order-column w-2/12 flex flex-row justify-end items-center">
+      <div class="order-column w-3/12 flex flex-row justify-end items-center">
         <div class="flex flex-row justify-end items-center">
           <button
             class="rounded px-4 py-2 text-primary font-bold text-xs bg-primary-50 hover:bg-primary-100 uppercase mr-1"

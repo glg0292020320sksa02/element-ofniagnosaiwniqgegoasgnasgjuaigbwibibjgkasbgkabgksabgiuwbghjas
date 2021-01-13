@@ -9,13 +9,13 @@
       <div class="header-column w-2/12">
         <span class="text-subtitle">{{ $t('created-at') }}</span>
       </div>
-      <div class="header-column w-3/12">
+      <div class="header-column w-3/12 text-right">
         <span class="text-subtitle">{{ $t('balance') }}</span>
       </div>
-      <div class="header-column w-3/12">
+      <div class="header-column w-2/12 text-right">
         <span class="text-subtitle">{{ $t('reserved') }}</span>
       </div>
-      <div class="header-column w-2/12 flex justify-end">
+      <div class="header-column w-3/12 flex justify-end">
         <span class="text-subtitle">{{ $t('action') }}</span>
       </div>
     </div>

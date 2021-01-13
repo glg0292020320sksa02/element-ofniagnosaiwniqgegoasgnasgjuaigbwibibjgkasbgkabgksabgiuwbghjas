@@ -21,7 +21,7 @@
         </div>
         <div class="p-2">
           <div class="mt-6">
-            <input-form class="mb-5">
+            <!-- <input-form class="mb-5">
               <el-tooltip
                 class="item"
                 effect="dark"
@@ -38,7 +38,7 @@
                   @change="changeInfinity"
                 ></el-checkbox>
               </el-tooltip>
-            </input-form>
+            </input-form> -->
             <input-form :label="$t('coin')" class="mb-5">
               <select-coin
                 v-model="model.wallet_id"

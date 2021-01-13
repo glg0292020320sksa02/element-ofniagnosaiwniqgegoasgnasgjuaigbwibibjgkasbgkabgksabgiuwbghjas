@@ -95,6 +95,6 @@ export default {
 .body-content {
   position: relative;
   z-index: 1;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 </style>
