@@ -24,7 +24,10 @@
                 "
                 placement="top-start"
               >
-                <label class="inline-flex items-center">
+                <label
+                  class="inline-flex items-center rounded border p-1"
+                  :class="{ 'border-primary': bank.value === payment_method }"
+                >
                   <input
                     v-model="payment_method"
                     type="radio"
@@ -33,7 +36,11 @@
                     :value="bank.value"
                     checked
                   />
-                  <span class="ml-2">{{ bank.name }}</span>
+                  <components
+                    :is="bank.component"
+                    class="mr-1 ml-2"
+                  ></components>
+                  <span>{{ bank.name }}</span>
                 </label>
               </el-tooltip>
             </div>
@@ -102,14 +109,26 @@
 <script>
 import Big from 'big.js'
 import { filterPriceMoney } from '@/filters'
+import { paymentMethods } from '@/utils/constant'
+
 import { mapActions, mapGetters } from 'vuex'
 import InputCurrency from '@/components/ui/input-currency'
 import IconArrowRight from '@/components/ui/icon/icon-arrow-right'
-
+import IconVnds from '@/components/ui/icon/icon-vnds'
+import IconVcb from '@/components/ui/icon/icon-vcb'
+import IconTcb from '@/components/ui/icon/icon-tcb'
+import IconPm from '@/components/ui/icon/icon-pm'
 export default {
   name: 'ExchangeSell',
   filters: { filterPriceMoney },
-  components: { InputCurrency, IconArrowRight },
+  components: {
+    InputCurrency,
+    IconArrowRight,
+    IconVnds,
+    IconVcb,
+    IconTcb,
+    IconPm,
+  },
   fetch() {
     this.loadDetailOrder()
   },
@@ -118,12 +137,7 @@ export default {
       payment_method: 'VCB',
       selectedAmountPercent: 0,
       amount: 0,
-      paymentMethods: [
-        { name: 'Vietcombank', value: 'VCB', icon: 'vietcom-bank.png' },
-        { name: 'Techcombank', value: 'TCB', icon: 'techcom-bank.png' },
-        { name: 'VNDS', value: 'VNDS', icon: 'vnds.png' },
-        { name: 'PerfectMoney', value: 'PM', icon: 'vnds.png' },
-      ],
+      paymentMethods,
       amountPercent: [25, 50, 75, 100],
     }
   },

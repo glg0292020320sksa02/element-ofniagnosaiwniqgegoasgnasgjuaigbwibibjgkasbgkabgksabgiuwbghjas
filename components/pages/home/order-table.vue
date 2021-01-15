@@ -27,6 +27,7 @@
           :item="item"
           :index="i + 1"
           :is-buy="isBuySide"
+          @click="drawer = false"
         ></order-table-item>
       </div>
       <div
