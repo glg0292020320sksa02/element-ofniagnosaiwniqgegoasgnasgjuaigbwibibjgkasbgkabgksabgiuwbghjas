@@ -389,5 +389,15 @@
   "proceed": "Xử lý",
   "ToAddressPm": "Tài khoản PM",
   "resendVerificationTitle": "Xác minh tài khoản",
-  "resendVerificationSubTitle": "Vui lòng nhập địa chỉ email đã đăng kí"
+  "resendVerificationSubTitle": "Vui lòng nhập địa chỉ email đã đăng kí",
+  "buyCoinFrom": "Mua {coin} từ {partner}",
+  "sellCoinTo": "Bán {coin} cho {partner}",
+  "Buy": "Mua",
+  "Sell": "Bán",
+  "Amount": "Số lượng",
+  "Search": "Tìm kiếm",
+  "EnterAmount": "Nhập số lượng",
+  "Fiat": "Fiat",
+  "Payment": "Thanh toán",
+  "Refresh": "Làm mới"
 }

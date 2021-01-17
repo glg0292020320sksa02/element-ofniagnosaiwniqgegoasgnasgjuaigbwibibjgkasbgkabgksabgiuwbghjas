@@ -389,5 +389,15 @@
   "proceed": "Process",
   "ToAddressPm": "PM account",
   "resendVerificationTitle": "Verify Email",
-  "resendVerificationSubTitle": "Please type your email you registed"
+  "resendVerificationSubTitle": "Please type your email you registed",
+  "buyCoinFrom": "Buy {coin} from {partner}",
+  "sellCoinTo": "Sell {coin} to {partner}",
+  "Buy": "Buy",
+  "Sell": "Sell",
+  "Amount": "Amount",
+  "Search": "Search",
+  "EnterAmount": "Enter amount",
+  "Fiat": "Fiat",
+  "Payment": "Payment",
+  "Refresh": "Refresh"
 }

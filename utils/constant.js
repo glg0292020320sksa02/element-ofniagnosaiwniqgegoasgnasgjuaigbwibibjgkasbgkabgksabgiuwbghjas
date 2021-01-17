@@ -27,6 +27,7 @@ const paymentMethods = [
     icon: 'vietcom-bank.png',
     component: 'icon-vcb',
     accept: 'SELL',
+    symbol: 'VND',
   },
   {
     name: 'Techcombank',
@@ -34,6 +35,7 @@ const paymentMethods = [
     component: 'icon-tcb',
     icon: 'techcom-bank.png',
     accept: 'SELL',
+    symbol: 'VND',
   },
   {
     name: 'VNDS',
@@ -41,6 +43,7 @@ const paymentMethods = [
     component: 'icon-vnds',
     icon: 'vnds.png',
     accept: 'ALL',
+    symbol: 'VNDS',
   },
   {
     name: 'PerfectMoney',
@@ -48,6 +51,7 @@ const paymentMethods = [
     component: 'icon-pm',
     icon: 'pm.png',
     accept: 'ALL',
+    symbol: 'USD',
   },
 ]
 

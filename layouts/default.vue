@@ -78,6 +78,7 @@ export default {
 .layout-body {
   position: relative;
   z-index: 1;
+  background-color: #f9f9fa;
 }
 .layout-body::before {
   content: ' ';

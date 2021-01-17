@@ -27,7 +27,7 @@
           :item="item"
           :index="i + 1"
           :is-buy="isBuySide"
-          @click="drawer = false"
+          @click="drawer = true"
         ></order-table-item>
       </div>
       <div
@@ -41,23 +41,37 @@
       </div>
     </div>
     <div class="drawer">
-      <el-drawer :visible.sync="drawer" :append-to-body="true">
-        <exchange-drawer-buy></exchange-drawer-buy>
+      <el-drawer
+        :visible.sync="drawer"
+        :append-to-body="true"
+        size="25%"
+        class="exchange-drawer"
+      >
+        <template v-slot:title>
+          <div class="bg-primary text-white">{{ drawerTitle }}</div>
+        </template>
+        <exchange-drawer-sell v-if="isBuySide"></exchange-drawer-sell>
+        <exchange-drawer-buy v-else></exchange-drawer-buy>
       </el-drawer>
     </div>
   </div>
 </template>
 <script>
 import { side } from '@/utils/constant'
+import { mapActions, mapGetters } from 'vuex'
+
 import OrderTableItem from '@/components/pages/home/order-table-item'
 import IconEmpty from '@/components/ui/icon/icon-empty'
 import ExchangeDrawerBuy from '@/components/pages/home/exchange-drawer-buy'
+import ExchangeDrawerSell from '@/components/pages/home/exchange-drawer-sell'
+
 export default {
   name: 'OrderTable',
   components: {
     OrderTableItem,
     IconEmpty,
     ExchangeDrawerBuy,
+    ExchangeDrawerSell,
   },
   props: {
     orders: {
@@ -77,9 +91,24 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({ selectedOrder: 'market/selectedOrder' }),
     isBuySide() {
       return this.side === side.BUY
+    },
+    drawerTitle() {
+      return this.$t(this.isBuySide ? 'sellCoinTo' : 'buyCoinFrom', {
+        coin: this.selectedOrder?.source_symbol || '',
+        partner: this.selectedOrder?.user?.name || '',
+      })
     },
   },
 }
 </script>
+<style>
+.exchange-drawer .el-drawer__header {
+  @apply bg-primary p-6;
+}
+.exchange-drawer .el-dialog__close.el-icon {
+  @apply text-white !important;
+}
+</style>

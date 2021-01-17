@@ -1,11 +1,16 @@
 <template>
-  <div class="page-home container py-8 space-y-8">
-    <market-trending></market-trending>
-    <lazy-hydrate when-visible>
-      <market-list></market-list>
-    </lazy-hydrate>
-    <register-banner></register-banner>
-    <trade-history></trade-history>
+  <div class="page-home py-8 space-y-8">
+    <div class="container">
+      <market-trending></market-trending>
+      <lazy-hydrate when-visible>
+        <market-list></market-list>
+      </lazy-hydrate>
+    </div>
+    <order-table></order-table>
+    <div class="container">
+      <register-banner></register-banner>
+      <trade-history></trade-history>
+    </div>
   </div>
 </template>
 
@@ -17,6 +22,7 @@ import MarketTrending from '@/components/pages/home/market-trending'
 import MarketList from '@/components/pages/home/market-list/market-list'
 import TradeHistory from '@/components/pages/home/trade-history'
 import RegisterBanner from '@/components/common/promotion/register-banner'
+import OrderTable from '@/components/pages/binance/home/order-table'
 export default {
   name: 'Home',
   auth: false,
@@ -26,6 +32,7 @@ export default {
     MarketList,
     RegisterBanner,
     TradeHistory,
+    OrderTable,
   },
 }
 </script>

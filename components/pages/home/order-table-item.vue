@@ -1,12 +1,10 @@
 <template>
   <div
     class="order-item border-b bg-white border-b-gray-200 transform transition-all duration-75 ease-in-out"
-    :class="{ 'my-4 shadow-xl overflow-hidden border': isExpand }"
   >
     <div
       class="flex flex-row justify-between items-stretch p-6"
       :class="{ 'cursor-not-allowed': isMyOrder, 'cursor-pointer': !isMyOrder }"
-      @click="selectOrder(item)"
     >
       <div class="order-column w-2/12">
         <div class="flex flex-row justify-start items-center">
@@ -53,7 +51,7 @@
         </div>
       </div>
       <div class="order-column w-1/12 flex items-center">
-        <div class="flex flex-col justify-center items-start">
+        <div class="flex flex-col justify-center items-stretch">
           <div
             v-for="(pay, j) in acceptPayment"
             :key="j + '_pay'"
@@ -67,12 +65,11 @@
       <div class="order-column w-2/12 flex flex-row justify-end items-center">
         <div class="flex flex-row justify-end items-center">
           <el-button
-            v-if="!isExpand"
             :type="!isBuy ? 'success' : 'danger'"
             :disabled="isMyOrder"
             class="font-bold uppercase"
             size="small"
-            @click="$emit('click')"
+            @click="selectOrder(item)"
           >
             {{
               isBuy
@@ -86,13 +83,6 @@
           </el-button>
         </div>
       </div>
-    </div>
-    <div
-      v-if="isExpand"
-      class="expand border-t bg-gray-100 p-6 flex justify-end"
-    >
-      <exchange-sell v-if="isBuy"></exchange-sell>
-      <exchange-buy v-else></exchange-buy>
     </div>
   </div>
 </template>
@@ -137,9 +127,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters({
-      selectedOrder: 'market/selectedOrder',
-    }),
     acceptPayment() {
       return paymentMethods.filter(item => {
         if (this.item.source_symbol === 'VNDS') {
@@ -151,9 +138,6 @@ export default {
 
         return item.accept === 'ALL' || item.accept === this.item.side
       })
-    },
-    isExpand() {
-      return this.selectedOrder.id === this.item.id
     },
     currentUser() {
       return this.$auth.user
@@ -167,13 +151,14 @@ export default {
       setSelectedOrder: 'market/setSelectedOrder',
     }),
     selectOrder(payload) {
-      if (this.isExpand || this.isMyOrder) {
+      if (this.isMyOrder) {
         this.setSelectedOrder(null)
 
         return
       }
 
       this.setSelectedOrder(payload)
+      this.$emit('click')
     },
   },
 }
