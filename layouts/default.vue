@@ -75,6 +75,9 @@ export default {
 }
 </script>
 <style scoped>
+.layout-default {
+  font-family: 'Inter', sans-serif;
+}
 .layout-body {
   position: relative;
   z-index: 1;
