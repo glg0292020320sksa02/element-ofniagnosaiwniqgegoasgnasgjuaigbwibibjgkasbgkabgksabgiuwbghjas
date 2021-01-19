@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 w-full bg-white z-50 shadow whitespace-no-wrap">
+  <header class="w-full bg-white shadow whitespace-no-wrap">
     <div class="container">
       <div class="flex justify-between items-center">
         <div class="flex justify-start items-center">

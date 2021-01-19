@@ -17,7 +17,10 @@
             class="w-3 h-3 font-bold text-subtitle"
           ></icon-chevron-down>
         </button>
-        <div v-if="dialog" class="select-list absolute bg-white rounded w-full">
+        <div
+          v-if="dialog"
+          class="select-list absolute bg-white shadow rounded w-full"
+        >
           <div
             v-for="(fiat, index) in fiats"
             :key="index + '_fiat'"

@@ -1,13 +1,14 @@
 <template>
   <div class="page-home py-8 space-y-8">
-    <div class="container">
-      <market-trending></market-trending>
+    <div class="mt-6">
       <lazy-hydrate when-visible>
         <market-list></market-list>
       </lazy-hydrate>
     </div>
-    <order-table></order-table>
     <div class="container">
+      <market-trending></market-trending>
+    </div>
+    <div class="container space-y-8">
       <register-banner></register-banner>
       <trade-history></trade-history>
     </div>
@@ -19,10 +20,9 @@ import { mapActions } from 'vuex'
 import LazyHydrate from 'vue-lazy-hydration'
 
 import MarketTrending from '@/components/pages/home/market-trending'
-import MarketList from '@/components/pages/home/market-list/market-list'
+import MarketList from '@/components/pages/binance/home/market-list/market-list'
 import TradeHistory from '@/components/pages/home/trade-history'
 import RegisterBanner from '@/components/common/promotion/register-banner'
-import OrderTable from '@/components/pages/binance/home/order-table'
 export default {
   name: 'Home',
   auth: false,
@@ -32,7 +32,6 @@ export default {
     MarketList,
     RegisterBanner,
     TradeHistory,
-    OrderTable,
   },
 }
 </script>

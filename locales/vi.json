@@ -399,5 +399,6 @@
   "EnterAmount": "Nhập số lượng",
   "Fiat": "Fiat",
   "Payment": "Thanh toán",
-  "Refresh": "Làm mới"
+  "Refresh": "Làm mới",
+  "limitPayment": "Giới hạn thanh toán"
 }

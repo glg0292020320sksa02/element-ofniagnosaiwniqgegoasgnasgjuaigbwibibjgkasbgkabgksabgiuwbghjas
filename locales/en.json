@@ -399,5 +399,6 @@
   "EnterAmount": "Enter amount",
   "Fiat": "Fiat",
   "Payment": "Payment",
-  "Refresh": "Refresh"
+  "Refresh": "Refresh",
+  "limitPayment": "Limit time"
 }
