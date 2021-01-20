@@ -28,7 +28,7 @@
   "registerWithGoogle": "Đăng ký với Google",
   "registerAccount": "Đăng ký tài khoản",
   "refererCode": "Mã giới thiệu",
-  "agree": "Tôi đã",
+  "agree": "Đồng ý",
   "readAndAgreeTerms": "đọc và đồng ý với điều khoản C2A",
   "alreadyAccount": "Đã có tài khoản, đăng nhập ngay",
   "send": "Gửi",
@@ -405,5 +405,7 @@
   "IWantToPay": "Tôi muốn trả",
   "IWillReceived": "Tôi sẽ nhận được",
   "Min": "Min",
-  "Max": "Max"
+  "Max": "Max",
+  "IWillSell": "Tôi sẽ bán",
+  "paymentReceiveMethod": "Phương thức nhận thanh toán"
 }

@@ -19,6 +19,7 @@
         <filter-order></filter-order>
         <button
           class="bg-transparent text-gray-800 border border-gray-300 px-4 py-1 rounded text-xs font-bold flex flex-row flex-nowrap items-center"
+          @click="loadAllOrders"
         >
           <icon-refresh class="w-3 h-3 mr-1"></icon-refresh>
           {{ $t('Refresh') }}
@@ -31,42 +32,24 @@
       ></table-content-loader>
       <order-table v-else :items="orderListFiltered"></order-table>
     </div>
-    <div class="create-order">
-      <el-dialog
-        :visible.sync="showCreateOrder"
-        :modal-append-to-body="false"
-        width="450px"
-        :show-close="false"
+    <div class="drawer">
+      <el-drawer
+        :visible.sync="drawer"
+        :append-to-body="true"
+        size="25%"
+        class="create-order-drawer"
       >
-        <template #title>
-          <div class="flex">
-            <div class="w-1/2 p-2" @click="selectActiveSide(sides.BUY)">
-              <div
-                class="text-center p-4 text-base"
-                :class="{
-                  'text-primary font-bold border-b-2 border-primary': isBuy,
-                  'text-subtitle cursor-pointer': !isBuy,
-                }"
-              >
-                {{ $t('createBuyOrder') }}
-              </div>
-            </div>
-            <div class="w-1/2 p-2" @click="selectActiveSide(sides.SELL)">
-              <div
-                class="text-center p-4 text-base"
-                :class="{
-                  'text-primary font-bold border-b-2 border-primary': !isBuy,
-                  'text-subtitle cursor-pointer': isBuy,
-                }"
-              >
-                {{ $t('createSellOrder') }}
-              </div>
-            </div>
-          </div>
+        <template v-slot:title>
+          <div class="bg-primary text-white font-bold">{{ newOrderLabel }}</div>
         </template>
-        <create-buy-order v-if="isBuy"></create-buy-order>
-        <create-sell-order v-else></create-sell-order>
-      </el-dialog>
+        <div class="px-6">
+          <create-buy-order
+            v-if="isBuy"
+            @created="reloadOrders"
+          ></create-buy-order>
+          <create-sell-order v-else @created="reloadOrders"></create-sell-order>
+        </div>
+      </el-drawer>
     </div>
   </div>
 </template>
@@ -106,6 +89,7 @@ export default {
       loading: false,
       showCreateOrder: false,
       sides,
+      drawer: false,
     }
   },
   computed: {
@@ -152,11 +136,24 @@ export default {
       const targetSide = this.isBuy ? sides.BUY : sides.SELL
 
       this.setActiveSide(targetSide)
-      this.showCreateOrder = true
+      // this.showCreateOrder = true
+      this.drawer = true
     },
     selectActiveSide(payload) {
       this.setActiveSide(payload)
     },
+    reloadOrders() {
+      this.drawer = false
+      this.loadAllOrders()
+    },
   },
 }
 </script>
+<style>
+.create-order-drawer .el-drawer__header {
+  @apply bg-primary p-6;
+}
+.create-order-drawer .el-dialog__close.el-icon {
+  @apply text-white !important;
+}
+</style>

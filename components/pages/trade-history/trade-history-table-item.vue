@@ -50,14 +50,14 @@
           {{ item.side }}
         </span>
       </div>
-      <div class="order-column w-2/12 flex items-start flex-col justify-center">
-        <div class="flex justify-start items-center">
+      <div class="order-column w-2/12 flex items-end flex-col justify-center">
+        <div class="flex justify-end items-center">
           <strong>{{ item.amount | filterPrice }}</strong>
           <span class="ml-1 text-xs text-subtitle">
             {{ sourceSymbol(item.source_symbol) }}
           </span>
         </div>
-        <div class="flex justify-start items-center text-xs">
+        <div class="flex justify-end items-center text-xs">
           <span>{{ item.price | filterPriceMoney }}</span>
           <span class="ml-1 text-xs text-subtitle">
             {{
@@ -68,7 +68,7 @@
           </span>
         </div>
       </div>
-      <div class="order-column w-2/12 flex items-center">
+      <div class="order-column w-2/12 flex justify-end items-center">
         <div class="flex justify-end items-center">
           <strong :class="getColorTotal(item.side)">
             {{ item.total | filterPriceMoney }}

@@ -1,24 +1,6 @@
 <template>
   <div>
-    <div class="mt-6">
-      <!-- <input-form class="mb-5">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content="
-            $t('infinitySellTooltip', {
-              symbol: walletSelectedWithSymbol,
-            })
-          "
-          placement="top-start"
-        >
-          <el-checkbox
-            v-model="model.is_infinite"
-            :label="$t('infinitySellSetup')"
-            @change="changeInfinity"
-          ></el-checkbox>
-        </el-tooltip>
-      </input-form> -->
+    <div>
       <input-form :label="$t('coin')" class="mb-5">
         <select-coin
           v-model="model.wallet_id"
@@ -35,9 +17,14 @@
           class="text-sm"
         ></select-account-number>
       </input-form>
-      <input-form :label="$t('priceSell')" class="mb-5 relative">
-        <input-currency v-model="model.price" class="text-sm"></input-currency>
-        <span class="price-unit text-500">{{ priceUnit }}</span>
+      <input-form :label="$t('priceSell')" class="mb-5">
+        <div class="relative">
+          <input-currency
+            v-model="model.price"
+            class="text-sm"
+          ></input-currency>
+          <span class="price-unit text-500">{{ priceUnit }}</span>
+        </div>
         <span class="w-full text-gray-500 text-xs">
           {{ $t('marketPrice') }}: {{ marketPrice | filterPriceMoney }}
           {{ priceUnit }}
@@ -67,15 +54,17 @@
           </el-button>
         </div>
       </input-form>
-      <input-form :label="$t('total')" class="mb-5 relative">
-        <input-currency
-          :value="total"
-          disabled
-          class="text-sm"
-        ></input-currency>
-        <span class="price-unit text-gray-500">
-          {{ moneyReceivedDefault }}
-        </span>
+      <input-form :label="$t('total')" class="mb-5">
+        <div class="relative">
+          <input-currency
+            :value="total"
+            disabled
+            class="text-sm"
+          ></input-currency>
+          <span class="price-unit text-gray-500">
+            {{ moneyReceivedDefault }}
+          </span>
+        </div>
       </input-form>
     </div>
     <div class="my-12">
@@ -217,11 +206,10 @@ export default {
         this.loading = true
         await this.addOrderSell(body)
 
-        await this.$success({
+        await this.$notify({
           title: this.$t('success'),
-          subtitle: this.$t('createSellOrderSuccessful'),
-          actionText: this.$t('pleaseReturnHomePage'),
-          actionMethod: () => this.$router.push({ name: 'index' }),
+          message: this.$t('createSellOrderSuccessful'),
+          type: 'success',
         })
       } catch (e) {
         this.$notify({
@@ -231,6 +219,7 @@ export default {
         })
       } finally {
         this.loading = false
+        this.$emit('created')
       }
     },
     async loadCurrentCurrencyPrice() {

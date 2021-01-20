@@ -5,11 +5,9 @@
         <market-list></market-list>
       </lazy-hydrate>
     </div>
-    <div class="container">
-      <market-trending></market-trending>
-    </div>
     <div class="container space-y-8">
       <register-banner></register-banner>
+      <market-trending></market-trending>
       <trade-history></trade-history>
     </div>
   </div>

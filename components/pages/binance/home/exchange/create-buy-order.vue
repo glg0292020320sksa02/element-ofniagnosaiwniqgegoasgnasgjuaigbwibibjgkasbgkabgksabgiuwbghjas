@@ -1,20 +1,6 @@
 <template>
   <div>
-    <div class="mt-6">
-      <!-- <input-form class="mb-5">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content="$t('infinityBuyTooltip')"
-          placement="top-start"
-        >
-          <el-checkbox
-            v-model="isInfinite"
-            :label="$t('infinityBuySetup')"
-            @change="changeInfinity"
-          ></el-checkbox>
-        </el-tooltip>
-      </input-form> -->
+    <div>
       <input-form :label="$t('coin')" class="mb-5">
         <select-coin
           v-model="walletId"
@@ -23,9 +9,11 @@
           @input="loadCurrentCurrencyPrice"
         ></select-coin>
       </input-form>
-      <input-form :label="$t('priceBuy')" class="mb-5 relative">
-        <input-currency v-model="price" class="text-sm"></input-currency>
-        <span class="price-unit text-500">{{ priceUnit }}</span>
+      <input-form :label="$t('priceBuy')" class="mb-5">
+        <div class="relative">
+          <input-currency v-model="price" class="text-sm"></input-currency>
+          <span class="price-unit text-gray-500">{{ priceUnit }}</span>
+        </div>
         <span class="w-full text-gray-500 text-xs">
           {{ $t('marketPrice') }}: {{ marketPrice | filterPriceMoney }}
           {{ priceUnit }}
@@ -48,11 +36,13 @@
           </el-button>
         </div>
       </input-form>
-      <input-form :label="$t('total')" class="mb-5 relative">
-        <input-currency :value="total" disabled></input-currency>
-        <span class="price-unit text-500">
-          {{ moneyReceivedDefault }}
-        </span>
+      <input-form :label="$t('total')" class="mb-5">
+        <div class="relative">
+          <input-currency :value="total" disabled></input-currency>
+          <span class="price-unit text-gray-500">
+            {{ moneyReceivedDefault }}
+          </span>
+        </div>
         <div class="select-amount-percent mt-1 flex justify-start">
           <span class="text-xs text-gray-500">
             {{ $t('yourVNDSBalance') }} :
@@ -194,11 +184,10 @@ export default {
       try {
         this.loading = true
         await this.addOrderBuy(body)
-        await this.$success({
+        await this.$notify({
           title: this.$t('success'),
-          subtitle: this.$t('createBuyOrderSuccessful'),
-          actionText: this.$t('pleaseReturnHomePage'),
-          actionMethod: () => this.$router.push({ name: 'index' }),
+          message: this.$t('createBuyOrderSuccessful'),
+          type: 'success',
         })
       } catch (e) {
         this.$notify({
@@ -208,6 +197,7 @@ export default {
         })
       } finally {
         this.loading = false
+        this.$emit('created')
       }
     },
     async loadCurrentCurrencyPrice() {
@@ -241,8 +231,9 @@ export default {
 }
 .price-unit {
   position: absolute;
-  right: 4px;
-  top: 40px;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.75rem;
 }
 </style>

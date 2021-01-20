@@ -24,14 +24,14 @@
           {{ item.side }}
         </span>
       </div>
-      <div class="order-column w-2/12 flex items-start flex-col justify-center">
-        <div class="flex justify-start items-center">
-          <strong>{{ item.remaining_amount | filterPrice }}</strong>
+      <div class="order-column w-2/12 flex items-end flex-col justify-center">
+        <div class="flex justify-end items-center">
+          <strong>{{ item.remaining_amount | filterPriceFloat }}</strong>
           <span class="ml-1 text-xs text-subtitle">
             {{ sourceSymbol(item.source_symbol) }}
           </span>
         </div>
-        <div class="flex justify-start items-center text-xs">
+        <div class="flex justify-end items-center text-xs">
           <span>{{ item.price | filterPriceMoney }}</span>
           <span class="ml-1 text-xs text-subtitle">
             {{
@@ -42,15 +42,15 @@
           </span>
         </div>
       </div>
-      <div class="order-column w-1/12 flex items-center">
-        <div class="w-24">
+      <div class="order-column w-1/12 flex justify-end items-center">
+        <div class="w-full px-4">
           <el-progress
             :percentage="Number(item.filled)"
             :width="100"
           ></el-progress>
         </div>
       </div>
-      <div class="order-column w-2/12 flex items-center">
+      <div class="order-column w-2/12 flex justify-end items-center">
         <div class="flex justify-end items-center">
           <strong :class="getColorTotal(item.side)">
             {{ item.remaining_total | filterPriceMoney }}
@@ -94,14 +94,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { filterPrice, filterPriceMoney } from '@/filters'
+import { filterPrice, filterPriceFloat, filterPriceMoney } from '@/filters'
 
 import IconEmpty from '@/components/ui/icon/icon-empty'
 import TradeHistoryTable from '@/components/pages/trade-history/trade-history-table'
 
 export default {
   name: 'WalletsTableItem',
-  filters: { filterPrice, filterPriceMoney },
+  filters: { filterPrice, filterPriceFloat, filterPriceMoney },
   components: {
     IconEmpty,
     TradeHistoryTable,

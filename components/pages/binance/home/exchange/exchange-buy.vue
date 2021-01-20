@@ -116,7 +116,7 @@ import Big from 'big.js'
 
 import { mapGetters, mapActions } from 'vuex'
 
-import { filterPrice, filterPriceMoney } from '@/filters'
+import { filterPriceFloat, filterPriceMoney } from '@/filters'
 
 import InputCurrency from '@/components/ui/input-currency'
 import InputForm from '@/components/pages/binance/home/input-form'
@@ -161,7 +161,7 @@ export default {
       walletList: 'wallet/walletList',
     }),
     orderAmount() {
-      return this.selectedOrder.remaining_total
+      return this.selectedOrder.remaining_amount
     },
     targetWallet() {
       return this.walletList.find(
@@ -182,16 +182,16 @@ export default {
       return this.selectedOrder.remaining_total
     },
     amountMinMax() {
-      return `${this.$t('Min')}:${filterPrice(this.minAmount)} ${
+      return `${this.$t('Min')}:${filterPriceFloat(this.minAmount)} ${
         this.selectedOrder.source_symbol
-      } | ${this.$t('Max')}: ${filterPrice(this.maxAmount)} ${
+      } | ${this.$t('Max')}: ${filterPriceFloat(this.maxAmount)} ${
         this.selectedOrder.source_symbol
       }`
     },
     amountFiatMinMax() {
-      return `${this.$t('Min')}:${filterPrice(this.minFiatAmount)}${
+      return `${this.$t('Min')}:${filterPriceMoney(this.minFiatAmount)} ${
         this.selectedOrder.target_symbol
-      } | ${this.$t('Max')}: ${filterPrice(this.maxFiatAmount)}${
+      } | ${this.$t('Max')}: ${filterPriceMoney(this.maxFiatAmount)} ${
         this.selectedOrder.target_symbol
       }`
     },

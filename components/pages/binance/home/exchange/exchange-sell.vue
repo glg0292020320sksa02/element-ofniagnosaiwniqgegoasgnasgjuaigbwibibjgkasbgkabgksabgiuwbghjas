@@ -1,39 +1,264 @@
 <template>
-  <div class="flex flex-col justify-between items-stretch">
-    <div class="flex-grow mb-6">
-      <input-form label="Toi muon tra" class="mb-4">
-        <el-input></el-input>
-      </input-form>
-      <input-form label="Toi se nhan duoc" class="mb-4">
-        <el-input></el-input>
-      </input-form>
+  <div class="exchange-sell h-full w-full">
+    <div
+      v-if="$auth.loggedIn"
+      class="flex flex-col justify-between items-stretch"
+    >
+      <div class="flex-grow mb-6">
+        <input-form
+          :label="$t('IWillReceived')"
+          :sub="amountFiatMinMax"
+          class="mb-8"
+        >
+          <div class="relative">
+            <input-currency
+              v-model="model.fiat"
+              @input="changeAmount"
+            ></input-currency>
+            <span class="absolute unitprice text-xs text-subtitle">
+              {{ selectedOrder.target_symbol }}
+            </span>
+          </div>
+        </input-form>
+        <input-form :label="$t('IWillSell')" :sub="amountMinMax" class="mb-6">
+          <div class="relative">
+            <input-currency
+              v-model="model.amount"
+              @input="changeFiat"
+            ></input-currency>
+            <span class="absolute unitprice text-xs text-subtitle">
+              {{ selectedOrder.source_symbol }}
+            </span>
+          </div>
+          <div class="flex flex-row justify-end mt-1">
+            <button
+              v-for="(per, indx) in amountPercent"
+              :key="indx + '_percent'"
+              class="text-xxs rounded-full px-2 py-1 ml-1"
+              :class="
+                selectedAmountPercent === per
+                  ? 'bg-primary text-white'
+                  : 'bg-primary-100 text-primary'
+              "
+              @click="selectAmountPercent(per)"
+            >
+              {{ per }}%
+            </button>
+          </div>
+        </input-form>
+        <input-form :label="$t('paymentReceiveMethod')" class="mb-6">
+          <div
+            class="rounded border border-b-0 overflow-hidden flex flex-col justify-start items-stretch"
+          >
+            <label
+              v-for="(item, index) in paymentMethods"
+              :key="index + 'paymentmethod'"
+              class="p-3 border-b flex flex-row justify-start items-center"
+              :class="{ 'bg-primary-50': item.value === model.payment_method }"
+            >
+              <input
+                v-model="model.payment_method"
+                type="radio"
+                class="form-radio text-base text-primary"
+                name="radio"
+                :value="item.value"
+                checked
+              />
+              <components
+                :is="item.component"
+                class="mr-1 ml-2 text-xs"
+              ></components>
+              <span>{{ item.name }}</span>
+            </label>
+          </div>
+        </input-form>
+      </div>
+      <div class="flex flex-row justify-between items-center">
+        <el-button
+          class="w-2/5 font-bold text-sm py-4"
+          @click="$emit('cancel')"
+        >
+          {{ $t('Cancel') }}
+        </el-button>
+        <el-button
+          type="danger"
+          class="w-3/5 font-bold text-sm py-4"
+          :loading="loading"
+          :disabled="!model || model.amount <= 0"
+          @click="sellNow"
+        >
+          {{
+            $t(`sellCoin`, {
+              symbol: selectedOrder.source_symbol,
+            })
+          }}
+        </el-button>
+      </div>
     </div>
-    <div class="flex flex-row justify-between items-center">
+    <div v-else class="h-full w-full flex flex-row justify-center items-center">
       <button
-        class="w-2/5 mr-2 px-3 py-3 rounded bg-white border text-body font-medium text-sm"
-        @click="$emit('cancel')"
+        class="rounded px-4 py-2 text-primary text-xs bg-primary-50 flex flex-nowrap"
+        @click="redirectToLogin"
       >
-        Cancel
-      </button>
-      <button
-        class="w-3/5 py-3 flex-grow rounded bg-error border border-error text-white font-medium text-sm"
-        @click="selectItem"
-      >
-        Mua USDT
+        {{ $t('requiredLogin') }}
+        <icon-arrow-right class="w-4 h-4 ml-1"></icon-arrow-right>
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import Big from 'big.js'
+
+import { mapGetters, mapActions } from 'vuex'
+
+import { filterPriceFloat, filterPriceMoney } from '@/filters'
+
+import InputCurrency from '@/components/ui/input-currency'
 import InputForm from '@/components/pages/binance/home/input-form'
+import IconVnds from '@/components/ui/icon/icon-vnds'
+import IconVcb from '@/components/ui/icon/icon-vcb'
+import IconTcb from '@/components/ui/icon/icon-tcb'
+import IconPm from '@/components/ui/icon/icon-pm'
+import IconArrowRight from '@/components/ui/icon/icon-arrow-right'
 
 export default {
   name: 'ExchangeSell',
   components: {
+    InputCurrency,
     InputForm,
+    IconVnds,
+    IconVcb,
+    IconTcb,
+    IconPm,
+    IconArrowRight,
+  },
+  props: {
+    paymentMethods: {
+      type: [Object, Array],
+      required: true,
+    },
+  },
+  data() {
+    return {
+      model: {
+        amount: 0,
+        payment_method: 'VCB',
+        fiat: 0,
+      },
+      selectedAmountPercent: 0,
+      loading: false,
+      amountPercent: [25, 50, 75, 100],
+    }
+  },
+  computed: {
+    ...mapGetters({
+      selectedOrder: 'binance/selectedOrder',
+      walletList: 'wallet/walletList',
+    }),
+    orderAmount() {
+      return this.selectedOrder.remaining_amount
+    },
+    targetWallet() {
+      return this.walletList.find(
+        item => item.currency.symbol === this.selectedOrder.source_symbol
+      )
+    },
+    minAmount() {
+      return 50000 / this.selectedOrder.price
+    },
+
+    maxAmount() {
+      return this.selectedOrder.remaining_amount
+    },
+    minFiatAmount() {
+      return 50000
+    },
+    maxFiatAmount() {
+      return this.selectedOrder.remaining_total
+    },
+    amountMinMax() {
+      return `${this.$t('Min')}:${filterPriceFloat(this.minAmount)} ${
+        this.selectedOrder.source_symbol
+      } | ${this.$t('Max')}: ${filterPriceFloat(this.maxAmount)} ${
+        this.selectedOrder.source_symbol
+      }`
+    },
+    amountFiatMinMax() {
+      return `${this.$t('Min')}:${filterPriceMoney(this.minFiatAmount)} ${
+        this.selectedOrder.target_symbol
+      } | ${this.$t('Max')}: ${filterPriceMoney(this.maxFiatAmount)} ${
+        this.selectedOrder.target_symbol
+      }`
+    },
+  },
+  methods: {
+    ...mapActions({
+      addExchangesSell: 'binance/addExchangesSell',
+    }),
+    selectAmountPercent(percent) {
+      const total = Big(this.orderAmount)
+
+      const amount = total.times(percent).div(100)
+
+      this.model.amount = amount.toNumber()
+      this.selectedAmountPercent = percent
+      this.changeFiat()
+    },
+    changeAmount() {
+      const fiat = Big(this.model.fiat || 0)
+      const price = Big(this.selectedOrder.price || 0)
+
+      this.model.amount = fiat.div(price).toNumber()
+    },
+    changeFiat() {
+      const price = Big(this.selectedOrder.price)
+      const amount = this.model.amount || 0
+
+      this.model.fiat = price.times(amount).toNumber()
+    },
+    async sellNow() {
+      this.$notify.closeAll()
+
+      const body = {
+        payment_method: this.model.payment_method,
+        amount: this.model.amount.toString(),
+        order_id: this.selectedOrder.id,
+      }
+
+      try {
+        this.loading = true
+        const { payment_url: paymentUrl } = await this.addExchangesSell(body)
+
+        window.open(paymentUrl, '_blank')
+        this.$router.push({ name: 'index' })
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('exchange-susscessful'),
+          type: 'success',
+        })
+      } catch (e) {
+        this.$notify({
+          title: this.$t('failure'),
+          message: e.exception,
+          type: 'error',
+        })
+      } finally {
+        this.loading = false
+        this.$emit('cancel')
+      }
+    },
+    redirectToLogin() {
+      this.$router.push('/auth/login')
+    },
   },
 }
 </script>
 
-<style></style>
+<style>
+.unitprice {
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+}
+</style>

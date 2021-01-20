@@ -4,6 +4,7 @@
     :loading="$fetchState.pending"
     placeholder=""
     class="select-account-number w-full text-sm"
+    :popper-append-to-body="false"
   >
     <el-option
       v-for="account in bankAccountNumbers"
@@ -11,14 +12,13 @@
       :label="account.name"
       :value="account.id"
     >
-      <div class="flex flex-col justify-start items-start">
+      <div class="w-full flex flex-col justify-start items-start">
         <strong class="text-xs">
-          {{ account.name }} /
-          <span class="text-subtitle">{{ account.number }}</span>
+          {{ account.name }} | {{ account.number }}
         </strong>
-        <span class="text-subtitle text-xs">
+        <p class="text-subtitle text-xs whitespace-normal">
           [{{ account.bank.alias }}] {{ account.bank.name }}
-        </span>
+        </p>
       </div>
     </el-option>
     <el-option

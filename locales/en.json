@@ -28,7 +28,7 @@
   "registerWithGoogle": "Register with Google",
   "registerAccount": "Register account",
   "refererCode": "Referer code",
-  "agree": "I agree",
+  "agree": "Agree",
   "readAndAgreeTerms": "term and condition of C2A",
   "alreadyAccount": "Already account, signin",
   "send": "Send",
@@ -405,5 +405,7 @@
   "IWantToPay": "I want to pay",
   "IWillReceived": "I will receive",
   "Min": "Min",
-  "Max": "Max"
+  "Max": "Max",
+  "IWillSell": "I want to sell",
+  "paymentReceiveMethod": "Payment receive methods"
 }

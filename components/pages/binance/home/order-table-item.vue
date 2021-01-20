@@ -36,7 +36,8 @@
             <span class="text-subtitle w-16 inline-block">
               {{ $t('available') }}
             </span>
-            {{ item.remaining_amount | filterPrice }} {{ item.source_symbol }}
+            {{ item.remaining_amount | filterPriceFloat }}
+            {{ item.source_symbol }}
           </span>
           <span class="text-xs">
             <span class="text-subtitle w-16 inline-block">
@@ -117,7 +118,7 @@
             <span class="text-xs text-subtitle whitespace-nowrap mb-2">
               {{ $t('price') }}
               <span class="text-success text-sm">
-                {{ item.price | filterPriceMoney }}VND
+                {{ item.price | filterPriceMoney }} VNDS
               </span>
             </span>
             <span class="text-xs text-subtitle whitespace-nowrap">
@@ -129,7 +130,7 @@
             <span class="text-xs text-subtitle whitespace-nowrap mb-2">
               {{ $t('available') }}
               <span class="text-body text-sm">
-                {{ item.remaining_amount | filterPrice }}
+                {{ item.remaining_amount | filterPriceFloat }}
                 {{ item.source_symbol }}
               </span>
             </span>
@@ -155,12 +156,12 @@
         <exchange-buy
           v-if="isBuy"
           :payment-methods="acceptPayment"
-          @cancel="selectItem"
+          @cancel="toogleExpand"
         ></exchange-buy>
         <exchange-sell
           v-else
           :payment-methods="acceptPayment"
-          @cancel="selectItem"
+          @cancel="toogleExpand"
         ></exchange-sell>
       </div>
     </div>
@@ -169,7 +170,7 @@
 
 <script>
 import { payments } from '@/utils/binance'
-import { filterPrice, filterPriceMoney } from '@/filters'
+import { filterPriceFloat, filterPriceMoney } from '@/filters'
 
 import { mapGetters, mapActions } from 'vuex'
 import IconVnds from '@/components/ui/icon/icon-vnds'
@@ -183,7 +184,7 @@ import { sides } from '~/utils/binance'
 
 export default {
   name: 'OrderTableItem',
-  filters: { filterPrice, filterPriceMoney },
+  filters: { filterPriceFloat, filterPriceMoney },
   components: {
     IconVnds,
     IconVcb,
@@ -235,13 +236,21 @@ export default {
     },
   },
   methods: {
-    ...mapActions({ setSelectedOrder: 'binance/setSelectedOrder' }),
-    selectItem() {
+    ...mapActions({
+      setSelectedOrder: 'binance/setSelectedOrder',
+      getDetailOrder: 'binance/getDetailOrder',
+    }),
+    async selectItem() {
       if (this.isMyOrder) {
         return
       }
 
-      this.setSelectedOrder(this.item)
+      const data = await this.getDetailOrder(this.item.id)
+
+      this.setSelectedOrder(data || this.item)
+      this.expand = !this.expand
+    },
+    toogleExpand() {
       this.expand = !this.expand
     },
   },

@@ -15,15 +15,15 @@
       <div class="header-column w-2/12 flex justify-center">
         <span class="text-subtitle">{{ $t('side') }}</span>
       </div>
-      <div class="header-column w-2/12">
+      <div class="header-column w-2/12 flex justify-end">
         <span class="text-subtitle">
           {{ `${$t('amountCoin')} & ${$t('price')}` }}
         </span>
       </div>
-      <div class="header-column w-1/12">
+      <div class="header-column w-1/12 flex justify-end">
         <span class="text-subtitle">{{ $t('filled') }}</span>
       </div>
-      <div class="header-column w-2/12">
+      <div class="header-column w-2/12 flex justify-end">
         <span class="text-subtitle">{{ $t('total') }}</span>
       </div>
       <div class="header-column w-1/12 flex justify-end">
