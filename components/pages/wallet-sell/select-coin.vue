@@ -3,7 +3,7 @@
     v-model="walletId"
     :loading="loading"
     placeholder=""
-    class="select-coin w-full"
+    class="select-coin w-full text-sm"
   >
     <el-option
       v-for="wallet in walletFilteredList"
@@ -11,7 +11,7 @@
       :label="wallet.currency.name"
       :value="wallet.id"
     >
-      <div class="flex justify-start items-center">
+      <div class="flex justify-start items-center text-sm">
         <img
           :src="`https://s2.coinmarketcap.com/static/img/coins/32x32/${wallet.currency.id}.png`"
           alt=""

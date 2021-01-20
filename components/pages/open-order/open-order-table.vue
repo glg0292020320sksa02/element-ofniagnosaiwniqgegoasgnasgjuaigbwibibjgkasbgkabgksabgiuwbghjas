@@ -1,6 +1,8 @@
 <template>
   <div class="wallet-table text-sm">
-    <div class="wallet-header flex justify-between items-start text-xs p-6">
+    <div
+      class="wallet-header flex justify-between items-start text-xs p-6 py-2"
+    >
       <div class="header-column w-1/12">
         <span class="text-subtitle">{{ $t('ID') }}</span>
       </div>

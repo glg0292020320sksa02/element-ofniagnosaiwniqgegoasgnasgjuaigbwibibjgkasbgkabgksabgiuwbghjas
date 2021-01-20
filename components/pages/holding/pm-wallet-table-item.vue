@@ -9,24 +9,20 @@
     >
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-center">
-          <span
-            class="text-xs w-4 h-4 mr-1 text-white rounded-full bg-primary text-center flex justify-center items-center"
-          >
-            P
-          </span>
+          <icon-pm class="mr-1"></icon-pm>
           <span class="text-sm text-primary">{{ item.currency.name }}</span>
         </div>
       </div>
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-start">
-          <span class="text-sm text-bold mr-1">
+          <span class="text-sm text-bold">
             {{ item.currency.created_at }}
           </span>
         </div>
       </div>
       <div class="order-column w-3/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
-          <strong class="text-sm text-bold mr-1">
+          <strong class="text-sm text-bold">
             {{ item.real_balance | filterPriceFloat }}
           </strong>
         </div>
@@ -73,13 +69,14 @@ import { filterPrice, filterPriceMoney, filterPriceFloat } from '@/filters'
 
 import HoldingDepositPm from '@/components/pages/holding/holding-deposit-pm'
 import HoldingWithdrawPm from '@/components/pages/holding/holding-withdraw-pm'
-
+import IconPm from '@/components/ui/icon/icon-pm'
 export default {
   name: 'WalletsTableItem',
   filters: { filterPrice, filterPriceMoney, filterPriceFloat },
   components: {
     HoldingDepositPm,
     HoldingWithdrawPm,
+    IconPm,
   },
   props: {
     item: {

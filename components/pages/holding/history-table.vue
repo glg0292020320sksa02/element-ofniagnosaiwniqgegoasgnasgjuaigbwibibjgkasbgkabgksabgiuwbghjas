@@ -1,7 +1,7 @@
 <template>
   <div class="wallet-table text-sm">
     <div
-      class="wallet-header flex justify-between items-start text-xs p-6 pb-4 whitespace-nowrap"
+      class="wallet-header flex justify-between items-start text-xs p-6 py-2 whitespace-nowrap"
     >
       <div class="header-column w-2/12">
         <span class="text-subtitle">{{ $t('date') }}</span>

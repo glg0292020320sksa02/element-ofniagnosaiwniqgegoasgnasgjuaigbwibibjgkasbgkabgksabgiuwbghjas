@@ -10,7 +10,9 @@
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-center">
           <img
-            :src="`https://s2.coinmarketcap.com/static/img/coins/32x32/${item.currency.id}.png`"
+            :src="`https://s2.coinmarketcap.com/static/img/coins/32x32/${
+              coinImages[item.currency.id]
+            }.png`"
             alt=""
             class="text-xs w-4 h-4 rounded-full mr-1"
           />
@@ -26,14 +28,14 @@
       </div>
       <div class="order-column w-3/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
-          <strong class="text-sm text-bold mr-1">
+          <strong class="text-sm text-bold">
             {{ item.real_balance | filterPriceFloat }}
           </strong>
         </div>
       </div>
       <div class="order-column w-2/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
-          <strong class="text-sm text-bold mr-1" @click.stop="showOrder(item)">
+          <strong class="text-sm text-bold" @click.stop="showOrder(item)">
             {{ item.in_order_balance | filterPriceFloat }}
           </strong>
         </div>
@@ -90,6 +92,7 @@ export default {
   data() {
     return {
       actionType: 'DEPOSIT',
+      coinImages: { 1: 1, 2: 1027, 3: 1321, 4: 52, 5: 825, 6: 3 },
     }
   },
   computed: {

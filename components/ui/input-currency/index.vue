@@ -5,7 +5,7 @@
     :formatter="formatter"
     :parser="parser"
     size="large"
-    class="w-full"
+    class="w-full text-body"
     v-bind="$attrs"
   />
 </template>

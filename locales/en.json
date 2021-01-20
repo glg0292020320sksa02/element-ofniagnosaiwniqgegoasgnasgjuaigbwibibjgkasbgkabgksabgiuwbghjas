@@ -400,5 +400,10 @@
   "Fiat": "Fiat",
   "Payment": "Payment",
   "Refresh": "Refresh",
-  "limitPayment": "Limit time"
+  "limitPayment": "Limit time",
+  "minute": "minutes",
+  "IWantToPay": "I want to pay",
+  "IWillReceived": "I will receive",
+  "Min": "Min",
+  "Max": "Max"
 }

@@ -16,7 +16,7 @@
         Cancel
       </button>
       <button
-        class="w-3/5 py-3 flex-grow rounded bg-success border border-success text-white font-medium text-sm"
+        class="w-3/5 py-3 flex-grow rounded bg-error border border-error text-white font-medium text-sm"
         @click="selectItem"
       >
         Mua USDT

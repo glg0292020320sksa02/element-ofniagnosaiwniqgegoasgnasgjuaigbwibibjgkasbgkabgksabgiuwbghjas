@@ -30,6 +30,7 @@
           v-for="(item, index) in items"
           :key="index + '_ordertableitem'"
           :item="item"
+          :index="index"
         ></order-table-item>
       </div>
       <div

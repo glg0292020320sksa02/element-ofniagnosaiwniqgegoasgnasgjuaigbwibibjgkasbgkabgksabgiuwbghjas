@@ -9,24 +9,20 @@
     >
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-center">
-          <span
-            class="text-xs w-4 h-4 mr-1 text-white rounded-full bg-warning text-center flex justify-center items-center"
-          >
-            V
-          </span>
+          <icon-vnds class="mr-1"></icon-vnds>
           <span class="text-sm text-primary">{{ item.currency.name }}</span>
         </div>
       </div>
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-start">
-          <span class="text-sm text-bold mr-1">
+          <span class="text-sm text-bold">
             {{ item.currency.created_at }}
           </span>
         </div>
       </div>
       <div class="order-column w-3/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
-          <strong class="text-sm text-bold mr-1">
+          <strong class="text-sm text-bold">
             {{ item.real_balance | filterPriceMoney }}
           </strong>
         </div>
@@ -61,9 +57,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { filterPrice, filterPriceMoney } from '@/filters'
+import IconVnds from '@/components/ui/icon/icon-vnds'
 export default {
   name: 'WalletsTableItem',
   filters: { filterPrice, filterPriceMoney },
+  components: {
+    IconVnds,
+  },
   props: {
     item: {
       type: Object,

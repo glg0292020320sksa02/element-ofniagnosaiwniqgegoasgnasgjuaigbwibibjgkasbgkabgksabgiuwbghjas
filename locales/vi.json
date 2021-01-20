@@ -400,5 +400,10 @@
   "Fiat": "Fiat",
   "Payment": "Thanh toán",
   "Refresh": "Làm mới",
-  "limitPayment": "Giới hạn thanh toán"
+  "limitPayment": "Giới hạn thanh toán",
+  "minute": "phút",
+  "IWantToPay": "Tôi muốn trả",
+  "IWillReceived": "Tôi sẽ nhận được",
+  "Min": "Min",
+  "Max": "Max"
 }

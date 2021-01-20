@@ -42,7 +42,7 @@
           <div class="flex">
             <div class="w-1/2 p-2" @click="selectActiveSide(sides.BUY)">
               <div
-                class="text-center p-4 text-subtitle text-base"
+                class="text-center p-4 text-base"
                 :class="{
                   'text-primary font-bold border-b-2 border-primary': isBuy,
                   'text-subtitle cursor-pointer': !isBuy,

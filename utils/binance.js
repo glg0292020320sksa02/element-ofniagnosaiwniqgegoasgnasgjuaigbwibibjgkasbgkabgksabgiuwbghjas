@@ -75,7 +75,7 @@ const payments = {
     value: 'VCB',
     icon: 'vietcom-bank.png',
     component: 'icon-vcb',
-    accept: 'SELL',
+    accept: ['SELL'],
     symbol: 'VND',
   },
   TCB: {
@@ -83,7 +83,7 @@ const payments = {
     value: 'TCB',
     component: 'icon-tcb',
     icon: 'techcom-bank.png',
-    accept: 'SELL',
+    accept: ['SELL'],
     symbol: 'VND',
   },
   VNDS: {
@@ -91,7 +91,7 @@ const payments = {
     value: 'VNDS',
     component: 'icon-vnds',
     icon: 'vnds.png',
-    accept: 'ALL',
+    accept: ['BUY', 'SELL'],
     symbol: 'VNDS',
   },
   PM: {
@@ -99,7 +99,7 @@ const payments = {
     value: 'PM',
     component: 'icon-pm',
     icon: 'pm.png',
-    accept: 'ALL',
+    accept: ['BUY', 'SELL'],
     symbol: 'USD',
   },
 }

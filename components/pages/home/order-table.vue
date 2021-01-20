@@ -1,7 +1,7 @@
 <template>
   <div class="order-table text-sm">
     <div
-      class="order-header flex justify-between items-start text-xs p-6 whitespace-nowrap"
+      class="order-header flex justify-between items-start text-xs p-6 py-2 whitespace-nowrap"
     >
       <div class="header-column w-2/12">
         <span class="text-subtitle">{{ $t('advertisers') }}</span>

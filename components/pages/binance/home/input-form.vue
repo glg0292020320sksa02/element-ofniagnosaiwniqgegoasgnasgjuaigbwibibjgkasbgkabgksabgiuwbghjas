@@ -2,9 +2,10 @@
   <div class="flex flex-col items-stretch">
     <div
       v-if="label && label.length > 0"
-      class="text-xs font-medium text-gray-800 mb-1 pl-1"
+      class="text-xs font-medium text-gray-800 mb-1 pl-1 flex flex-row justify-between items-center"
     >
-      {{ label }}
+      <span>{{ label }}</span>
+      <span class="text-subtitle font-normal">{{ sub }}</span>
     </div>
     <div>
       <slot />
@@ -16,6 +17,10 @@ export default {
   name: 'InputForm',
   props: {
     label: {
+      type: String,
+      default: '',
+    },
+    sub: {
       type: String,
       default: '',
     },

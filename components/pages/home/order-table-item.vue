@@ -58,7 +58,7 @@
             class="text-xs flex flex-row justify-start items-center mb-2"
           >
             <components :is="pay.component" class="mr-1"></components>
-            <p class="w-full truncate whitespace-normal">{{ pay.name }}</p>
+            <p class="whitespace-normal">{{ pay.name }}</p>
           </div>
         </div>
       </div>
