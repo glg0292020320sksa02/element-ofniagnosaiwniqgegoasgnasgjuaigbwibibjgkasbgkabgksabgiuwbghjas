@@ -17,7 +17,7 @@
           alt=""
           class="rounded-full avatar w-4 h-4 mr-2"
         />
-        <span class="text-gray-900">{{ wallet.currency.name }}</span>
+        <span class="text-gray-900 text-sm">{{ wallet.currency.name }}</span>
       </div>
     </el-option>
   </el-select>

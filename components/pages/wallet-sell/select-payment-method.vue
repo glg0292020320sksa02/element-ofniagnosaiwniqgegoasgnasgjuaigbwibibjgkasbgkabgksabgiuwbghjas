@@ -2,7 +2,7 @@
   <el-select
     v-model="paymentMethod"
     placeholder=""
-    class="select-payment-method w-full"
+    class="select-payment-method w-full text-sm"
   >
     <el-option label="VCB_OR_TCB" value="VCB_OR_TCB"></el-option>
     <el-option label="VNDS" value="VNDS"></el-option>

@@ -52,10 +52,26 @@
       </div>
       <div class="order-column w-2/12 flex justify-end">
         <button
+          v-if="isBuy"
           class="w-3/5 py-1 rounded bg-success text-white font-medium text-sm"
           @click="selectItem"
         >
-          Mua USDT
+          {{
+            $t(`buyCoin`, {
+              symbol: item.source_symbol,
+            })
+          }}
+        </button>
+        <button
+          v-else
+          class="w-3/5 py-1 rounded bg-error text-white font-medium text-sm"
+          @click="selectItem"
+        >
+          {{
+            $t(`sellCoin`, {
+              symbol: item.source_symbol,
+            })
+          }}
         </button>
       </div>
     </div>
@@ -117,13 +133,15 @@
 
 <script>
 import { paymentMethods } from '@/utils/constant'
-
+import { mapGetters } from 'vuex'
 import IconVnds from '@/components/ui/icon/icon-vnds'
 import IconVcb from '@/components/ui/icon/icon-vcb'
 import IconTcb from '@/components/ui/icon/icon-tcb'
 import IconPm from '@/components/ui/icon/icon-pm'
 import ExchangeBuy from '@/components/pages/binance/home/exchange/exchange-buy'
 import ExchangeSell from '@/components/pages/binance/home/exchange/exchange-sell'
+
+import { sides } from '~/utils/binance'
 
 export default {
   name: 'OrderTableItem',
@@ -135,14 +153,27 @@ export default {
     ExchangeBuy,
     ExchangeSell,
   },
+  props: {
+    item: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
   data() {
     return {
       expand: false,
     }
   },
   computed: {
+    ...mapGetters({
+      activeSide: 'binance/activeSide',
+    }),
     acceptPayment() {
       return paymentMethods
+    },
+
+    isBuy() {
+      return this.activeSide.value === sides.BUY.value
     },
   },
   methods: {

@@ -25,25 +25,40 @@
       </div>
     </div>
     <div class="orders rounded-lg">
-      <order-table-item
-        v-for="(item, index) in items"
-        :key="index + '_ordertableitem'"
-      ></order-table-item>
+      <div v-if="items && items.length > 0">
+        <order-table-item
+          v-for="(item, index) in items"
+          :key="index + '_ordertableitem'"
+          :item="item"
+        ></order-table-item>
+      </div>
+      <div
+        v-else
+        class="flex flex-col justify-center items-center p-8 text-gray-300 bg-white rounded-lg"
+      >
+        <div class="p-2 rounded-full bg-primary-50 mb-1">
+          <icon-empty class="w-6 h-6 text-gray-300"></icon-empty>
+        </div>
+        <span class="text-xs">{{ $t('orderNotFound') }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import OrderTableItem from '@/components/pages/binance/home/order-table-item'
+import IconEmpty from '@/components/ui/icon/icon-empty'
+
 export default {
+  components: {
+    IconEmpty,
+    OrderTableItem,
+  },
   props: {
     items: {
       type: [Array, Object],
       required: true,
     },
-  },
-  components: {
-    OrderTableItem,
   },
 }
 </script>

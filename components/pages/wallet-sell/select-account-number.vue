@@ -3,7 +3,7 @@
     v-model="bankAccountNumberId"
     :loading="$fetchState.pending"
     placeholder=""
-    class="select-account-number w-full"
+    class="select-account-number w-full text-sm"
   >
     <el-option
       v-for="account in bankAccountNumbers"
