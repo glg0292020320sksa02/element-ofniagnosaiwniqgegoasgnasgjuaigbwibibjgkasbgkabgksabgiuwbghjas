@@ -107,6 +107,7 @@ export default {
         amount: '',
         user_id: '',
         currency: '',
+        fiat: '',
         page: 1,
         type: '',
         totalPage: 1,
@@ -126,11 +127,16 @@ export default {
         this.options.amount +
         this.options.user_id +
         this.options.currency +
+        this.options.fiat +
         this.options.type
       )
     },
     filterOrderToString() {
-      return this.filterOrder.amount + this.filterOrder.payment.value
+      return (
+        this.filterOrder.amount +
+        this.filterOrder.payment.value +
+        this.filterOrder.fiat.value
+      )
     },
     isBuy() {
       return this.activeSide.value === sides.BUY.value
@@ -162,6 +168,7 @@ export default {
     },
     filterOrderToString() {
       this.options.amount = this.filterOrder.amount || ''
+      this.options.fiat = this.filterOrder.fiat.value || 'VND'
       this.options.payment_method = this.filterOrder.payment.symbol || 'VND'
     },
   },
@@ -177,6 +184,7 @@ export default {
         amount: options?.amount,
         user_id: options?.user_id,
         currency: options?.currency,
+        fiat: options?.fiat,
         page: options?.page,
         type: options?.type,
       }

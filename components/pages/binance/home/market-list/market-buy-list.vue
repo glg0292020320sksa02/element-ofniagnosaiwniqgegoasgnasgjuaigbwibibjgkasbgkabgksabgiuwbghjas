@@ -110,6 +110,7 @@ export default {
         user_id: '',
         currency: '',
         page: 1,
+        fiat: '',
         type: '',
         totalPage: 1,
         perPage: 150,
@@ -128,11 +129,16 @@ export default {
         this.options.amount +
         this.options.user_id +
         this.options.currency +
+        this.options.fiat +
         this.options.type
       )
     },
     filterOrderToString() {
-      return this.filterOrder.amount + this.filterOrder.payment.value
+      return (
+        this.filterOrder.amount +
+        this.filterOrder.payment.value +
+        this.filterOrder.fiat.value
+      )
     },
     orderListFiltered() {
       if (!this.orders.length) return []
@@ -156,6 +162,7 @@ export default {
     },
     filterOrderToString() {
       this.options.amount = this.filterOrder.amount || ''
+      this.options.fiat = this.filterOrder.fiat.value || 'VND'
       this.options.payment_method = this.filterOrder.payment.symbol || 'VND'
     },
   },
@@ -171,6 +178,7 @@ export default {
         amount: options?.amount,
         user_id: options?.user_id,
         currency: options?.currency,
+        fiat: options?.fiat,
         page: options?.page,
         type: options?.type,
       }
