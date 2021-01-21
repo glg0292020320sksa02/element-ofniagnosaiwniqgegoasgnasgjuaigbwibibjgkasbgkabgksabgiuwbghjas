@@ -4,6 +4,11 @@
       {{ $t('Fiat') }}
     </label>
     <div class="filter-box flex flex-row justify-start">
+      <div
+        v-if="dialog"
+        class="fixed top-0 left-0 w-screen h-screen bg-transparent"
+        @click="toogleFiats"
+      ></div>
       <div class="relative inline-block z-10 hover:z-10">
         <button
           type="text"

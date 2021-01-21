@@ -14,7 +14,7 @@
             setFilterOrderItem({ item: 'amount', payload: model.amount })
           "
         />
-        <span class="unit-filter text-sm text-subtitle absolute">
+        <span class="unit-filter text-xs text-gray-500 absolute">
           {{ filterOrder.fiat.name }}
         </span>
       </div>
