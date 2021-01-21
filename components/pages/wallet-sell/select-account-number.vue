@@ -16,7 +16,7 @@
         <strong class="text-xs">
           {{ account.name }} | {{ account.number }}
         </strong>
-        <p class="text-subtitle text-xs whitespace-normal">
+        <p class="text-subtitle text-xs whitespace-normal mt-1">
           [{{ account.bank.alias }}] {{ account.bank.name }}
         </p>
       </div>
@@ -74,5 +74,6 @@ export default {
 <style>
 .el-select-dropdown__item {
   height: auto !important;
+  line-height: 16px !important;
 }
 </style>

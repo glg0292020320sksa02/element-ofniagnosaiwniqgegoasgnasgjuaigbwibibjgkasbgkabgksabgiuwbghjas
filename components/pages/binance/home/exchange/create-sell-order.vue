@@ -44,14 +44,13 @@
               {{ walletSelectedWithSymbol }}
             </strong>
           </span>
-          <el-button
-            round
-            :type="typeMaxButton"
-            class="text-xs"
+          <button
+            class="text-xxs rounded-full px-2 py-1 ml-1"
+            :class="maxButtonStyle"
             @click="selectAmountPercent"
           >
             MAX
-          </el-button>
+          </button>
         </div>
       </input-form>
       <input-form :label="$t('total')" class="mb-5">
@@ -142,15 +141,15 @@ export default {
         ? Math.round(price.times(this.model.amount).toNumber())
         : 0
     },
-    typeMaxButton() {
+    maxButtonStyle() {
       return this.walletSelected.real_balance &&
         Math.round(this.model.amount * 10000000) / 10000000 ===
           Math.round(
             Big(this.walletSelected.real_balance).toNumber() * 10000000
           ) /
             10000000
-        ? 'primary'
-        : 'none'
+        ? 'bg-primary text-white'
+        : 'bg-primary-50 text-primary'
     },
     priceUnit() {
       return `VNDS/${this.walletSelected?.currency?.symbol}`

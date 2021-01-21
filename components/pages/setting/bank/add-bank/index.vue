@@ -17,15 +17,6 @@
             <p class="text-subtitle text-sm">{{ $t('BankingSubTitle') }}</p>
           </div>
         </div>
-        <div class="mt-2 px-4 pt-2 bg-error-100 rounded">
-          <div class="text-xs text-error">
-            {{
-              selectedPaymentType === 'bankAccount'
-                ? 'Lưu ý: Quý khách có thể nhận được thanh toán từ bất kì ngân hàng nào của Việt Nam'
-                : 'Lưu ý: Quý khách có thể nhận thanh toán từ ngân hàng Vietcombank hoặc Techcombank'
-            }}
-          </div>
-        </div>
       </div>
       <div v-else>
         <el-button
@@ -50,28 +41,38 @@
           </el-radio>
         </el-radio-group>
       </input-form> -->
-      <input-form label="Ngân hàng" class="my-4">
-        <el-radio-group
-          v-model="selectedBank"
-          class="w-full h-48 overflow-y-scroll flex flex-col justify-start items-stretch"
+      <input-form :label="$t('bankName')" class="my-4">
+        <div
+          class="rounded border h-48 overflow-hidden overflow-y-scroll border-b-0 flex flex-col justify-start items-stretch"
         >
-          <el-radio
+          <label
             v-for="(bank, index) in acceptBanks"
             :key="index + '_bank'"
-            :label="bank"
-            class="m-0 mt-2 flex flex-row justify-start items-start"
-            border
+            class="p-3 border-b flex flex-row justify-start items-start"
+            :class="{ 'bg-primary-50': bank.code === selectedBank.code }"
           >
-            <div class="flex flex-col justify-start items-stretch text-xs">
-              <span class="w-11/12 overflow-hidden truncate">
+            <input
+              v-model="selectedBank"
+              type="radio"
+              class="form-radio text-base text-primary mr-1"
+              name="radio"
+              :value="bank"
+              checked
+            />
+            <div
+              class="flex flex-col flex-grow justify-start items-stretch text-xs"
+            >
+              <p
+                class="w-11/12 overflow-hidden whitespace-nowrap truncate font-medium"
+              >
                 {{ bank.name }}
-              </span>
+              </p>
               <span class="text-subtitle py-1">
                 {{ bank.alias }}
               </span>
             </div>
-          </el-radio>
-        </el-radio-group>
+          </label>
+        </div>
       </input-form>
       <div class="mt-6">
         <el-button type="primary" class="w-full" @click="currentStep = 2">
@@ -104,7 +105,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import InputForm from '@/components/common/input-form'
+import InputForm from '@/components/pages/binance/home/input-form'
 import AddBankAccountTechcombank from '@/components/pages/setting/bank/add-bank/add-bank-account-techcombank.vue'
 import AddBankAccountVietcombank from '@/components/pages/setting/bank/add-bank/add-bank-account-vietcombank.vue'
 import AddBankAccount from '@/components/pages/setting/bank/add-bank/add-bank-account.vue'

@@ -26,14 +26,13 @@
           class="text-sm"
         ></input-currency>
         <div class="select-amount-percent mt-1 flex justify-end">
-          <el-button
-            round
-            :type="typeMaxButton"
-            class="text-xs"
+          <button
+            class="text-xxs rounded-full px-2 py-1 ml-1"
+            :class="maxButtonStyle"
             @click="selectAmountPercent"
           >
             MAX
-          </el-button>
+          </button>
         </div>
       </input-form>
       <input-form :label="$t('total')" class="mb-5">
@@ -123,10 +122,10 @@ export default {
 
       return this.amount ? Math.round(price.times(this.amount).toNumber()) : 0
     },
-    typeMaxButton() {
-      return this.VNDS && this.VNDS.final_balance === this.total
-        ? 'primary'
-        : 'none'
+    maxButtonStyle() {
+      return this.VNDS?.final_balance === this.total
+        ? 'bg-primary text-white'
+        : 'bg-primary-50 text-primary'
     },
     priceUnit() {
       return `VNDS/${this.walletSelected?.currency?.symbol}`

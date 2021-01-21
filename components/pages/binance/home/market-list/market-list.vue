@@ -31,6 +31,18 @@
         v-if="$fetchState.pending || loading"
       ></table-content-loader>
       <order-table v-else :items="orderListFiltered"></order-table>
+      <div class="flex flex-row justify-end my-4">
+        <el-pagination
+          :current-page.sync="options.page"
+          background
+          small
+          layout="prev, pager, next"
+          :page-size="options.perPage"
+          :total="options.totalPage"
+          class="order-pagination mx-0 px-0 text-subtitle"
+          @current-change="loadOrdersByPage"
+        ></el-pagination>
+      </div>
     </div>
     <div class="drawer">
       <el-drawer
@@ -90,13 +102,36 @@ export default {
       showCreateOrder: false,
       sides,
       drawer: false,
+      options: {
+        payment_method: '',
+        amount: '',
+        user_id: '',
+        currency: '',
+        page: 1,
+        type: '',
+        totalPage: 1,
+        perPage: 150,
+      },
     }
   },
   computed: {
     ...mapGetters({
       activeSide: 'binance/activeSide',
       activeCoin: 'binance/activeCoin',
+      filterOrder: 'binance/filterOrder',
     }),
+    optionsToString() {
+      return (
+        this.options.payment_method +
+        this.options.amount +
+        this.options.user_id +
+        this.options.currency +
+        this.options.type
+      )
+    },
+    filterOrderToString() {
+      return this.filterOrder.amount + this.filterOrder.payment.value
+    },
     isBuy() {
       return this.activeSide.value === sides.BUY.value
     },
@@ -120,23 +155,45 @@ export default {
         : this.$t('create-a-new-sell-order')
     },
   },
+  watch: {
+    optionsToString() {
+      this.options.page = 1
+      this.loadAllOrders(this.options)
+    },
+    filterOrderToString() {
+      this.options.amount = this.filterOrder.amount || ''
+      this.options.payment_method = this.filterOrder.payment.symbol || 'VND'
+    },
+  },
   methods: {
     ...mapActions({
       getAllOrders: 'market/getAllOrders',
       setActiveSide: 'binance/setActiveSide',
     }),
-    async loadAllOrders() {
+    async loadAllOrders(options) {
       this.loading = true
-      const { data } = await this.getAllOrders()
+      const parrams = {
+        payment_method: options?.payment_method,
+        amount: options?.amount,
+        user_id: options?.user_id,
+        currency: options?.currency,
+        page: options?.page,
+        type: options?.type,
+      }
+      const { data, last_page, per_page } = await this.getAllOrders(parrams)
 
       this.loading = false
       this.orders = data
+      this.options.totalPage = total || 1
+      this.options.perPage = per_page || 1000
+    },
+    async loadOrdersByPage() {
+      await this.loadAllOrders(this.options)
     },
     onRedirectWallet() {
       const targetSide = this.isBuy ? sides.BUY : sides.SELL
 
       this.setActiveSide(targetSide)
-      // this.showCreateOrder = true
       this.drawer = true
     },
     selectActiveSide(payload) {
@@ -155,5 +212,14 @@ export default {
 }
 .create-order-drawer .el-dialog__close.el-icon {
   @apply text-white !important;
+}
+.order-pagination .number,
+.order-pagination .el-icon.more.btn-quicknext,
+.order-pagination .btn-prev,
+.order-pagination .btn-next {
+  @apply bg-transparent text-subtitle font-normal !important;
+}
+.order-pagination .number.active {
+  @apply bg-gray-300 text-body !important;
 }
 </style>

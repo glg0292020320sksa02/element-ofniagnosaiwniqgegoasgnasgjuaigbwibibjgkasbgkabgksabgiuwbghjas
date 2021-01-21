@@ -20,6 +20,7 @@
           ref="bank_id"
           v-model="model.bank_id"
           :support-bank="false"
+          class="text-sm"
         ></el-select-bank>
       </el-form-item>
 

@@ -43,10 +43,10 @@
         </div>
       </div>
       <div class="order-column w-1/12 flex justify-end items-center">
-        <div class="w-full px-4">
+        <div class="w-24 px-4">
           <el-progress
             :percentage="Number(item.filled)"
-            :width="100"
+            class="flex flex-col justify-center items-stretch"
           ></el-progress>
         </div>
       </div>
