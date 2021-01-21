@@ -93,6 +93,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { filterPrice, filterPriceMoney } from '@/filters'
+import { sides, coins } from '@/utils/binance'
 
 export default {
   name: 'WalletsTableItem',
@@ -122,8 +123,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      setActiveTab: 'setActiveTab',
-      setActiveSide: 'setActiveSide',
+      setActiveCoin: 'binance/setActiveCoin',
+      setActiveSide: 'binance/setActiveSide',
       setSelectedUserView: 'setSelectedUserView',
       setSelectedTradeHistory: 'setSelectedTradeHistory',
     }),
@@ -166,9 +167,12 @@ export default {
       this.setSelectedUserView(partner)
       this.$router.push(`/user-detail/${partner.id}`)
     },
-    redirectToHomePage(target, side) {
-      this.setActiveTab(target)
-      this.setActiveSide(side.toUpperCase())
+    redirectToHomePage(coinTarget, sideTarget) {
+      const side = sides[sideTarget.toUpperCase()]
+      const coin = coins[coinTarget.toUpperCase()]
+
+      this.setActiveCoin(coin)
+      this.setActiveSide(side)
       this.$router.push('/')
     },
   },

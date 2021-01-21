@@ -2,8 +2,13 @@
   <div
     class="relative bg-gray-100 p-6 rounded-lg flex flex-col justify-start items-stretch"
   >
+    <div class="py-2 border-b font-bold text-primary">
+      <span class="px-4 py-1 bg-primary-50 rounded-full">Transaction</span>
+    </div>
     <div class="wallet-table text-sm">
-      <div class="wallet-header flex justify-between items-start text-xs p-6">
+      <div
+        class="wallet-header flex justify-between items-start text-xs p-6 py-2"
+      >
         <div class="header-column w-1/12">
           <span class="text-subtitle">{{ $t('ID') }}</span>
         </div>
@@ -91,7 +96,6 @@ export default {
 
       try {
         this.loading = true
-        this.options.page += 1
         const { data } = await this.getAllTransactions(this.options)
 
         this.listTransactions = [...this.listTransactions, ...data]

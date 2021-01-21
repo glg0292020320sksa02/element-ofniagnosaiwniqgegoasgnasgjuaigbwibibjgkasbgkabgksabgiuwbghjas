@@ -1,6 +1,8 @@
 <template>
-  <div class="page-dashboard container py-8 space-y-8">
-    <market-trending></market-trending>
+  <div class="page-dashboard py-8 space-y-8">
+    <div class="container">
+      <market-trending></market-trending>
+    </div>
 
     <lazy-hydrate when-visible>
       <market-sell-list
@@ -20,8 +22,8 @@ import { mapActions } from 'vuex'
 import LazyHydrate from 'vue-lazy-hydration'
 
 import MarketTrending from '@/components/pages/home/market-trending'
-import MarketSellList from '@/components/pages/home/market-list/market-sell-list'
-import MarketBuyList from '@/components/pages/home/market-list/market-buy-list'
+import MarketSellList from '@/components/pages/binance/home/market-list/market-sell-list'
+import MarketBuyList from '@/components/pages/binance/home/market-list/market-buy-list'
 
 export default {
   name: 'BuySellPage',

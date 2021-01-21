@@ -15,7 +15,7 @@
         class="bg-primary-100 text-primary border-none"
         @click="onRedirectWallet"
       >
-        Tạo lệnh bán mới
+        Tạo lệnh mua mới
       </el-button>
     </div>
     <table-content-loader
@@ -24,7 +24,6 @@
     <div v-else>
       <order-table :orders="orderListFiltered" :side="activeSide"></order-table>
     </div>
-
     <div class="create-order">
       <el-dialog
         :visible.sync="showCreateOrder"
@@ -38,12 +37,12 @@
               <div
                 class="text-center p-4 text-base text-primary font-bold border-b-2 border-primary"
               >
-                {{ $t('createSellOrder') }}
+                {{ $t('createBuyOrder') }}
               </div>
             </div>
           </div>
         </template>
-        <create-sell-order></create-sell-order>
+        <create-buy-order></create-buy-order>
       </el-dialog>
     </div>
   </div>
@@ -54,23 +53,23 @@ import { coin, sideRequestObj, side } from '@/utils/constant'
 import OrderTable from '@/components/pages/home/order-table'
 import CTab from '@/components/ui/control/c-tab'
 import TableContentLoader from '@/components/common/table-content-loader'
-import CreateSellOrder from '@/components/pages/home/create-sell-order'
+import CreateBuyOrder from '@/components/remove/market-list/create-buy-order'
 
 export default {
   components: {
     OrderTable,
     CTab,
     TableContentLoader,
-    CreateSellOrder,
+    CreateBuyOrder,
   },
   fetch() {
     this.loadAllOrders()
   },
   data() {
     return {
-      tabs: Object.values(coin),
+      tabs: Object.values(coin).filter(item => item !== 'VNDS'),
       sides: Object.values(sideRequestObj),
-      activeSide: side.BUY,
+      activeSide: side.SELL,
       orders: [],
       loading: false,
       showCreateOrder: false,

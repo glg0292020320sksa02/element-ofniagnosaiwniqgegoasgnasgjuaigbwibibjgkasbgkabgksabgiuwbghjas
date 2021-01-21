@@ -3,14 +3,22 @@
     <div class="top-tabs bg-white shadow">
       <div class="container flex flex-row justify-between items-center">
         <div class="flex flex-row justify-start items-center">
-          <side-tab></side-tab>
+          <div
+            class="side-tab bg-gray-100 rounded border border-gray-300 inline-block"
+          >
+            <button
+              class="px-4 py-1 text-xs font-bold rounded bg-success text-white shadow"
+            >
+              {{ $t(side.name) }}
+            </button>
+          </div>
           <coin-tab class="ml-3"></coin-tab>
         </div>
         <button
           class="bg-primary-50 text-primary px-6 py-2 rounded text-xs font-bold"
           @click="onRedirectWallet"
         >
-          {{ newOrderLabel }}
+          {{ $t('create-a-new-buy-order') }}
         </button>
       </div>
     </div>
@@ -52,14 +60,12 @@
         class="create-order-drawer"
       >
         <template v-slot:title>
-          <div class="bg-primary text-white font-bold">{{ newOrderLabel }}</div>
+          <div class="bg-primary text-white font-bold">
+            {{ $t('create-a-new-buy-order') }}
+          </div>
         </template>
         <div class="px-6">
-          <create-buy-order
-            v-if="isBuy"
-            @created="reloadOrders"
-          ></create-buy-order>
-          <create-sell-order v-else @created="reloadOrders"></create-sell-order>
+          <create-buy-order @created="reloadOrders"></create-buy-order>
         </div>
       </el-drawer>
     </div>
@@ -69,13 +75,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import SideTab from '@/components/pages/binance/home/side-tab'
 import CoinTab from '@/components/pages/binance/home/coin-tab'
 import FilterOrder from '@/components/pages/binance/home/filter-order'
 import IconRefresh from '@/components/ui/icon/icon-refresh'
 import OrderTable from '@/components/pages/binance/home/order-table'
 import TableContentLoader from '@/components/common/table-content-loader'
-import CreateSellOrder from '@/components/pages/binance/home/exchange/create-sell-order'
 import CreateBuyOrder from '@/components/pages/binance/home/exchange/create-buy-order'
 
 import { sides } from '~/utils/binance'
@@ -84,12 +88,10 @@ export default {
   name: 'MarketList',
   components: {
     OrderTable,
-    SideTab,
     CoinTab,
     FilterOrder,
     IconRefresh,
     TableContentLoader,
-    CreateSellOrder,
     CreateBuyOrder,
   },
   fetch() {
@@ -100,7 +102,7 @@ export default {
       orders: [],
       loading: false,
       showCreateOrder: false,
-      sides,
+      side: sides.BUY,
       drawer: false,
       options: {
         payment_method: '',
@@ -132,9 +134,6 @@ export default {
     filterOrderToString() {
       return this.filterOrder.amount + this.filterOrder.payment.value
     },
-    isBuy() {
-      return this.activeSide.value === sides.BUY.value
-    },
     orderListFiltered() {
       if (!this.orders.length) return []
 
@@ -148,11 +147,6 @@ export default {
         .sort((a, b) => {
           return b.price - a.price
         })
-    },
-    newOrderLabel() {
-      return this.isBuy
-        ? this.$t('create-a-new-buy-order')
-        : this.$t('create-a-new-sell-order')
     },
   },
   watch: {
@@ -180,7 +174,7 @@ export default {
         page: options?.page,
         type: options?.type,
       }
-      const { data, total, per_page } = await this.getAllOrders(parrams)
+      const { data, last_page, per_page } = await this.getAllOrders(parrams)
 
       this.loading = false
       this.orders = data
@@ -191,9 +185,7 @@ export default {
       await this.loadAllOrders(this.options)
     },
     onRedirectWallet() {
-      const targetSide = this.isBuy ? sides.BUY : sides.SELL
-
-      this.setActiveSide(targetSide)
+      this.setActiveSide(this.side)
       this.drawer = true
     },
     selectActiveSide(payload) {

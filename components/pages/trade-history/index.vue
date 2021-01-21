@@ -115,6 +115,7 @@
 import { mapActions } from 'vuex'
 
 import { filterPrice, filterPriceMoney } from '@/filters'
+import { sides, coins } from '@/utils/binance'
 
 export default {
   name: 'TradeHistory',
@@ -128,8 +129,8 @@ export default {
   methods: {
     ...mapActions({
       deleteOrder: 'market/deleteOrder',
-      setActiveTab: 'setActiveTab',
-      setActiveSide: 'setActiveSide',
+      setActiveCoin: 'binance/setActiveCoin',
+      setActiveSide: 'binance/setActiveSide',
       setSelectedUserView: 'setSelectedUserView',
     }),
 
@@ -199,9 +200,12 @@ export default {
         ? transaction.seller.name
         : transaction.buyer.name
     },
-    redirectToHomePage(target, side) {
-      this.setActiveTab(target)
-      this.setActiveSide(side.toUpperCase())
+    redirectToHomePage(coinTarget, sideTarget) {
+      const side = sides[sideTarget?.toUpperCase()]
+      const coin = coins[coinTarget?.toUpperCase()]
+
+      this.setActiveCoin(coin)
+      this.setActiveSide(side)
       this.$router.push('/')
     },
     viewDetailUser(transaction) {

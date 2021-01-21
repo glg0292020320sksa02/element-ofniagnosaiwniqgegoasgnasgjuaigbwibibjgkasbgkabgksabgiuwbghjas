@@ -251,8 +251,9 @@ export default {
 }
 .price-unit {
   position: absolute;
-  right: 4px;
-  top: 40px;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.75rem;
 }
 </style>

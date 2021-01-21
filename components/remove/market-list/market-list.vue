@@ -77,8 +77,8 @@ import OrderTable from '@/components/pages/home/order-table'
 import CGroupButton from '@/components/ui/control/c-group-button'
 import CTab from '@/components/ui/control/c-tab'
 import TableContentLoader from '@/components/common/table-content-loader'
-import CreateSellOrder from '@/components/pages/home/create-sell-order'
-import CreateBuyOrder from '@/components/pages/home/create-buy-order'
+import CreateSellOrder from '@/components/remove/market-list/create-sell-order'
+import CreateBuyOrder from '@/components/remove/market-list/create-buy-order'
 
 export default {
   components: {
