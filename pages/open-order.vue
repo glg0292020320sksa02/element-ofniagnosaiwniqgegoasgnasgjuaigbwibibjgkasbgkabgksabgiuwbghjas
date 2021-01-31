@@ -1,10 +1,8 @@
 <template>
   <div class="page-open-order container py-8 space-y-8">
     <div class="bg-gray-100 rounded-lg shadow-lg">
-      <div class="border-b p-8 flex justify-between items-center">
+      <div class="p-8 pb-4 flex justify-between items-center">
         <div class="text-xl font-bold">{{ $t('openOrder') }}</div>
-      </div>
-      <div class="px-8 pb-12">
         <div class="flex justify-between w-2/5 mt-4 ml-auto mr-0">
           <filter-date
             :start-date.sync="options.from_date"
@@ -14,14 +12,14 @@
           <filter-pair v-model="options.pair" class="mx-1"></filter-pair>
           <filter-side v-model="options.side" class="mx-1"></filter-side>
         </div>
-
+      </div>
+      <div class="px-8 pb-12">
         <table-content-loader v-if="$fetchState.pending"></table-content-loader>
-
         <div
           v-else
           v-infinite-scroll="loadMoreOrders"
           :infinite-scroll-disabled="disabledInfinitiScroll"
-          class="mt-6 overflow-y-scroll"
+          class="overflow-y-scroll"
           style="height: 500px"
         >
           <div

@@ -45,14 +45,28 @@
       class="action rounded-lg absolute flex-row justify-center items-center w-full h-full"
     >
       <button
-        class="px-3 py-1 success-btn text-white mr-1 rounded text-xs whitespace-nowrap flex-nowrap relative z-10"
+        :disabled="!buy"
+        class="px-3 py-1 text-white mr-1 rounded text-xs whitespace-nowrap flex-nowrap relative z-10"
+        :class="
+          !buy
+            ? 'bg-gray-200 text-subtitle cursor-not-allowed border'
+            : 'bg-success text-white'
+        "
+        @click="$emit('buy')"
       >
-        Mua
+        {{ $t('buy') }}
       </button>
       <button
+        :disabled="!sell"
         class="px-3 py-1 error-btn text-white ml-1 rounded text-xs whitespace-nowrap flex-nowrap relative z-10"
+        :class="
+          !sell
+            ? 'bg-gray-200 text-subtitle cursor-not-allowed border'
+            : 'bg-error text-white'
+        "
+        @click="$emit('sell')"
       >
-        Bán
+        {{ $t('sell') }}
       </button>
     </div>
   </div>
@@ -72,6 +86,14 @@ export default {
   },
   props: {
     item: {
+      type: Object,
+      required: true,
+    },
+    buy: {
+      type: Object,
+      required: true,
+    },
+    sell: {
       type: Object,
       required: true,
     },

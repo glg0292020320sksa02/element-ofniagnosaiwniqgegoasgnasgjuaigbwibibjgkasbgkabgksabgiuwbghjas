@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="page-holding container bg-gray-100 p-6 rounded-lg flex flex-col justify-start items-stretch"
-  >
-    <div>
+  <div class="page-holding container py-8 space-y-8">
+    <div class="bg-gray-100 rounded-lg shadow-lg">
       <div class="border-b p-8 pb-0 flex flex-col justify-start items-start">
         <div class="text-xl font-bold">{{ $t('yourWallet') }}</div>
         <div>

@@ -2,7 +2,18 @@
   <div class="page-trade-history container py-8 space-y-8">
     <div class="bg-gray-100 rounded-lg shadow-lg">
       <div class="border-b p-8 pb-0 flex flex-col justify-start items-start">
-        <div class="text-xl font-bold">{{ $t('tradeHistory') }}</div>
+        <div class="w-full flex justify-between items-center">
+          <div class="text-xl font-bold">{{ $t('tradeHistory') }}</div>
+          <div class="flex justify-between w-2/5 mt-4 ml-auto mr-0">
+            <filter-date
+              :start-date.sync="options.from_date"
+              :end-date.sync="options.to_date"
+              class="mx-1"
+            ></filter-date>
+            <filter-pair v-model="options.pair" class="mx-1"></filter-pair>
+            <filter-side v-model="options.side" class="mx-1"></filter-side>
+          </div>
+        </div>
         <div>
           <el-tabs v-model="activeTab" class="text-base">
             <el-tab-pane
@@ -14,16 +25,6 @@
         </div>
       </div>
       <div class="px-8 pb-12">
-        <div class="flex justify-between w-2/5 mt-4 ml-auto mr-0">
-          <filter-date
-            :start-date.sync="options.from_date"
-            :end-date.sync="options.to_date"
-            class="mx-1"
-          ></filter-date>
-          <filter-pair v-model="options.pair" class="mx-1"></filter-pair>
-          <filter-side v-model="options.side" class="mx-1"></filter-side>
-        </div>
-
         <div
           v-if="activeTab === 'allTransaction'"
           class="market-cap flex justify-end items-center mt-2"
@@ -47,7 +48,7 @@
           v-else
           v-infinite-scroll="loadMoreTransactions"
           :infinite-scroll-disabled="disabledInfinitiScroll"
-          class="overflow-x-auto mt-6"
+          class="overflow-x-auto"
           style="height: 500px"
         >
           <div class="table table-hover text-sm relative">
