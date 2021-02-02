@@ -200,11 +200,13 @@ export default {
       }
     },
     async loadCurrentCurrencyPrice() {
-      const coin = this.walletSelected
-      const price = await this.getCurrentCurrencyPrice(coin.currency.name)
+      try {
+        const coin = this.walletSelected
+        const price = await this.getCurrentCurrencyPrice(coin.currency.name)
 
-      this.marketPrice = price.vnd_price
-      this.price = price.vnd_price
+        this.marketPrice = price.vnd_price
+        this.price = price.vnd_price
+      } catch (error) {}
     },
     selectAmountPercent() {
       const total = Big(this.VNDS.real_balance)

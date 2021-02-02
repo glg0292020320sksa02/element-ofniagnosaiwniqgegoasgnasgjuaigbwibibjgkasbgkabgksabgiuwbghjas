@@ -11,7 +11,7 @@
       :label="wallet.currency.name"
       :value="wallet.id"
     >
-      <div class="flex justify-start items-center text-sm">
+      <div class="flex justify-start items-center text-sm py-2">
         <img
           :src="`https://s2.coinmarketcap.com/static/img/coins/32x32/${wallet.currency.id}.png`"
           alt=""

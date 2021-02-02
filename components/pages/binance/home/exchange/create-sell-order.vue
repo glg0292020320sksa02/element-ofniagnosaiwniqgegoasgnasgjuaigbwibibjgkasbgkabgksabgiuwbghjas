@@ -222,11 +222,13 @@ export default {
       }
     },
     async loadCurrentCurrencyPrice() {
-      const coin = this.walletSelected
-      const price = await this.getCurrentCurrencyPrice(coin.currency.name)
+      try {
+        const coin = this.walletSelected
+        const price = await this.getCurrentCurrencyPrice(coin.currency.name)
 
-      this.marketPrice = price.vnd_price
-      this.model.price = price.vnd_price
+        this.marketPrice = price.vnd_price
+        this.model.price = price.vnd_price
+      } catch (error) {}
     },
     selectAmountPercent() {
       // Big decimal: amount = (this.total * percent) / 100
