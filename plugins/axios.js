@@ -1,10 +1,7 @@
-const TIMEOUT_MILISECONDS = 10000
 const STATUS_CODE_SUCCESS = 200
 const TOKEN_ERROR = ['unauthenticated', 'tokenHasBeenRevoked']
 
 export default function ({ $axios, $auth }) {
-  $axios.defaults.timeout = TIMEOUT_MILISECONDS
-
   $axios.onResponseError(res => {
     const { status, data } = res.response
 

@@ -9,9 +9,13 @@ export const actions = {
     return this.$axios.$get('/api/bank_account_numbers')
   },
   addBankAccount({}, data) {
+    console.log(this.$axios)
+
     return this.$axios.$post('/api/bank_accounts', data)
   },
   addBankAccountNumber({}, data) {
+    console.log(this.$axios)
+
     return this.$axios.$post('/api/bank_account_numbers', data)
   },
   deleteBankAccount({}, id) {
