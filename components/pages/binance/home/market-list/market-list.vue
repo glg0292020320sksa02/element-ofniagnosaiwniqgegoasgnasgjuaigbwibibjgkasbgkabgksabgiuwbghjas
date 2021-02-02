@@ -152,7 +152,7 @@ export default {
           return symbol === this.activeCoin?.symbol
         })
         .sort((a, b) => {
-          return b.price - a.price
+          return this.isBuy ? a.price - b.price : b.price - a.price
         })
     },
     newOrderLabel() {
