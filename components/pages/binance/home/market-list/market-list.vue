@@ -19,7 +19,7 @@
         <filter-order></filter-order>
         <button
           class="bg-transparent text-gray-800 border border-gray-300 px-4 py-1 rounded text-xs font-bold flex flex-row flex-nowrap items-center"
-          @click="loadAllOrders"
+          @click="loadAllOrders()"
         >
           <icon-refresh class="w-3 h-3 mr-1"></icon-refresh>
           {{ $t('Refresh') }}
@@ -188,6 +188,9 @@ export default {
         page: options?.page,
         type: options?.type,
       }
+
+      console.log(parrams)
+
       const { data, total, per_page } = await this.getAllOrders(parrams)
 
       this.loading = false
