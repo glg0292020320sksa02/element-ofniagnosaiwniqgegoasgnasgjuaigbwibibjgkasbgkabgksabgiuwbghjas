@@ -160,7 +160,6 @@ export default {
 
         this.$router.push({ name: 'index' })
       } catch (error) {
-        console.log(error)
         this.$notify.closeAll()
 
         if (error.errorCode === 'yourEmailAddressIsNotVerified') {

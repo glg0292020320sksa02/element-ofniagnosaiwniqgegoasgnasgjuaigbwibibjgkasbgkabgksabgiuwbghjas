@@ -133,8 +133,6 @@ export default {
   },
   methods: {
     showSubMenu(name, menu) {
-      console.log(name)
-      console.log(menu)
       this.activeMenu = name
 
       if (!menu?.subMenu && menu?.to) {

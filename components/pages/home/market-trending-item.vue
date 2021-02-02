@@ -90,12 +90,16 @@ export default {
       required: true,
     },
     buy: {
-      type: Object,
-      required: true,
+      type: [Object, Number],
+      default() {
+        return null
+      },
     },
     sell: {
-      type: Object,
-      required: true,
+      type: [Object, Number],
+      default() {
+        return null
+      },
     },
   },
   computed: {
