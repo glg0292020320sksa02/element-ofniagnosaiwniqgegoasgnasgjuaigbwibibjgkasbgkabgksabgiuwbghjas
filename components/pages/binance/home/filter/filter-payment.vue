@@ -50,6 +50,7 @@ import IconVcb from '@/components/ui/icon/icon-vcb'
 import IconTcb from '@/components/ui/icon/icon-tcb'
 import IconVnds from '@/components/ui/icon/icon-vnds'
 import IconPm from '@/components/ui/icon/icon-pm'
+import IconUsdt from '@/components/ui/icon/icon-usdt'
 
 import { payments } from '~/utils/binance'
 
@@ -61,6 +62,7 @@ export default {
     IconVcb,
     IconTcb,
     IconPm,
+    IconUsdt,
   },
   data() {
     return {

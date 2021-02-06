@@ -34,7 +34,7 @@
         <template v-slot:title>
           <div class="bg-primary text-white">{{ drawerTitle }}</div>
         </template>
-        <div class="p-6">
+        <div class="p-6 overflow-y-scroll best-price-drawer">
           <exchange-sell
             v-if="isBuySide"
             :payment-methods="acceptPayment"
@@ -260,5 +260,8 @@ export default {
 }
 .exchange-drawer .el-dialog__close.el-icon {
   @apply text-white !important;
+}
+.best-price-drawer {
+  height: 80vh !important;
 }
 </style>

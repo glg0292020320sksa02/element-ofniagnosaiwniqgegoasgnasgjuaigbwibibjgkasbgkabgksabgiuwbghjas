@@ -14,20 +14,10 @@ const fiats = {
     value: 'VND',
     icon: 'icon-vnd',
   },
-  VNDS: {
-    name: 'VNDS',
-    value: 'VNDS',
-    icon: 'icon-vnds',
-  },
   USD: {
     name: 'USD',
     value: 'USD',
     icon: 'icon-usd',
-  },
-  PM: {
-    name: 'Perfect money',
-    value: 'PM',
-    icon: 'icon-pm',
   },
 }
 const coins = {
@@ -100,7 +90,7 @@ const payments = {
     icon: 'vnds.png',
     accept: ['BUY', 'SELL'],
     symbol: 'VNDS',
-    filterBy: [],
+    filterBy: ['VND'],
   },
   PM: {
     name: 'PerfectMoney',
@@ -109,7 +99,16 @@ const payments = {
     icon: 'pm.png',
     accept: ['SELL'],
     symbol: 'USD',
-    filterBy: [],
+    filterBy: ['USD'],
+  },
+  USDT: {
+    name: 'USDT',
+    value: 'USDT',
+    component: 'icon-usdt',
+    icon: 'usdt.png',
+    accept: ['SELL'],
+    symbol: 'USDT',
+    filterBy: ['USD'],
   },
 }
 

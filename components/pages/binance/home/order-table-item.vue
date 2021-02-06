@@ -177,6 +177,8 @@ import IconVnds from '@/components/ui/icon/icon-vnds'
 import IconVcb from '@/components/ui/icon/icon-vcb'
 import IconTcb from '@/components/ui/icon/icon-tcb'
 import IconPm from '@/components/ui/icon/icon-pm'
+import IconUsdt from '@/components/ui/icon/icon-usdt'
+
 import ExchangeBuy from '@/components/pages/binance/home/exchange/exchange-buy'
 import ExchangeSell from '@/components/pages/binance/home/exchange/exchange-sell'
 
@@ -190,6 +192,7 @@ export default {
     IconVcb,
     IconTcb,
     IconPm,
+    IconUsdt,
     ExchangeBuy,
     ExchangeSell,
   },
