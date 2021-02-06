@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-amount">
+  <div class="filter-fiat">
     <label for="amountfilter" class="text-xs text-subtitle">
       {{ $t('Fiat') }}
     </label>
@@ -24,16 +24,16 @@
         </button>
         <div
           v-if="dialog"
-          class="select-list absolute bg-white shadow rounded w-full"
+          class="select-list absolute bg-white shadow rounded w-40"
         >
           <div
             v-for="(fiat, index) in fiats"
             :key="index + '_fiat'"
-            class="flex flex-row justify-start text-xs px-3 p-2 rounded cursor-pointer hover:bg-gray-100"
+            class="flex flex-row justify-start flex-nowrap text-xs px-3 p-2 rounded cursor-pointer hover:bg-gray-100 whitespace-nowrap"
             @click="selectFiat(fiat)"
           >
             <component :is="fiat.icon"></component>
-            <span class="ml-1">{{ fiat.name }}</span>
+            <span class="ml-1 fiat-name">{{ fiat.name }}</span>
           </div>
         </div>
       </div>
@@ -47,16 +47,17 @@ import IconChevronDown from '@/components/ui/icon/icon-chevron-down'
 import IconVnds from '@/components/ui/icon/icon-vnds'
 import IconVnd from '@/components/ui/icon/icon-vnd'
 import IconUsd from '@/components/ui/icon/icon-usd'
-
+import IconPm from '@/components/ui/icon/icon-pm'
 import { fiats } from '~/utils/binance'
 
 export default {
-  name: 'FilterAmount',
+  name: 'FilterFiat',
   components: {
     IconChevronDown,
     IconVnds,
     IconVnd,
     IconUsd,
+    IconPm,
   },
   data() {
     return {
@@ -94,5 +95,8 @@ export default {
 }
 .search-filter:hover {
   z-index: 20;
+}
+.fiat-name {
+  white-space: nowrap;
 }
 </style>

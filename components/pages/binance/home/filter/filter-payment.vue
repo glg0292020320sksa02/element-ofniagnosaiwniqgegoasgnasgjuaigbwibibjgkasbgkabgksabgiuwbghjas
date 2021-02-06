@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-amount">
+  <div class="filter-payment">
     <label for="amountfilter" class="text-xs text-subtitle">
       {{ $t('Payment') }}
     </label>
@@ -16,8 +16,10 @@
           :placeholder="$t('EnterAmount')"
           @click="tooglePayments"
         >
-          <component :is="filterOrder.payment.component"></component>
-          <span class="text-sm ml-2 mr-4">{{ filterOrder.payment.name }}</span>
+          <component :is="filterComponent"></component>
+          <span class="text-sm ml-2 mr-4 h-4 mb-1">
+            {{ filterPaymentName }}
+          </span>
           <icon-chevron-down
             class="w-3 h-3 font-bold text-subtitle"
           ></icon-chevron-down>
@@ -52,7 +54,7 @@ import IconPm from '@/components/ui/icon/icon-pm'
 import { payments } from '~/utils/binance'
 
 export default {
-  name: 'FilterAmount',
+  name: 'FilterPayment',
   components: {
     IconChevronDown,
     IconVnds,
@@ -65,12 +67,35 @@ export default {
       model: {
         amount: null,
       },
-      payments: Object.values(payments),
       dialog: false,
     }
   },
   computed: {
     ...mapGetters({ filterOrder: 'binance/filterOrder' }),
+    filterFiat() {
+      return this.filterOrder?.fiat?.value
+    },
+    payments() {
+      const defaultPayment = Object.values(payments)
+
+      return defaultPayment.filter(item =>
+        item.filterBy.includes(this.filterFiat)
+      )
+    },
+    filterComponent() {
+      return this.filterOrder?.payment?.component
+    },
+    filterPaymentName() {
+      return this.filterOrder?.payment?.name
+    },
+  },
+  watch: {
+    payments() {
+      this.setFilterOrderItem({
+        item: 'payment',
+        payload: this.payments[0] || null,
+      })
+    },
   },
   methods: {
     ...mapActions({ setFilterOrderItem: 'binance/setFilterOrderItem' }),

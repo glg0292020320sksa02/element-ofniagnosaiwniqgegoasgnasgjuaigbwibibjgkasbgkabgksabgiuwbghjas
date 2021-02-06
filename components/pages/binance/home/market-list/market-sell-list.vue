@@ -136,9 +136,9 @@ export default {
     },
     filterOrderToString() {
       return (
-        this.filterOrder.amount +
-        this.filterOrder.payment.value +
-        this.filterOrder.fiat.value
+        this.filterOrder?.amount +
+        this.filterOrder?.payment?.value +
+        this.filterOrder?.fiat?.value
       )
     },
     orderListFiltered() {
@@ -162,9 +162,9 @@ export default {
       this.loadAllOrders(this.options)
     },
     filterOrderToString() {
-      this.options.amount = this.filterOrder.amount || ''
-      this.options.fiat = this.filterOrder.fiat.value || 'VND'
-      this.options.payment_method = this.filterOrder.payment.symbol || 'VND'
+      this.options.amount = this.filterOrder?.amount || ''
+      this.options.fiat = this.filterOrder?.fiat?.value || 'VND'
+      this.options.payment_method = this.filterOrder?.payment?.value || 'VND'
     },
   },
   methods: {

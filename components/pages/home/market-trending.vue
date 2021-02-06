@@ -28,7 +28,7 @@
       <el-drawer
         :visible.sync="drawer"
         :append-to-body="true"
-        size="25%"
+        size="35%"
         class="exchange-drawer"
       >
         <template v-slot:title>

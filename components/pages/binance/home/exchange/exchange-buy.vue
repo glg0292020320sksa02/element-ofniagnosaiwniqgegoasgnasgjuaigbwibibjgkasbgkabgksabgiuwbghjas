@@ -15,9 +15,7 @@
               v-model="model.fiat"
               @input="changeAmount"
             ></input-currency>
-            <span class="absolute unitprice text-xs text-subtitle">
-              {{ selectedOrder.target_symbol }}
-            </span>
+            <span class="absolute unitprice text-xs text-subtitle">VND</span>
           </div>
         </input-form>
         <input-form
@@ -219,7 +217,7 @@ export default {
       const price = Big(this.selectedOrder.price)
       const amount = this.model.amount || 0
 
-      this.model.fiat = price.times(amount).toNumber()
+      this.model.fiat = price.times(amount).toNumber().toFixed()
     },
     async buyNow() {
       this.$notify.closeAll()

@@ -9,6 +9,11 @@ const sides = {
   },
 }
 const fiats = {
+  VND: {
+    name: 'VND',
+    value: 'VND',
+    icon: 'icon-vnd',
+  },
   VNDS: {
     name: 'VNDS',
     value: 'VNDS',
@@ -19,10 +24,10 @@ const fiats = {
     value: 'USD',
     icon: 'icon-usd',
   },
-  VND: {
-    name: 'VND',
-    value: 'VND',
-    icon: 'icon-vnd',
+  PM: {
+    name: 'Perfect money',
+    value: 'PM',
+    icon: 'icon-pm',
   },
 }
 const coins = {
@@ -77,6 +82,7 @@ const payments = {
     component: 'icon-vcb',
     accept: ['SELL'],
     symbol: 'VND',
+    filterBy: ['VND'],
   },
   TCB: {
     name: 'Techcombank',
@@ -85,6 +91,7 @@ const payments = {
     icon: 'techcom-bank.png',
     accept: ['SELL'],
     symbol: 'VND',
+    filterBy: ['VND'],
   },
   VNDS: {
     name: 'VNDS',
@@ -93,14 +100,16 @@ const payments = {
     icon: 'vnds.png',
     accept: ['BUY', 'SELL'],
     symbol: 'VNDS',
+    filterBy: [],
   },
   PM: {
     name: 'PerfectMoney',
     value: 'PM',
     component: 'icon-pm',
     icon: 'pm.png',
-    accept: ['BUY', 'SELL'],
+    accept: ['SELL'],
     symbol: 'USD',
+    filterBy: [],
   },
 }
 
