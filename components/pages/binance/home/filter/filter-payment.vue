@@ -18,7 +18,7 @@
         >
           <component :is="filterComponent"></component>
           <span class="text-sm ml-2 mr-4 h-4 mb-1">
-            {{ filterPaymentName }}
+            {{ $t(filterPaymentName) }}
           </span>
           <icon-chevron-down
             class="w-3 h-3 font-bold text-subtitle"
@@ -35,7 +35,7 @@
             @click="selectFiat(payment)"
           >
             <component :is="payment.component"></component>
-            <span class="ml-1">{{ payment.name }}</span>
+            <span class="ml-1">{{ $t(payment.name) }}</span>
           </div>
         </div>
       </div>
@@ -51,6 +51,7 @@ import IconTcb from '@/components/ui/icon/icon-tcb'
 import IconVnds from '@/components/ui/icon/icon-vnds'
 import IconPm from '@/components/ui/icon/icon-pm'
 import IconUsdt from '@/components/ui/icon/icon-usdt'
+import IconAllPayment from '@/components/ui/icon/icon-all-payment'
 
 import { payments } from '~/utils/binance'
 
@@ -63,6 +64,7 @@ export default {
     IconTcb,
     IconPm,
     IconUsdt,
+    IconAllPayment,
   },
   data() {
     return {
@@ -79,6 +81,16 @@ export default {
     },
     payments() {
       const defaultPayment = Object.values(payments)
+
+      defaultPayment.unshift({
+        name: 'All payments',
+        value: '',
+        icon: 'all-payment.png',
+        component: 'icon-all-payment',
+        accept: ['SELL'],
+        symbol: '',
+        filterBy: ['VND', 'USD'],
+      })
 
       return defaultPayment.filter(item =>
         item.filterBy.includes(this.filterFiat)

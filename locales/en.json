@@ -407,5 +407,6 @@
   "Min": "Min",
   "Max": "Max",
   "IWillSell": "I want to sell",
-  "paymentReceiveMethod": "Payment receive methods"
+  "paymentReceiveMethod": "Payment receive methods",
+  "All payments": "All payments"
 }

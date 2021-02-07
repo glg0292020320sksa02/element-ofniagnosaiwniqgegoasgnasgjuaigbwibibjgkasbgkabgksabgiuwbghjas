@@ -407,5 +407,6 @@
   "Min": "Min",
   "Max": "Max",
   "IWillSell": "Tôi sẽ bán",
-  "paymentReceiveMethod": "Phương thức nhận thanh toán"
+  "paymentReceiveMethod": "Phương thức nhận thanh toán",
+  "All payments": "Tất cả các phương thức"
 }
