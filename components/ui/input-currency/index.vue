@@ -4,6 +4,8 @@
     :default-value="0"
     :formatter="formatter"
     :parser="parser"
+    :name="name"
+    :type="type"
     size="large"
     class="w-full text-body"
     v-bind="$attrs"
@@ -25,6 +27,14 @@ export default defineComponent({
       default: '',
     },
     suffix: {
+      type: String,
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    type: {
       type: String,
       default: '',
     },

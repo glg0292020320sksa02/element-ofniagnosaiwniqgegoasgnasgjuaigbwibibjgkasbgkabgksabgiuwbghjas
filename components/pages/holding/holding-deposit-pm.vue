@@ -9,15 +9,28 @@
       >
         <input type="hidden" name="PAYEE_ACCOUNT" value="U27777003" />
         <input type="hidden" name="PAYEE_NAME" value="My Company" />
-        <input-form :label="$t('amount')" class="mr-2">
-          <input
+        <label class="block mr-2">
+          <span class="text-subtitle inline-block text-xs mb-2">
+            {{ $t('amount') }}
+          </span>
+          <!-- <input-form :label="$t('amount')" class="mr-2"> -->
+          <input-currency
+            v-model="amount"
             type="text"
             name="PAYMENT_AMOUNT"
             value=""
             placeholder="0.000"
-            class="p-3 border rounded border-gray-400"
-          />
-        </input-form>
+            class="form-input mt-1 block w-full text-sm focus:outline-primary-100 focus:border-body"
+          ></input-currency>
+        </label>
+        <input
+          type="text"
+          name="PAYMENT_AMOUNT"
+          :value="amount"
+          placeholder="0.000"
+          class="p-3 border hidden rounded border-gray-400"
+        />
+        <!-- </input-form> -->
         <input type="hidden" name="PAYMENT_UNITS" value="USD" />
         <input
           type="hidden"
@@ -61,17 +74,24 @@
 import { mapActions, mapGetters } from 'vuex'
 import clipboardSelection from '@/mixins/clipboard-selection'
 import { clipboard } from 'vue-clipboards'
-import InputForm from '@/components/common/input-form'
+// import InputForm from '@/components/common/input-form'
 import IconArrowRight from '@/components/ui/icon/icon-arrow-right'
+import InputCurrency from '@/components/ui/input-currency'
 
 export default {
   name: 'HoldingDeposit',
   components: {
     IconArrowRight,
-    InputForm,
+    InputCurrency,
+    // InputForm,
   },
   directives: { clipboard },
   mixins: [clipboardSelection],
+  data() {
+    return {
+      amount: 0,
+    }
+  },
   computed: {
     ...mapGetters({
       selectedWallets: 'wallet/selectedWallets',

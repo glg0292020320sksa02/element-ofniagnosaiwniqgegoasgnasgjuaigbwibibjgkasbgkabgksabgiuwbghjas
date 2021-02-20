@@ -15,7 +15,9 @@
               v-model="model.fiat"
               @input="changeAmount"
             ></input-currency>
-            <span class="absolute unitprice text-xs text-subtitle">VND</span>
+            <span class="absolute unitprice text-xs text-subtitle">
+              {{ payUnit }}
+            </span>
           </div>
         </input-form>
         <input-form
@@ -65,6 +67,7 @@
                 name="radio"
                 :value="item.value"
                 checked
+                @change="selectPaymentMethod"
               />
               <components
                 :is="item.component"
@@ -154,6 +157,7 @@ export default {
       selectedAmountPercent: 0,
       loading: false,
       amountPercent: [25, 50, 75, 100],
+      exchangeRate: 1,
     }
   },
   computed: {
@@ -196,10 +200,19 @@ export default {
         this.selectedOrder.target_symbol
       }`
     },
+    selectedPaymentMethod() {
+      return this.paymentMethods.find(
+        el => el.value === this.model.payment_method
+      )
+    },
+    payUnit() {
+      return this.selectedPaymentMethod?.symbol || 'VND'
+    },
   },
   methods: {
     ...mapActions({
       addExchangesBuy: 'binance/addExchangesBuy',
+      getCurrentCurrencyPrice: 'market/getCurrentCurrencyPrice',
     }),
     selectAmountPercent(percent) {
       const total = Big(this.orderAmount)
@@ -210,17 +223,28 @@ export default {
       this.selectedAmountPercent = percent
       this.changeFiat()
     },
-    changeAmount() {
+    async changeAmount() {
       const fiat = Big(this.model.fiat || 0)
       const price = Big(this.selectedOrder.price || 0)
 
-      this.model.amount = fiat.div(price).toNumber()
+      await this.loadCurrentRate()
+      const rate = this.exchangeRate || 1
+
+      this.model.amount = fiat.times(rate).div(price).toNumber()
     },
-    changeFiat() {
+    async changeFiat() {
       const price = Big(this.selectedOrder.price)
       const amount = this.model.amount || 0
 
-      this.model.fiat = price.times(amount).toNumber().toFixed()
+      await this.loadCurrentRate()
+
+      const rate = this.exchangeRate || 1
+
+      this.model.fiat = price.times(amount).div(rate).toNumber()
+
+      if (this.payUnit === 'VND') {
+        this.model.fiat = this.model.fiat.toFixed()
+      }
     },
     async buyNow() {
       this.$notify.closeAll()
@@ -255,6 +279,20 @@ export default {
     },
     redirectToLogin() {
       this.$router.push('/auth/login')
+    },
+    async loadCurrentRate() {
+      try {
+        const rate = await this.getCurrentCurrencyPrice(
+          this.selectedPaymentMethod?.symbol
+        )
+
+        this.exchangeRate = rate?.vnd_price
+      } catch (error) {
+        this.exchangeRate = 1
+      }
+    },
+    selectPaymentMethod() {
+      this.changeFiat()
     },
   },
 }
