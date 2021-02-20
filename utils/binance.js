@@ -73,6 +73,7 @@ const payments = {
     accept: ['SELL'],
     symbol: 'VND',
     filterBy: ['VND'],
+    unit: 'VND',
   },
   TCB: {
     name: 'Techcombank',
@@ -82,6 +83,7 @@ const payments = {
     accept: ['SELL'],
     symbol: 'VND',
     filterBy: ['VND'],
+    unit: 'VND',
   },
   VNDS: {
     name: 'VNDS',
@@ -91,6 +93,7 @@ const payments = {
     accept: ['BUY', 'SELL'],
     symbol: 'VNDS',
     filterBy: ['VND'],
+    unit: 'VNDS',
   },
   PM: {
     name: 'PerfectMoney',
@@ -100,6 +103,7 @@ const payments = {
     accept: ['SELL'],
     symbol: 'USD',
     filterBy: ['USD'],
+    unit: 'PM',
   },
   USDT: {
     name: 'USDT',
@@ -109,6 +113,7 @@ const payments = {
     accept: ['SELL'],
     symbol: 'USDT',
     filterBy: ['USD'],
+    unit: 'USDT',
   },
 }
 

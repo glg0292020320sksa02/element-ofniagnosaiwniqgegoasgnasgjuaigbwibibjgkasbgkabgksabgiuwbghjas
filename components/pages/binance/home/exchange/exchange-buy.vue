@@ -206,7 +206,7 @@ export default {
       )
     },
     payUnit() {
-      return this.selectedPaymentMethod?.symbol || 'VND'
+      return this.selectedPaymentMethod?.unit || 'VND'
     },
   },
   methods: {
@@ -283,7 +283,7 @@ export default {
     async loadCurrentRate() {
       try {
         const rate = await this.getCurrentCurrencyPrice(
-          this.selectedPaymentMethod?.symbol
+          this.selectedPaymentMethod?.unit
         )
 
         this.exchangeRate = rate?.vnd_price
