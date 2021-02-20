@@ -6,7 +6,7 @@
           v-model="model.wallet_id"
           :loading="$fetchState.pending"
           :filter="false"
-          :include-vnds="false"
+          :include-vnds="true"
           class="text-sm"
           @input="loadCurrentCurrencyPrice"
         ></select-coin>

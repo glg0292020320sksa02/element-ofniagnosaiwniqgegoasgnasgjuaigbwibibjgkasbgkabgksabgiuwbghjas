@@ -218,11 +218,18 @@ export default {
     }),
     acceptPayment() {
       return this.payments.filter(item => {
-        if (this.item.source_symbol === 'VNDS') {
-          return item.value !== 'VNDS' && item.accept.includes(this.item.side)
+        if (
+          this.item?.source_symbol === 'VNDS' ||
+          this.item?.source_symbol === 'PM' ||
+          this.item?.source_symbol === 'USDT'
+        ) {
+          return (
+            item.value !== this.item?.source_symbol &&
+            item?.accept.includes(this.item.side)
+          )
         }
 
-        return item.accept.includes(this.item.side)
+        return item?.accept.includes(this.item.side)
       })
     },
     currentUser() {

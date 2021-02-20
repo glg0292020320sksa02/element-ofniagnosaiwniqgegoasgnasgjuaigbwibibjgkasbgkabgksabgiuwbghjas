@@ -39,6 +39,7 @@
               <select-coin
                 v-model="walletId"
                 :loading="$fetchState.pending"
+                :router-change="true"
                 @input="loadCurrentCurrencyPrice"
               ></select-coin>
             </input-form>
@@ -184,11 +185,10 @@ export default {
       this.walletId = wallet?.id
     },
     getCoin() {
-      const coin = this.$route.query.coin
-
-      return !coin || coin === MONEY_RECEIVED_DEFAULT
-        ? MONEY_SELL_DEFAULT
-        : coin
+      return this.$route.query?.coin || MONEY_SELL_DEFAULT
+      // return !coin || coin === MONEY_RECEIVED_DEFAULT
+      //   ? MONEY_SELL_DEFAULT
+      //   : coin
     },
     filterWalletBySymbol(symbol) {
       return this.walletFilteredList.find(

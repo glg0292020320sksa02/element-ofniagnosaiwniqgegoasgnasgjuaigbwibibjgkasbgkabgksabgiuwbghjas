@@ -58,6 +58,8 @@
 import { mapActions, mapGetters } from 'vuex'
 import { filterPrice, filterPriceMoney } from '@/filters'
 import IconVnds from '@/components/ui/icon/icon-vnds'
+import { sides, coins } from '@/utils/binance'
+
 export default {
   name: 'WalletsTableItem',
   filters: { filterPrice, filterPriceMoney },
@@ -88,6 +90,8 @@ export default {
   methods: {
     ...mapActions({
       setSelectedWallets: 'wallet/setSelectedWallets',
+      setActiveCoin: 'binance/setActiveCoin',
+      setActiveSide: 'binance/setActiveSide',
     }),
     selectWallets(payload) {
       if (this.isExpand) {
@@ -98,9 +102,15 @@ export default {
 
       this.setSelectedWallets(payload)
     },
-    buyCoin(payload) {
-      this.actionType = 'DEPOSIT'
-      this.$router.push('/wallet/buy?coin=VNDS')
+    buyCoin() {
+      // this.actionType = 'DEPOSIT'
+      // this.$router.push('/wallet/buy?coin=VNDS')
+      const side = sides.BUY
+      const coin = coins.VNDS
+
+      this.setActiveCoin(coin)
+      this.setActiveSide(side)
+      this.$router.push('/')
     },
     sellCoin(payload) {
       this.actionType = 'WITHDRAW'
