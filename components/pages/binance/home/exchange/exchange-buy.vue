@@ -242,8 +242,10 @@ export default {
 
       this.model.fiat = price.times(amount).div(rate).toNumber()
 
-      if (this.payUnit === 'VND') {
+      if (this.payUnit === 'VND' || this.payUnit === 'VNDS') {
         this.model.fiat = this.model.fiat.toFixed()
+      } else if (this.payUnit === 'USDT' || this.payUnit === 'PM') {
+        this.model.fiat = this.model.fiat.toFixed(8)
       }
     },
     async buyNow() {
