@@ -85,7 +85,7 @@ import CreateBuyOrder from '@/components/pages/binance/home/exchange/create-buy-
 import { sides } from '~/utils/binance'
 
 export default {
-  name: 'MarketList',
+  name: 'MarketBuyList',
   components: {
     OrderTable,
     CoinTab,
@@ -163,7 +163,7 @@ export default {
     filterOrderToString() {
       this.options.amount = this.filterOrder?.amount || ''
       this.options.fiat = this.filterOrder?.fiat?.value || 'VND'
-      this.options.payment_method = this.filterOrder?.payment?.value || 'VND'
+      this.options.payment_method = this.filterOrder?.payment?.value || ''
     },
   },
   methods: {
