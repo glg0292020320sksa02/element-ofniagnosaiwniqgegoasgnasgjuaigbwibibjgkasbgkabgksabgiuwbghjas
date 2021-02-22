@@ -42,13 +42,8 @@
           </span>
         </div>
       </div>
-      <div class="order-column w-1/12 flex justify-end items-center">
-        <div class="w-24 px-4">
-          <el-progress
-            :percentage="Number(item.filled)"
-            class="flex flex-col justify-center items-stretch"
-          ></el-progress>
-        </div>
+      <div class="order-column w-1/12 pl-4 flex justify-center items-center">
+        <c-progress :percentage="Number(item.filled)"></c-progress>
       </div>
       <div class="order-column w-2/12 flex justify-end items-center">
         <div class="flex justify-end items-center">
@@ -97,6 +92,8 @@ import { mapActions, mapGetters } from 'vuex'
 import { filterPrice, filterPriceFloat, filterPriceMoney } from '@/filters'
 
 import IconEmpty from '@/components/ui/icon/icon-empty'
+import CProgress from '@/components/ui/c-progress'
+
 import TradeHistoryTable from '@/components/pages/trade-history/trade-history-table'
 
 export default {
@@ -105,6 +102,7 @@ export default {
   components: {
     IconEmpty,
     TradeHistoryTable,
+    CProgress,
   },
   props: {
     item: {

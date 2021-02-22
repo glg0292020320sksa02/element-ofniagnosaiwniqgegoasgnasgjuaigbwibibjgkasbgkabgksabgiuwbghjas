@@ -20,7 +20,7 @@
           {{ `${$t('amountCoin')} & ${$t('price')}` }}
         </span>
       </div>
-      <div class="header-column w-1/12 flex justify-end">
+      <div class="header-column w-1/12 flex justify-center">
         <span class="text-subtitle">{{ $t('filled') }}</span>
       </div>
       <div class="header-column w-2/12 flex justify-end">
