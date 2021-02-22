@@ -26,11 +26,7 @@
             class="text-primary underline cursor-pointer font-bold"
             @click="redirectToHomePage(item.source_symbol, item.side)"
           >
-            {{
-              `${targetSymbol(item.target_symbol)}/${sourceSymbol(
-                item.source_symbol
-              )}`
-            }}
+            {{ item.pair }}
           </span>
         </strong>
       </div>
