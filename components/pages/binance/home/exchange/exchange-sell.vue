@@ -233,7 +233,13 @@ export default {
         this.loading = true
         const { payment_url: paymentUrl } = await this.addExchangesSell(body)
 
-        window.open(paymentUrl, '_blank')
+        if (
+          this.model?.payment_method === 'VCB' ||
+          this.model?.payment_method === 'TCB'
+        ) {
+          window.open(paymentUrl, '_blank')
+        }
+
         this.$router.push({ name: 'index' })
         this.$notify({
           title: this.$t('success'),
