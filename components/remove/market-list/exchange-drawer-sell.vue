@@ -145,12 +145,14 @@ export default {
       this.selectedAmountPercent = 100
     },
     selectAmountPercent(percent) {
-      const total = Big(this.selectedOrder.amount)
+      try {
+        const total = Big(this.selectedOrder.amount)
 
-      const amount = total.times(percent).div(100)
+        const amount = total.times(percent).div(100)
 
-      this.model.amount = amount.toNumber()
-      this.selectedAmountPercent = percent
+        this.model.amount = amount.toNumber()
+        this.selectedAmountPercent = percent
+      } catch (error) {}
     },
   },
 }

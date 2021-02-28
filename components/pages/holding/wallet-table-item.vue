@@ -29,14 +29,14 @@
       <div class="order-column w-3/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
           <strong class="text-sm text-bold">
-            {{ item.real_balance | filterPriceFloat }}
+            {{ item.real_balance | filterPriceFloatDecimal }}
           </strong>
         </div>
       </div>
       <div class="order-column w-2/12 flex justify-end items-center">
         <div class="flex flex-row justify-end items-baseline">
           <strong class="text-sm text-bold" @click.stop="showOrder(item)">
-            {{ item.in_order_balance | filterPriceFloat }}
+            {{ item.in_order_balance | filterPriceFloatDecimal }}
           </strong>
         </div>
       </div>
@@ -69,14 +69,24 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { filterPrice, filterPriceMoney, filterPriceFloat } from '@/filters'
+import {
+  filterPrice,
+  filterPriceMoney,
+  filterPriceFloat,
+  filterPriceFloatDecimal,
+} from '@/filters'
 
 import HoldingDeposit from '@/components/pages/holding/holding-deposit'
 import HoldingWithdraw from '@/components/pages/holding/holding-withdraw'
 
 export default {
   name: 'WalletsTableItem',
-  filters: { filterPrice, filterPriceMoney, filterPriceFloat },
+  filters: {
+    filterPrice,
+    filterPriceMoney,
+    filterPriceFloat,
+    filterPriceFloatDecimal,
+  },
   components: {
     HoldingDeposit,
     HoldingWithdraw,

@@ -118,9 +118,13 @@ export default {
       return this.walletSelected?.currency?.symbol
     },
     total() {
-      const price = Big(Number(this.price))
+      try {
+        const price = Big(Number(this.price))
 
-      return this.amount ? Math.round(price.times(this.amount).toNumber()) : 0
+        return this.amount ? Math.round(price.times(this.amount).toNumber()) : 0
+      } catch (error) {
+        return 0
+      }
     },
     maxButtonStyle() {
       return this.VNDS?.final_balance === this.total
@@ -209,12 +213,14 @@ export default {
       } catch (error) {}
     },
     selectAmountPercent() {
-      const total = Big(this.VNDS.real_balance)
+      try {
+        const total = Big(this.VNDS.real_balance)
 
-      // Big decimal: amount = (this.total * percent) / 100
-      const amount = total.div(this.price)
+        // Big decimal: amount = (this.total * percent) / 100
+        const amount = total.div(this.price)
 
-      this.amount = amount.toNumber()
+        this.amount = amount.toNumber()
+      } catch (error) {}
     },
     changeInfinity() {
       if (this.isInfinite) this.amount = this.walletSelected.real_balance

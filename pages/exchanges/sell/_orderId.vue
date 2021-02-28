@@ -119,10 +119,14 @@ export default {
       return this.$route.params.orderId
     },
     total() {
-      const price = Big(this.price)
+      try {
+        const price = Big(this.price)
 
-      // Big decimal: total = this.price * this.amount
-      return this.amount ? price.times(this.amount).toNumber() : 0
+        // Big decimal: total = this.price * this.amount
+        return this.amount ? price.times(this.amount).toNumber() : 0
+      } catch (error) {
+        return 0
+      }
     },
     currentWallet() {
       const wallet = this.walletList.find(

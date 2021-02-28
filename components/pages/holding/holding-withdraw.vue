@@ -98,12 +98,14 @@ export default {
       this.amount = this.selectedWallets.real_balance
     },
     selectAmountPercent(percent) {
-      const total = Big(this.orderAmount)
+      try {
+        const total = Big(this.orderAmount)
 
-      const amount = total.times(percent).div(100)
+        const amount = total.times(percent).div(100)
 
-      this.amount = amount.toNumber()
-      this.selectedAmountPercent = percent
+        this.amount = amount.toNumber()
+        this.selectedAmountPercent = percent
+      } catch (error) {}
     },
     async onWithdraw() {
       this.$notify.closeAll()

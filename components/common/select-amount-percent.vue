@@ -34,22 +34,26 @@ export default {
   },
   methods: {
     selectAmountPercent(percent) {
-      const total = Big(this.total)
+      try {
+        const total = Big(this.total)
 
-      // Big decimal: amount = (this.total * percent) / 100
-      const amount = total.times(percent).div(100)
+        // Big decimal: amount = (this.total * percent) / 100
+        const amount = total.times(percent).div(100)
 
-      this.$emit('input', amount.toNumber())
+        this.$emit('input', amount.toNumber())
+      } catch (error) {}
     },
     getTypePercent(percent) {
-      const value = Big(this.value || 0)
+      try {
+        const value = Big(this.value || 0)
 
-      // Big decimal: currentPercent = (this.value / this.total) * 100
-      const currentPercent = this.total
-        ? value.div(this.total).times(100).toNumber()
-        : 0
+        // Big decimal: currentPercent = (this.value / this.total) * 100
+        const currentPercent = this.total
+          ? value.div(this.total).times(100).toNumber()
+          : 0
 
-      return currentPercent === percent ? 'primary' : 'none'
+        return currentPercent === percent ? 'primary' : 'none'
+      } catch (error) {}
     },
   },
 }

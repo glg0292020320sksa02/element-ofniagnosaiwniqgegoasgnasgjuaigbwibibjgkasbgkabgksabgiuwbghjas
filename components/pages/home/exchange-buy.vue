@@ -146,10 +146,14 @@ export default {
       selectedOrder: 'market/selectedOrder',
     }),
     total() {
-      const price = Big(this.selectedOrder.price)
+      try {
+        const price = Big(this.selectedOrder.price)
 
-      // Big decimal: total = this.price * this.amount
-      return this.amount ? price.times(this.amount).toNumber() : 0
+        // Big decimal: total = this.price * this.amount
+        return this.amount ? price.times(this.amount).toNumber() : 0
+      } catch (error) {
+        return 0
+      }
     },
     orderAmount() {
       return this.selectedOrder.amount
@@ -172,12 +176,14 @@ export default {
       this.amount = this.selectedOrder.remaining_amount
     },
     selectAmountPercent(percent) {
-      const total = Big(this.orderAmount)
+      try {
+        const total = Big(this.orderAmount)
 
-      const amount = total.times(percent).div(100)
+        const amount = total.times(percent).div(100)
 
-      this.amount = amount.toNumber()
-      this.selectedAmountPercent = percent
+        this.amount = amount.toNumber()
+        this.selectedAmountPercent = percent
+      } catch (error) {}
     },
     async onCreateExchange() {
       this.$notify.closeAll()

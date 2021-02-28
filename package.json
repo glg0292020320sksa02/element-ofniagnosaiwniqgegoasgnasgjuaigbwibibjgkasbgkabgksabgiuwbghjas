@@ -33,6 +33,7 @@
     "ant-design-vue": "^1.7.2",
     "big.js": "^6.0.2",
     "core-js": "^3.6.5",
+    "decimal.js": "^10.2.1",
     "deepmerge": "^4.2.2",
     "element-ui": "^2.13.2",
     "numeral": "^2.0.6",

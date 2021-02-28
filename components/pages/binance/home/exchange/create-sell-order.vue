@@ -135,21 +135,29 @@ export default {
       return this.walletSelected?.currency?.symbol
     },
     total() {
-      const price = Big(Number(this.model.price))
+      try {
+        const price = Big(Number(this.model.price))
 
-      return this.model.amount
-        ? Math.round(price.times(this.model.amount).toNumber())
-        : 0
+        return this.model.amount
+          ? Math.round(price.times(this.model.amount).toNumber())
+          : 0
+      } catch (error) {
+        return 0
+      }
     },
     maxButtonStyle() {
-      return this.walletSelected.real_balance &&
-        Math.round(this.model.amount * 10000000) / 10000000 ===
-          Math.round(
-            Big(this.walletSelected.real_balance).toNumber() * 10000000
-          ) /
-            10000000
-        ? 'bg-primary text-white'
-        : 'bg-primary-50 text-primary'
+      try {
+        return this.walletSelected.real_balance &&
+          Math.round(this.model.amount * 10000000) / 10000000 ===
+            Math.round(
+              Big(this.walletSelected.real_balance).toNumber() * 10000000
+            ) /
+              10000000
+          ? 'bg-primary text-white'
+          : 'bg-primary-50 text-primary'
+      } catch (error) {
+        return 'bg-primary-50 text-primary'
+      }
     },
     priceUnit() {
       return `VNDS/${this.walletSelected?.currency?.symbol}`

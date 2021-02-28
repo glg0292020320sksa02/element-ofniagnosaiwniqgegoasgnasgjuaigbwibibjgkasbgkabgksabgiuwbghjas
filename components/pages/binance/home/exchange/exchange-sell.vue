@@ -208,31 +208,37 @@ export default {
       addExchangesSell: 'binance/addExchangesSell',
     }),
     selectAmountPercent(percent) {
-      const total = Big(this.orderAmount)
+      try {
+        const total = Big(this.orderAmount)
 
-      const amount = total.times(percent).div(100)
+        const amount = total.times(percent).div(100)
 
-      this.model.amount = amount.toNumber()
-      this.selectedAmountPercent = percent
-      this.changeFiat()
+        this.model.amount = amount.toNumber()
+        this.selectedAmountPercent = percent
+        this.changeFiat()
+      } catch (error) {}
     },
     changeAmount() {
-      const fiat = Big(this.model.fiat || 0)
-      const price = Big(this.selectedOrder.price || 0)
+      try {
+        const fiat = Big(this.model.fiat || 0)
+        const price = Big(this.selectedOrder.price || 0)
 
-      this.model.amount = fiat.div(price).toNumber()
+        this.model.amount = fiat.div(price).toNumber()
+      } catch (error) {}
     },
     changeFiat() {
-      const price = Big(this.selectedOrder.price)
-      const amount = this.model.amount || 0
+      try {
+        const price = Big(this.selectedOrder.price)
+        const amount = this.model.amount || 0
 
-      this.model.fiat = price.times(amount).toNumber()
+        this.model.fiat = price.times(amount).toNumber()
 
-      if (this.payUnit === 'VND' || this.payUnit === 'VNDS') {
-        this.model.fiat = this.model.fiat.toFixed()
-      } else if (this.payUnit === 'USDT' || this.payUnit === 'PM') {
-        this.model.fiat = this.model.fiat.toFixed(8)
-      }
+        if (this.payUnit === 'VND' || this.payUnit === 'VNDS') {
+          this.model.fiat = this.model.fiat.toFixed()
+        } else if (this.payUnit === 'USDT' || this.payUnit === 'PM') {
+          this.model.fiat = this.model.fiat.toFixed(8)
+        }
+      } catch (error) {}
     },
     async sellNow() {
       this.$notify.closeAll()

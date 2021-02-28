@@ -1,4 +1,5 @@
 import numeral from 'numeral'
+import { Decimal } from 'decimal.js'
 
 if (process.client) {
   numeral.register('locale', 'custom', {
@@ -11,6 +12,9 @@ if (process.client) {
       million: 'M',
       billion: 'B',
       trillion: 'T',
+    },
+    currency: {
+      symbol: '€',
     },
   })
 
@@ -34,6 +38,22 @@ const filterPriceFloat = function (value) {
   const number = Number(value) || 0
 
   return numeral(number).format('0,0.00000000')
+}
+
+const filterPriceFloatDecimal = function (value) {
+  const number = Number(value) || 0
+
+  if (new Decimal(value).eq(new Decimal(0))) {
+    return 0
+  }
+
+  const decimalNumber = new Decimal(value)
+
+  const arrNumber = decimalNumber.toFixed(8).split('.')
+
+  return `${numeral(arrNumber[0]).format('0,0.[00000000]')}.${
+    arrNumber[1] || '00000000'
+  }`
 }
 
 const filterPriceMoney = function (value) {
@@ -65,4 +85,5 @@ export {
   filterPriceString,
   filterPriceMoney,
   filterPriceFloat,
+  filterPriceFloatDecimal,
 }

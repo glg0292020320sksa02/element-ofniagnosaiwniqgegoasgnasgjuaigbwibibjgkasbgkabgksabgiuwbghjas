@@ -221,12 +221,14 @@ export default {
       )
     },
     selectAmountPercent() {
-      const total = Big(this.walletSelected.real_balance)
+      try {
+        const total = Big(this.walletSelected.real_balance)
 
-      // Big decimal: amount = (this.total * percent) / 100
-      const amount = total
+        // Big decimal: amount = (this.total * percent) / 100
+        const amount = total
 
-      this.amount = amount.toNumber()
+        this.amount = amount.toNumber()
+      } catch (error) {}
     },
 
     isClipboardSelection({ address }) {

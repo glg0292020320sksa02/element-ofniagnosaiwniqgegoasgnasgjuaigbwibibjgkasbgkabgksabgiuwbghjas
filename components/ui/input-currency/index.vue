@@ -6,6 +6,7 @@
     :parser="parser"
     :name="name"
     :type="type"
+    :min="0"
     size="large"
     class="w-full text-body"
     v-bind="$attrs"

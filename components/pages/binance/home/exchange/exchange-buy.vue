@@ -215,38 +215,44 @@ export default {
       getCurrentCurrencyPrice: 'market/getCurrentCurrencyPrice',
     }),
     selectAmountPercent(percent) {
-      const total = Big(this.orderAmount)
+      try {
+        const total = Big(this.orderAmount)
 
-      const amount = total.times(percent).div(100)
+        const amount = total.times(percent).div(100)
 
-      this.model.amount = amount.toNumber()
-      this.selectedAmountPercent = percent
-      this.changeFiat()
+        this.model.amount = amount.toNumber()
+        this.selectedAmountPercent = percent
+        this.changeFiat()
+      } catch (error) {}
     },
     async changeAmount() {
-      const fiat = Big(this.model.fiat || 0)
-      const price = Big(this.selectedOrder.price || 0)
+      try {
+        const fiat = Big(this.model.fiat || 0)
+        const price = Big(this.selectedOrder.price || 0)
 
-      await this.loadCurrentRate()
-      const rate = this.exchangeRate || 1
+        await this.loadCurrentRate()
+        const rate = this.exchangeRate || 1
 
-      this.model.amount = fiat.times(rate).div(price).toNumber()
+        this.model.amount = fiat.times(rate).div(price).toNumber()
+      } catch (error) {}
     },
     async changeFiat() {
-      const price = Big(this.selectedOrder.price)
-      const amount = this.model.amount || 0
+      try {
+        const price = Big(this.selectedOrder.price)
+        const amount = this.model.amount || 0
 
-      await this.loadCurrentRate()
+        await this.loadCurrentRate()
 
-      const rate = this.exchangeRate || 1
+        const rate = this.exchangeRate || 1
 
-      this.model.fiat = price.times(amount).div(rate).toNumber()
+        this.model.fiat = price.times(amount).div(rate).toNumber()
 
-      if (this.payUnit === 'VND' || this.payUnit === 'VNDS') {
-        this.model.fiat = this.model.fiat.toFixed()
-      } else if (this.payUnit === 'USDT' || this.payUnit === 'PM') {
-        this.model.fiat = this.model.fiat.toFixed(8)
-      }
+        if (this.payUnit === 'VND' || this.payUnit === 'VNDS') {
+          this.model.fiat = this.model.fiat.toFixed()
+        } else if (this.payUnit === 'USDT' || this.payUnit === 'PM') {
+          this.model.fiat = this.model.fiat.toFixed(8)
+        }
+      } catch (error) {}
     },
     async buyNow() {
       this.$notify.closeAll()
