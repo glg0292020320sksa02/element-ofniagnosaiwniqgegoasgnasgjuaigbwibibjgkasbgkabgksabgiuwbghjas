@@ -14,7 +14,7 @@
       </div>
       <div class="order-column w-2/12 flex items-center">
         <div class="flex flex-row justify-start items-start">
-          <strong>{{ sourceSymbol(item.source_symbol) }}</strong>
+          <strong>{{ sourceSymbol(item) }}</strong>
         </div>
       </div>
       <div class="order-column w-2/12 flex justify-end items-center">
@@ -104,7 +104,7 @@
               <td class="py-4">
                 <strong class="mr-1">{{ $t('symbol') }}:</strong>
               </td>
-              <td>{{ sourceSymbol(item.source_symbol) }}</td>
+              <td>{{ sourceSymbol(item) }}</td>
             </tr>
             <tr class="border-b">
               <td class="py-4">
@@ -169,8 +169,8 @@ export default {
     getColorSide(side) {
       return side.toLowerCase() === 'buy' ? 'text-success' : 'text-error'
     },
-    sourceSymbol(source_symbol) {
-      return source_symbol || ''
+    sourceSymbol(item) {
+      return item?.wallet?.currency?.symbol || item?.source_symbol || ''
     },
     targetSymbol(target_symbol) {
       return target_symbol || ''
