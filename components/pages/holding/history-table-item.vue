@@ -82,7 +82,7 @@
                 </strong>
               </td>
             </tr>
-            <tr class="border-b">
+            <!-- <tr class="border-b">
               <td class="py-4">
                 <strong class="mr-1">{{ $t('FromAddress') }}:</strong>
               </td>
@@ -93,7 +93,7 @@
                 <strong class="mr-1">{{ $t('ToAddress') }}:</strong>
               </td>
               <td>{{ item.to_wallet_id }}</td>
-            </tr>
+            </tr> -->
             <tr class="border-b">
               <td class="py-4">
                 <strong class="mr-1">{{ $t('date') }}:</strong>
