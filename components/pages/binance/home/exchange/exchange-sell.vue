@@ -194,6 +194,14 @@ export default {
         this.selectedOrder.target_symbol
       }`
     },
+    selectedPaymentMethod() {
+      return this.paymentMethods.find(
+        el => el.value === this.model.payment_method
+      )
+    },
+    payUnit() {
+      return this.selectedPaymentMethod?.unit || 'VND'
+    },
   },
   methods: {
     ...mapActions({
@@ -219,6 +227,12 @@ export default {
       const amount = this.model.amount || 0
 
       this.model.fiat = price.times(amount).toNumber()
+
+      if (this.payUnit === 'VND' || this.payUnit === 'VNDS') {
+        this.model.fiat = this.model.fiat.toFixed()
+      } else if (this.payUnit === 'USDT' || this.payUnit === 'PM') {
+        this.model.fiat = this.model.fiat.toFixed(8)
+      }
     },
     async sellNow() {
       this.$notify.closeAll()
