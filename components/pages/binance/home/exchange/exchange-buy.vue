@@ -28,6 +28,7 @@
           <div class="relative">
             <input-currency
               v-model="model.amount"
+              :max="maxAmount"
               @input="changeFiat"
             ></input-currency>
             <span class="absolute unitprice text-xs text-subtitle">

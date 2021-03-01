@@ -34,6 +34,7 @@
         <input-currency
           v-model="model.amount"
           :disabled="model.is_infinite"
+          :max="walletSelected.real_balance"
           class="text-sm"
         ></input-currency>
         <div class="select-amount-percent mt-1 flex justify-between">
@@ -93,7 +94,7 @@ const MONEY_RECEIVED_DEFAULT = 'VNDS'
 const MONEY_SELL_DEFAULT = 'BTC'
 
 export default {
-  name: 'WalletSell',
+  name: 'WalletCreateSell',
   filters: { filterPriceMoney, filterPrice },
   layout: 'auth',
   components: { SelectAccountNumber, SelectCoin, InputCurrency, InputForm },

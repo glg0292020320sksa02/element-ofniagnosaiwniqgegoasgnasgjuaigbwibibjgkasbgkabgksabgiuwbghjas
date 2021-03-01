@@ -23,6 +23,7 @@
         <input-currency
           v-model="amount"
           :disabled="isInfinite"
+          :max="maxAmount"
           class="text-sm"
         ></input-currency>
         <div class="select-amount-percent mt-1 flex justify-end">
@@ -78,7 +79,7 @@ const MONEY_RECEIVED_DEFAULT = 'VNDS'
 const MONEY_SELL_DEFAULT = 'BTC'
 
 export default {
-  name: 'WalletBuy',
+  name: 'WalletCreateBuy',
   filters: { filterPriceMoney },
   layout: 'auth',
   components: { SelectCoin, InputCurrency, InputForm },
@@ -133,6 +134,16 @@ export default {
     },
     priceUnit() {
       return `VNDS/${this.walletSelected?.currency?.symbol}`
+    },
+    maxAmount() {
+      try {
+        const amount = Big(this.VNDS?.real_balance || 0)
+        const price = Big(this.price || 0)
+
+        return amount.div(price).toNumber()
+      } catch (error) {
+        return 0
+      }
     },
   },
   watch: {

@@ -66,6 +66,7 @@
               <input-currency
                 v-model="model.amount"
                 :disabled="model.is_infinite"
+                :max="walletSelected.real_balance"
               ></input-currency>
               <div class="select-amount-percent mt-1 flex justify-between">
                 <span class="text-xs text-subtitle">

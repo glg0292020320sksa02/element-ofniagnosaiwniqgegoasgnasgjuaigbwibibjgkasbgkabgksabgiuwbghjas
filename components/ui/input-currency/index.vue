@@ -7,6 +7,7 @@
     :name="name"
     :type="type"
     :min="0"
+    :max="max"
     size="large"
     class="w-full text-body"
     v-bind="$attrs"
@@ -38,6 +39,10 @@ export default defineComponent({
     type: {
       type: String,
       default: '',
+    },
+    max: {
+      type: Number,
+      default: undefined,
     },
   },
   setup(props) {
