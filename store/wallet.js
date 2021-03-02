@@ -67,6 +67,9 @@ export const actions = {
   withdraw({}, { target, body }) {
     return this.$axios.$post(`/api/withdrawals/${target}`, body)
   },
+  depositPM({}, body) {
+    return this.$axios.$post(`/api/deposits/perfectmoney/render`, body)
+  },
   changeSelectedCurrency({ commit }, body) {
     commit('SET_SELECTED_CURRENCY', body)
   },

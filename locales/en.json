@@ -408,5 +408,7 @@
   "Max": "Max",
   "IWillSell": "I want to sell",
   "paymentReceiveMethod": "Payment receive methods",
-  "All payments": "All payments"
+  "All payments": "All payments",
+  "withdrawSuccessful": "Withdraw successul",
+  "depositSuccessful": "Depost successful"
 }

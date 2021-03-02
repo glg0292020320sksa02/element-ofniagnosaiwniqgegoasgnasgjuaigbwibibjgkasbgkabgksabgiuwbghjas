@@ -33,12 +33,20 @@
               class="form-input mt-1 block w-full text-sm focus:outline-primary-100 focus:border-body"
             ></input-currency>
           </label>
-          <button
+          <el-button
+            type="danger"
+            class="text-xs uppercase font-bold"
+            :loading="loading"
+            @click="onWithdraw"
+          >
+            {{ $t('withdraw') }} {{ selectedWallets.currency.symbol }}
+          </el-button>
+          <!-- <button
             class="px-6 py-3 h-12 rounded error-btn text-white font-bold"
             @click="onWithdraw"
           >
             Rút {{ selectedWallets.currency.symbol }}
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -74,6 +82,7 @@ export default {
       selectedAmountPercent: 0,
       amount: 0,
       address: '',
+      loading: false,
     }
   },
   computed: {
@@ -117,7 +126,7 @@ export default {
         await this.withdraw({ target: this.walletId, body })
         await this.$success({
           title: this.$t('success'),
-          subtitle: this.$t('createBuyOrderSuccessful'),
+          subtitle: this.$t('withdrawSuccessful'),
           actionText: this.$t('pleaseReturnHomePage'),
           actionMethod: () => this.$router.go(-1),
         })

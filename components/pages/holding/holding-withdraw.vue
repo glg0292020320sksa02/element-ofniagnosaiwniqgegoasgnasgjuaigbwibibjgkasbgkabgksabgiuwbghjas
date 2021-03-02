@@ -39,7 +39,7 @@
             :loading="loading"
             @click="onWithdraw"
           >
-            Rút {{ selectedWallets.currency.symbol }}
+            {{ $t('withdraw') }} {{ selectedWallets.currency.symbol }}
           </el-button>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default {
         await this.withdraw({ target: this.walletId, body })
         await this.$success({
           title: this.$t('success'),
-          subtitle: this.$t('createBuyOrderSuccessful'),
+          subtitle: this.$t('withdrawSuccessful'),
           actionText: this.$t('pleaseReturnHomePage'),
           actionMethod: () => this.$router.go(-1),
         })

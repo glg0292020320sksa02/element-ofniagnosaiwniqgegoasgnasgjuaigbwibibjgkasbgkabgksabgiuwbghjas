@@ -408,5 +408,7 @@
   "Max": "Max",
   "IWillSell": "Tôi sẽ bán",
   "paymentReceiveMethod": "Phương thức nhận thanh toán",
-  "All payments": "Tất cả các phương thức"
+  "All payments": "Tất cả các phương thức",
+  "withdrawSuccessful": "Tạo lệnh rút thành công",
+  "depositSuccessful": "Tạo lệnh nạp thành công"
 }

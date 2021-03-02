@@ -1,11 +1,11 @@
 <template>
   <div class="exchange-sell text-sm">
     <div v-if="$auth.loggedIn" class="flex flex-col justify-center items-start">
-      <form
+      <!-- <form
         action="https://perfectmoney.is/api/step1.asp"
         method="POST"
         target="_blank"
-        class="flex justify-end items-end"
+        class="justify-end items-end hidden"
       >
         <input type="hidden" name="PAYEE_ACCOUNT" value="U27777003" />
         <input type="hidden" name="PAYEE_NAME" value="My Company" />
@@ -13,7 +13,6 @@
           <span class="text-subtitle inline-block text-xs mb-2">
             {{ $t('amount') }}
           </span>
-          <!-- <input-form :label="$t('amount')" class="mr-2"> -->
           <input-currency
             v-model="amount"
             type="text"
@@ -30,7 +29,6 @@
           placeholder="0.000"
           class="p-3 border hidden rounded border-gray-400"
         />
-        <!-- </input-form> -->
         <input type="hidden" name="PAYMENT_UNITS" value="USD" />
         <input
           type="hidden"
@@ -55,7 +53,32 @@
         >
           {{ $t('deposit') }}
         </button>
-      </form>
+      </form> -->
+      <div id="submit-form-pm" class="hidden"></div>
+      <div class="flex justify-end items-end">
+        <label class="block mr-2">
+          <span class="text-subtitle inline-block text-xs mb-2">
+            {{ $t('amount') }}
+          </span>
+          <!-- <input-form :label="$t('amount')" class="mr-2"> -->
+          <input-currency
+            v-model="amount"
+            type="text"
+            name="PAYMENT_AMOUNT"
+            value=""
+            placeholder="0.000"
+            class="form-input mt-1 block w-full text-sm focus:outline-primary-100 focus:border-body"
+          ></input-currency>
+        </label>
+        <el-button
+          type="success"
+          class="text-xs uppercase font-bold"
+          :loading="loading"
+          @click="onDeposit"
+        >
+          {{ $t('deposit') }}
+        </el-button>
+      </div>
       <span class="text-xs text-subtitle">PM (USD)</span>
     </div>
     <div v-else>
@@ -90,6 +113,8 @@ export default {
   data() {
     return {
       amount: 0,
+      loading: false,
+      htmlForm: '',
     }
   },
   computed: {
@@ -108,8 +133,54 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      depositPM: 'wallet/depositPM',
+    }),
     isClipboardSelection({ address }) {
       return address === this.clipboardSelection
+    },
+    async onDeposit() {
+      this.$notify.closeAll()
+
+      const body = {
+        amount: this.amount.toString(),
+      }
+
+      try {
+        if (!this.amount || this.amount === 0) {
+          return
+        }
+
+        this.loading = true
+        const sumitDiv = document.getElementById('submit-form-pm')
+        const htmlForm = await this.depositPM(body)
+
+        sumitDiv.insertAdjacentHTML('afterend', htmlForm.html)
+
+        const form = document.getElementsByTagName('form')
+
+        form[0].setAttribute('target', '_blank')
+
+        const submitForm = document.querySelector('form[target="_blank"]')
+
+        if (submitForm) {
+          submitForm.submit()
+          await this.$success({
+            title: this.$t('success'),
+            subtitle: this.$t('depositSuccessful'),
+            actionText: this.$t('pleaseReturnHomePage'),
+            actionMethod: () => this.$router.go(-1),
+          })
+        }
+      } catch (e) {
+        this.$notify({
+          title: this.$t('failure'),
+          message: e.exception,
+          type: 'error',
+        })
+      } finally {
+        this.loading = false
+      }
     },
   },
 }
